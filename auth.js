@@ -42,12 +42,16 @@
       btn.href  = '/account.html';
       btn.title = user.name;
       btn.setAttribute('aria-label', 'Акаунт');
-      // Green person icon when logged in
+      const firstName = user.name ? user.name.split(' ')[0] : '';
+      btn.style.cssText +=
+        'gap:0.375rem;font-family:inherit;font-size:0.875rem;font-weight:500;color:#416241;' +
+        'text-decoration:none;';
       btn.innerHTML =
-        '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" ' +
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" ' +
         'stroke="#416241" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
         '<circle cx="12" cy="8" r="4"/>' +
-        '<path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>';
+        '<path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>' +
+        '<span>' + firstName + '</span>';
     } else {
       btn.href = '/login.html';
       btn.setAttribute('aria-label', 'Вход');
