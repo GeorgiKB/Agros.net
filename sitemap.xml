@@ -3,69 +3,69 @@
 
   <!-- Core pages -->
   <url><loc>https://agros.net/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://agros.net/brands.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://agros.net/about.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://agros.net/blog.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://agros.net/contact.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://agros.net/delivery.html</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://agros.net/brands</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://agros.net/about</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://agros.net/blog</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://agros.net/contact</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/delivery</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 
   <!-- OLLEO — Category pages -->
-  <url><loc>https://agros.net/products/olleo-bottles.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://agros.net/products/olleo-doses.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://agros.net/products/olleo-bottles</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://agros.net/products/olleo-doses</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
 
   <!-- OLLEO — Bottle products -->
-  <url><loc>https://agros.net/products/natural-750ml.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://agros.net/products/natural-14ml.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://agros.net/products/chilli-250ml.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://agros.net/products/lemon-250ml.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://agros.net/products/garlic-250ml.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://agros.net/products/coriander-250ml.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://agros.net/products/truffle-250ml.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://agros.net/products/olive-blend-250ml.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://agros.net/products/omega-mix-250ml.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://agros.net/products/flax-250ml.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://agros.net/products/natural-750ml</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://agros.net/products/natural-14ml</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://agros.net/products/chilli-250ml</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://agros.net/products/lemon-250ml</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://agros.net/products/garlic-250ml</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://agros.net/products/coriander-250ml</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://agros.net/products/truffle-250ml</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://agros.net/products/olive-blend-250ml</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://agros.net/products/omega-mix-250ml</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://agros.net/products/flax-250ml</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
   <!-- OLLEO — Dose products -->
-  <url><loc>https://agros.net/products/doses-10x8ml.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://agros.net/products/balsamic-8ml.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://agros.net/products/chilli-8ml.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://agros.net/products/lemon-8ml.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://agros.net/products/garlic-8ml.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://agros.net/products/soy-8ml.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/doses-10x8ml</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://agros.net/products/balsamic-8ml</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/chilli-8ml</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/lemon-8ml</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/garlic-8ml</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/soy-8ml</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 
   <!-- D'ORSO — Category pages -->
-  <url><loc>https://agros.net/products/dorso-body-care.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://agros.net/products/dorso-body-oils.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://agros.net/products/dorso-scrubs.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://agros.net/products/dorso-masks.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://agros.net/products/dorso-body-care</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://agros.net/products/dorso-body-oils</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://agros.net/products/dorso-scrubs</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://agros.net/products/dorso-masks</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 
   <!-- D'ORSO — Individual products -->
-  <url><loc>https://agros.net/products/dorso-body-lotion.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://agros.net/products/dorso-booster-citrus.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://agros.net/products/dorso-booster-lavender.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://agros.net/products/dorso-mask-rose.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://agros.net/products/dorso-mask-sunflower.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://agros.net/products/dorso-massage-balm.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://agros.net/products/dorso-oil-coriander.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://agros.net/products/dorso-oil-natural.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://agros.net/products/dorso-oil-rose.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://agros.net/products/dorso-scrub-coriander.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://agros.net/products/dorso-scrub-sunflower.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/dorso-body-lotion</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/dorso-booster-citrus</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/dorso-booster-lavender</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/dorso-mask-rose</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/dorso-mask-sunflower</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/dorso-massage-balm</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/dorso-oil-coriander</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/dorso-oil-natural</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/dorso-oil-rose</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/dorso-scrub-coriander</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/dorso-scrub-sunflower</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 
   <!-- NOTEO — Category pages -->
-  <url><loc>https://agros.net/products/noteo-choco-creams.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://agros.net/products/noteo-proteins.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://agros.net/products/noteo-flours.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://agros.net/products/noteo-choco-creams</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://agros.net/products/noteo-proteins</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://agros.net/products/noteo-flours</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 
   <!-- NOTEO — Individual products -->
-  <url><loc>https://agros.net/products/noteo-choco-cream-cocoa-65g.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://agros.net/products/noteo-choco-cream-mint-65g.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://agros.net/products/noteo-choco-cream-mix-65g.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://agros.net/products/noteo-choco-cream-orange-65g.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://agros.net/products/noteo-flax-flour-300g.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://agros.net/products/noteo-walnut-flour-300g.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://agros.net/products/noteo-protein-chocolate-300g.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://agros.net/products/noteo-protein-natural-300g.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://agros.net/products/noteo-protein-raspberry-300g.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/noteo-choco-cream-cocoa-65g</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/noteo-choco-cream-mint-65g</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/noteo-choco-cream-mix-65g</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/noteo-choco-cream-orange-65g</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/noteo-flax-flour-300g</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/noteo-walnut-flour-300g</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/noteo-protein-chocolate-300g</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/noteo-protein-natural-300g</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://agros.net/products/noteo-protein-raspberry-300g</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 
 </urlset>
