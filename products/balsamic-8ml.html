@@ -38,15 +38,15 @@
     .nav-link{position:relative}.nav-link::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1.5px;background:#C8922A;transition:width .25s ease}.nav-link:hover::after,.nav-link:focus-visible::after{width:100%}
     .btn{transition:transform .2s cubic-bezier(.34,1.56,.64,1),opacity .2s ease,background-color .2s ease}.btn:hover{transform:translateY(-1px)}.btn:active{transform:translateY(0);opacity:.9}
     html{scroll-behavior:smooth}
-    .variant-row{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:12px;cursor:pointer;border:1.5px solid transparent;transition:background .15s ease,border-color .15s ease;}
+    .variant-row{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:12px;cursor:pointer;border:1.5px solid transparent;transition:background .15s ease,border-color .15s ease;}
     .variant-row:hover{background:rgba(34,144,94,0.04);}
     .variant-row.selected{background:rgba(34,144,94,0.07);border-color:rgba(34,144,94,0.2);}
     .tab-btn{padding:8px 0;font-size:.85rem;font-weight:600;color:#9CA3AF;border-bottom:2px solid transparent;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;font-family:'Inter',sans-serif;transition:color .2s,border-color .2s;}
     .tab-btn.active{color:#186060;border-bottom-color:#C8922A;}
     .tab-content{display:none;}.tab-content.active{display:block;}
-    .qty-btn{width:26px;height:26px;border-radius:50%;border:1.5px solid #D7E4D4;background:white;color:#186060;font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:background .15s ease,border-color .15s ease;}
+    .qty-btn{width:36px;height:36px;border-radius:50%;border:2px solid #D7E4D4;background:white;color:#186060;font-size:19px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:background .15s ease,border-color .15s ease;}
     .qty-btn:hover{background:#EEF2EB;border-color:#3ABF82;}
-    .qty-val{min-width:22px;text-align:center;font-weight:600;font-size:.85rem;}
+    .qty-val{min-width:32px;text-align:center;font-weight:700;font-size:1rem;}
     .purchase-card{border-radius:12px;border:1.5px solid #E5E7EB;padding:14px 16px;cursor:pointer;background:#FFF8F4;transition:border-color .15s ease,background .15s ease;user-select:none;}
     .purchase-card.active{border-color:#C8922A;background:#FFF3EC;}
     .purchase-radio{width:20px;height:20px;border-radius:50%;border:2px solid #D1D5DB;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:border-color .15s,background .15s;}
@@ -382,10 +382,10 @@ function updatePurchaseWidget(){
 function setPurchaseMode(mode){purchaseMode=mode;updatePurchaseWidget();}
 function render(){
   const q=qty['p'];
-  document.getElementById('variant-list').innerHTML=`<div class="variant-row selected" onclick="select('p','../images/olleo/balsamic-8ml.png')"><div style="width:44px;height:52px;background:#EEF2EB;border-radius:8px;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;"><picture>
+  document.getElementById('variant-list').innerHTML=`<div class="variant-row selected" onclick="select('p','../images/olleo/balsamic-8ml.png')"><div style="width:56px;height:66px;background:#EEF2EB;border-radius:8px;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;"><picture>
         <source srcset="../images/olleo/balsamic-8ml.webp" type="image/webp" />
         <img src="../images/olleo/balsamic-8ml.webp" alt="Балсамов оцет" style="width:100%;height:100%;object-fit:contain;padding:3px;" / loading="lazy">
-      </picture></div><div style="flex:1;min-width:0;"><div style="font-family:'Montserrat',sans-serif;font-size:.78rem;font-weight:600;color:#124830;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Балсамов оцет</div><div style="font-family:'Inter',sans-serif;font-size:.7rem;color:#9CA3AF;margin-top:1px;">8 мл</div></div><div style="font-family:'Inter',sans-serif;font-size:.85rem;font-weight:700;color:#124830;white-space:nowrap;margin-right:6px;">${fmtEUR(0.39)}</div><div style="display:flex;align-items:center;gap:5px;" onclick="event.stopPropagation()"><button class="qty-btn" onclick="chQty('p',-1)">−</button><span class="qty-val" id="q-p"><span class="qty-val" id="q-p">${q}</span><button class="qty-btn" onclick="chQty('p',1)">+</button></div></div>`;
+      </picture></div><div style="flex:1;min-width:0;"><div style="font-family:'Montserrat',sans-serif;font-size:.92rem;font-weight:600;color:#124830;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Балсамов оцет</div><div style="font-family:'Inter',sans-serif;font-size:.8rem;color:#9CA3AF;margin-top:1px;">8 мл</div></div><div style="font-family:'Inter',sans-serif;font-size:.85rem;font-weight:700;color:#124830;white-space:nowrap;margin-right:6px;">${fmtEUR(0.39)}</div><div style="display:flex;align-items:center;gap:8px;" onclick="event.stopPropagation()"><button class="qty-btn" onclick="chQty('p',-1)">−</button><span class="qty-val" id="q-p"><span class="qty-val" id="q-p">${q}</span><button class="qty-btn" onclick="chQty('p',1)">+</button></div></div>`;
 }
 function select(id,img){selectedId=id;const el=document.getElementById('main-img');el.style.opacity='0';setTimeout(()=>{el.src=img;el.style.opacity='1';},200);render();}
 function chQty(id,d){qty[id]=Math.max(0,qty[id]+d);const el=document.getElementById('q-'+id);if(el)el.textContent=qty[id];updatePurchaseWidget();}

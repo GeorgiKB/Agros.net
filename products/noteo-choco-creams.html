@@ -34,10 +34,10 @@
     ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#F7F3EC}::-webkit-scrollbar-thumb{background:#18988B;border-radius:4px}
     .nav-link{position:relative}.nav-link::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1.5px;background:#C8922A;transition:width .25s ease}.nav-link:hover::after{width:100%}
     .btn{transition:transform .2s cubic-bezier(.34,1.56,.64,1),opacity .2s ease,background-color .2s ease}.btn:hover{transform:translateY(-1px)}.btn:active{transform:translateY(0);opacity:.9}html{scroll-behavior:smooth}
-    .variant-row{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:12px;cursor:pointer;border:1.5px solid transparent;transition:background .15s,border-color .15s}
+    .variant-row{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:12px;cursor:pointer;border:1.5px solid transparent;transition:background .15s,border-color .15s}
     .variant-row:hover{background:rgba(24,152,139,.04)}.variant-row.selected{background:rgba(24,152,139,.07);border-color:rgba(24,152,139,.2)}
-    .qty-btn{width:26px;height:26px;border-radius:50%;border:1.5px solid #9ADAD6;background:white;color:#083F3B;font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:background .15s,border-color .15s}
-    .qty-btn:hover{background:#D0F0EE;border-color:#18988B}.qty-val{min-width:22px;text-align:center;font-weight:600;font-size:.85rem}
+    .qty-btn{width:36px;height:36px;border-radius:50%;border:2px solid #9ADAD6;background:white;color:#083F3B;font-size:19px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:background .15s,border-color .15s}
+    .qty-btn:hover{background:#D0F0EE;border-color:#18988B}.qty-val{min-width:32px;text-align:center;font-weight:700;font-size:1rem}
     .tab-btn{padding:8px 0;font-size:.85rem;font-weight:600;color:#9CA3AF;border-bottom:2px solid transparent;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;font-family:'Inter',sans-serif;transition:color .2s,border-color .2s}
     .tab-btn.active{color:#083F3B;border-bottom-color:#18988B}.tab-content{display:none}.tab-content.active{display:block}
     .purchase-card{border-radius:12px;border:1.5px solid #E5E7EB;padding:14px 16px;cursor:pointer;background:#F4FFFE;transition:border-color .15s ease,background .15s ease;user-select:none;}
@@ -150,7 +150,7 @@
     <div style="flex:1;min-width:0;">
       <div id="sticky-name" style="font-family:'Montserrat',sans-serif;font-size:0.78rem;font-weight:600;color:#083F3B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></div>
       <div id="sticky-size" style="font-family:'Inter',sans-serif;font-size:0.7rem;color:#9CA3AF;margin-top:1px;"></div>
-      <div id="sticky-price" style="font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:700;color:#083F3B;margin-top:2px;"></div>
+      <div id="sticky-price" style="font-family:'Inter',sans-serif;font-size:0.92rem;font-weight:700;color:#083F3B;margin-top:2px;"></div>
     </div>
   </div>
   <div>
@@ -175,7 +175,7 @@
         <div style="display:inline-flex;background:white;border:1.5px solid #9ADAD6;border-radius:99px;padding:3px;gap:2px;">
           <a href="noteo-flours.html" style="display:flex;align-items:center;padding:6px 15px;border-radius:99px;font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:600;color:#6B7280;text-decoration:none;transition:color 0.15s,background 0.15s;" onmouseover="this.style.background='#D0F0EE';this.style.color='#083F3B';" onmouseout="this.style.background='transparent';this.style.color='#6B7280';">Брашна</a>
           <a href="noteo-proteins.html" style="display:flex;align-items:center;padding:6px 15px;border-radius:99px;font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:600;color:#6B7280;text-decoration:none;transition:color 0.15s,background 0.15s;" onmouseover="this.style.background='#D0F0EE';this.style.color='#083F3B';" onmouseout="this.style.background='transparent';this.style.color='#6B7280';">Протеини</a>
-          <span style="display:flex;align-items:center;padding:6px 15px;border-radius:99px;font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:700;background:#18988B;color:white;">Протеинови кремчета</span>
+          <span style="display:flex;align-items:center;padding:6px 15px;border-radius:99px;font-family:'Inter',sans-serif;font-size:0.92rem;font-weight:700;background:#18988B;color:white;">Протеинови кремчета</span>
         </div>
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto px-5 sm:px-8 lg:px-10" style="padding-top:16px; padding-bottom:48px;">
@@ -207,6 +207,23 @@
           <div>
             <h3 class="font-display font-semibold text-sm mb-3" style="color:#083F3B;">Избери вкус</h3>
             <div id="variant-list" class="flex flex-col gap-1.5"></div>
+            <!-- Mix panel -->
+            <div id="mix-panel" style="display:none;margin-top:6px;border-radius:14px;border:1.5px solid rgba(24,152,139,0.2);background:rgba(24,152,139,0.04);padding:14px 14px 12px;">
+              <div class="flex items-center justify-between mb-3">
+                <span style="font-family:'Montserrat',sans-serif;font-size:.92rem;font-weight:700;color:#083F3B;">Избери вкусове за Микс пакета</span>
+              </div>
+              <div id="mix-flavors" class="flex flex-col gap-1.5"></div>
+              <div class="flex items-center justify-between mt-3 pt-3" style="border-top:1px solid rgba(24,152,139,0.15);">
+                <div class="flex items-center gap-2">
+                  <div style="width:120px;height:6px;background:#D0F0EE;border-radius:99px;overflow:hidden;">
+                    <div id="mix-progress-fill" style="height:100%;background:#18988B;border-radius:99px;width:0%;transition:width .2s ease;"></div>
+                  </div>
+                  <span id="mix-counter-label" style="font-family:'Inter',sans-serif;font-size:.85rem;font-weight:600;color:#6B7280;">0 / 12 кремчета</span>
+                </div>
+                <span id="mix-price-label" style="font-family:'Inter',sans-serif;font-size:.82rem;font-weight:700;color:#083F3B;"></span>
+              </div>
+              <div id="mix-hint" style="font-family:'Inter',sans-serif;font-size:.72rem;color:#C8922A;margin-top:6px;display:none;"></div>
+            </div>
             <!-- Purchase type widget -->
             <div class="flex flex-col gap-2 mt-4">
               <div id="card-single" class="purchase-card active" onclick="setPurchaseMode('single')">
@@ -388,13 +405,67 @@ function fmtEUR(bgn) {
   return eur + ' €<span style="font-size:0.78em;opacity:0.55;font-weight:400;margin-left:5px;">(' + bgn.toFixed(2) + ' лв.)</span>';
 }
 const VARIANTS=[
-  {id:'cc-cocoa', name:'Какао',     size:'12 × 65 г',price:'27.60',img:'../images/noteo/vegan-choco-cream-noteo-65g.png'},
-  {id:'cc-mint',  name:'Мента',     size:'12 × 65 г',price:'27.60',img:'../images/noteo/vegan-choco-cream-noteo-mint-65g.png'},
-  {id:'cc-orange',name:'Портокал',  size:'12 × 65 г',price:'27.60',img:'../images/noteo/vegan-choco-cream-noteo-orange-65g.png'},
-  {id:'cc-mix',   name:'Микс пакет',size:'12 × 65 г',price:'27.60',img:'../images/noteo/vegan-choco-cream-noteo-choco-mix-65g.jpg'},
+  {id:'cc-cocoa', name:'Какао',    size:'12 × 65 г', unitPrice:2.30, price:'27.60', img:'../images/noteo/vegan-choco-cream-noteo-65g.png'},
+  {id:'cc-mint',  name:'Мента',    size:'12 × 65 г', unitPrice:2.30, price:'27.60', img:'../images/noteo/vegan-choco-cream-noteo-mint-65g.png'},
+  {id:'cc-orange',name:'Портокал', size:'12 × 65 г', unitPrice:2.30, price:'27.60', img:'../images/noteo/vegan-choco-cream-noteo-orange-65g.png'},
 ];
-let qty={};let purchaseMode='single';let subFreq='4';let selectedId='cc-cocoa';VARIANTS.forEach(v=>{qty[v.id]=0;});
-function calcTotal(){return VARIANTS.reduce((s,v)=>s+qty[v.id]*parseFloat(v.price),0);}
+const MIX_TARGET = 12;
+let mixQty = {};
+VARIANTS.forEach(v => { mixQty[v.id] = 0; });
+
+let qty={};let purchaseMode='single';let subFreq='4';let selectedId='cc-cocoa';let isMixMode=false;
+VARIANTS.forEach(v=>{qty[v.id]=0;});
+
+function mixTotal(){ return VARIANTS.reduce((s,v)=>s+mixQty[v.id],0); }
+function mixPrice(){ return VARIANTS.reduce((s,v)=>s+mixQty[v.id]*v.unitPrice,0); }
+function isMixValid(){ return mixTotal()===MIX_TARGET; }
+
+function calcTotal(){
+  if(isMixMode) return mixPrice();
+  return VARIANTS.reduce((s,v)=>s+qty[v.id]*parseFloat(v.price),0);
+}
+
+function updateMixPanel(){
+  const total=mixTotal();
+  document.getElementById('mix-progress-fill').style.width=Math.min(100,(total/MIX_TARGET)*100)+'%';
+  document.getElementById('mix-counter-label').textContent=total+' / '+MIX_TARGET+' кремчета';
+  const priceEl=document.getElementById('mix-price-label');
+  priceEl.innerHTML=total>0?fmtEUR(mixPrice()):'';
+  const hint=document.getElementById('mix-hint');
+  if(total===0){ hint.style.display='none'; }
+  else if(total<MIX_TARGET){ hint.textContent='Добавете още '+(MIX_TARGET-total)+' кремчета за да завършите пакета.'; hint.style.display='block'; }
+  else { hint.style.display='none'; }
+  renderMixFlavors();
+  updatePurchaseWidget();
+}
+
+function chMixQty(id,d){
+  const newVal=mixQty[id]+d;
+  if(newVal<0) return;
+  if(d>0&&mixTotal()>=MIX_TARGET) return;
+  mixQty[id]=newVal;
+  updateMixPanel();
+}
+
+function renderMixFlavors(){
+  const total=mixTotal();
+  document.getElementById('mix-flavors').innerHTML=VARIANTS.map(v=>`
+    <div style="display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:10px;background:${mixQty[v.id]>0?'rgba(24,152,139,0.06)':'transparent'};">
+      <div style="width:40px;height:48px;background:#D0F0EE;border-radius:7px;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+        <img src="${v.img}" alt="${v.name}" style="width:100%;height:100%;object-fit:contain;padding:2px;" />
+      </div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-family:'Montserrat',sans-serif;font-size:.75rem;font-weight:600;color:#083F3B;line-height:1.3;">${v.name}</div>
+        <div style="font-family:'Inter',sans-serif;font-size:.68rem;color:#9CA3AF;">65 г · ${v.unitPrice.toFixed(2)} лв. / бр.</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:5px;">
+        <button class="qty-btn" onclick="chMixQty('${v.id}',-1)" ${mixQty[v.id]===0?'style="opacity:0.4;cursor:not-allowed;"':''}>−</button>
+        <span style="min-width:20px;text-align:center;font-weight:700;font-size:.85rem;font-family:'Inter',sans-serif;">${mixQty[v.id]}</span>
+        <button class="qty-btn" onclick="chMixQty('${v.id}',1)" ${total>=MIX_TARGET?'style="opacity:0.4;cursor:not-allowed;"':''}>+</button>
+      </div>
+    </div>`).join('');
+}
+
 function updatePurchaseWidget(){
   const total=calcTotal();const sub=total*0.85;
   document.getElementById('price-single').innerHTML=total>0?fmtEUR(total):'—';
@@ -403,36 +474,85 @@ function updatePurchaseWidget(){
   document.getElementById('card-single').classList.toggle('active',purchaseMode==='single');
   document.getElementById('card-sub').classList.toggle('active',purchaseMode==='subscribe');
   document.getElementById('sub-panel').style.display=purchaseMode==='subscribe'?'block':'none';
+  const btn=document.getElementById('add-btn');
+  if(isMixMode&&!isMixValid()){ btn.disabled=true;btn.style.opacity='0.5';btn.style.cursor='not-allowed'; }
+  else { btn.disabled=false;btn.style.opacity='1';btn.style.cursor='pointer'; }
 }
 function setPurchaseMode(mode){purchaseMode=mode;updatePurchaseWidget();}
-function render(){document.getElementById('variant-list').innerHTML=VARIANTS.map(v=>`
-  <div class="variant-row ${selectedId===v.id?'selected':''}" onclick="select('${v.id}','${v.img}')">
-    <div style="width:56px;height:66px;background:#D0F0EE;border-radius:8px;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+
+function selectMix(){
+  isMixMode=true;selectedId='mix';
+  document.getElementById('mix-panel').style.display='block';
+  renderMixFlavors();
+  updateMixPanel();
+  render();
+}
+function deselectMix(){
+  isMixMode=false;
+  document.getElementById('mix-panel').style.display='none';
+}
+
+function render(){
+  const mixRow=`
+    <div class="variant-row ${selectedId==='mix'?'selected':''}" onclick="selectMix()">
+      <div style="width:72px;height:84px;background:linear-gradient(135deg,#D0F0EE 0%,#9ADAD6 100%);border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.7rem;">🎨</div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-family:'Montserrat',sans-serif;font-size:.92rem;font-weight:700;color:#083F3B;line-height:1.3;">Микс по избор</div>
+        <div style="font-family:'Inter',sans-serif;font-size:.8rem;color:#9CA3AF;margin-top:1px;">Избери вкусовете сам — пакет от 12 кремчета</div>
+        <div style="font-family:'Inter',sans-serif;font-size:.72rem;font-weight:600;color:#18988B;margin-top:2px;">Цена на смесения пакет →</div>
+      </div>
+      <svg style="width:16px;height:16px;flex-shrink:0;color:#9CA3AF;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+    </div>`;
+  document.getElementById('variant-list').innerHTML=VARIANTS.map(v=>`
+  <div class="variant-row ${selectedId===v.id&&!isMixMode?'selected':''}" onclick="select('${v.id}','${v.img}')">
+    <div style="width:72px;height:84px;background:#D0F0EE;border-radius:8px;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;">
       <img src="${v.img}" alt="${v.name}" style="width:100%;height:100%;object-fit:contain;padding:3px;" /></div>
-    <div style="flex:1;min-width:0;"><div style="font-family:'Montserrat',sans-serif;font-size:.78rem;font-weight:600;color:#083F3B;line-height:1.3;">${v.name}</div>
-    <div style="font-family:'Inter',sans-serif;font-size:.7rem;color:#9CA3AF;margin-top:1px;">${v.size}</div>
-    <div style="font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:700;color:#083F3B;margin-top:2px;">${fmtEUR(parseFloat(v.price))}</div>
+    <div style="flex:1;min-width:0;"><div style="font-family:'Montserrat',sans-serif;font-size:.92rem;font-weight:600;color:#083F3B;line-height:1.3;">${v.name}</div>
+    <div style="font-family:'Inter',sans-serif;font-size:.8rem;color:#9CA3AF;margin-top:1px;">${v.size}</div>
+    <div style="font-family:'Inter',sans-serif;font-size:0.92rem;font-weight:700;color:#083F3B;margin-top:2px;">${fmtEUR(parseFloat(v.price))}</div>
     </div>
-    <div style="display:flex;align-items:center;gap:5px;" onclick="event.stopPropagation()">
+    <div style="display:flex;align-items:center;gap:8px;" onclick="event.stopPropagation()">
       <button class="qty-btn" onclick="chQty('${v.id}',-1)">−</button>
       <span class="qty-val" id="q-${v.id}">${qty[v.id]}</span>
       <button class="qty-btn" onclick="chQty('${v.id}',1)">+</button>
     </div>
-  </div>`).join('');}
-function select(id,img){selectedId=id;const el=document.getElementById('main-img');el.style.opacity='0';setTimeout(()=>{el.src=img;el.style.opacity='1';updateStickyBar();},200);render();}
+  </div>`).join('')+mixRow;
+}
+function select(id,img){
+  isMixMode=false;selectedId=id;
+  deselectMix();
+  const el=document.getElementById('main-img');el.style.opacity='0';
+  setTimeout(()=>{el.src=img;el.style.mixBlendMode='normal';el.style.opacity='1';updateStickyBar();},200);
+  render();
+  updatePurchaseWidget();
+}
 function chQty(id,d){qty[id]=Math.max(0,qty[id]+d);const el=document.getElementById('q-'+id);if(el)el.textContent=qty[id];updatePurchaseWidget();}
 function switchTab(btn,id){document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));btn.classList.add('active');document.getElementById(id).classList.add('active');}
 function addToCart(btn){
   let added=false;const isSub=purchaseMode==='subscribe';
-  VARIANTS.forEach(v=>{
-    if(qty[v.id]>0&&typeof AgrosCart!=='undefined'){
-      const price=isSub?(parseFloat(v.price)*0.85).toFixed(2):v.price;
-      const name=isSub?'NOTEO крем '+v.name+' (Абонамент)':'NOTEO крем '+v.name;
-      for(let i=0;i<qty[v.id];i++)AgrosCart.addItem(null,name,v.size,price,v.img,'NOTEO');
-      added=true;
+  if(isMixMode){
+    if(!isMixValid()) return;
+    if(typeof AgrosCart!=='undefined'){
+      VARIANTS.forEach(v=>{
+        if(mixQty[v.id]>0){
+          const totalPrice=isSub?(v.unitPrice*mixQty[v.id]*0.85).toFixed(2):(v.unitPrice*mixQty[v.id]).toFixed(2);
+          const name='NOTEO Микс — '+v.name+(isSub?' (Абонамент)':'');
+          AgrosCart.addItem(null,name,mixQty[v.id]+' × 65 г',totalPrice,v.img,'NOTEO');
+        }
+      });
     }
-  });
-  if(added&&btn){const orig=btn.innerHTML;btn.innerHTML='✓ Добавено';btn.style.background='#0F6B62';btn.disabled=true;setTimeout(()=>{btn.innerHTML=orig;btn.style.background='#18988B';btn.disabled=false;},1400);}
+    added=true;
+  } else {
+    VARIANTS.forEach(v=>{
+      if(qty[v.id]>0&&typeof AgrosCart!=='undefined'){
+        const price=isSub?(parseFloat(v.price)*0.85).toFixed(2):v.price;
+        const name=isSub?'NOTEO крем '+v.name+' (Абонамент)':'NOTEO крем '+v.name;
+        for(let i=0;i<qty[v.id];i++)AgrosCart.addItem(null,name,v.size,price,v.img,'NOTEO');
+        added=true;
+      }
+    });
+  }
+  if(added&&btn){const orig=btn.innerHTML;btn.innerHTML='✓ Добавено';btn.style.background='#0F6B62';btn.disabled=true;setTimeout(()=>{btn.innerHTML=orig;btn.style.background='#18988B';btn.disabled=false;updatePurchaseWidget();},1400);}
 }
 render();
 updatePurchaseWidget();

@@ -38,7 +38,7 @@
     .nav-link{position:relative}.nav-link::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1.5px;background:#C8922A;transition:width .25s ease}.nav-link:hover::after,.nav-link:focus-visible::after{width:100%}
     .btn{transition:transform .2s cubic-bezier(.34,1.56,.64,1),opacity .2s ease,background-color .2s ease}.btn:hover{transform:translateY(-1px)}.btn:active{transform:translateY(0);opacity:.9}
     html{scroll-behavior:smooth}
-    .variant-row{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:12px;cursor:pointer;border:1.5px solid transparent;transition:background .15s ease,border-color .15s ease;}
+    .variant-row{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:12px;cursor:pointer;border:1.5px solid transparent;transition:background .15s ease,border-color .15s ease;}
     .variant-row:hover{background:rgba(123,58,96,0.04);}
     .variant-row.selected{background:rgba(123,58,96,0.07);border-color:rgba(123,58,96,0.2);}
     .tab-btn{padding:8px 0;font-size:.85rem;font-weight:600;color:#9CA3AF;border-bottom:2px solid transparent;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;font-family:'Inter',sans-serif;transition:color .2s,border-color .2s;}
@@ -306,10 +306,10 @@ function fmtEUR(bgn) {
 }
 const VARIANTS=[{id:'p',name:'Фина подхранваща пудра от слънчогледови семки 2 в 1 – скраб и маска',size:'Суха пудра',img:'../images/dorso/scrub-sunflower.png'}];
 let selectedId='p';
-function render(){document.getElementById('variant-list').innerHTML=VARIANTS.map(v=>`<div class="variant-row ${selectedId===v.id?'selected':''}" onclick="select('${v.id}','${v.img}')"><div style="width:56px;height:66px;background:#F5E0EC;border-radius:8px;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;"><picture>
+function render(){document.getElementById('variant-list').innerHTML=VARIANTS.map(v=>`<div class="variant-row ${selectedId===v.id?'selected':''}" onclick="select('${v.id}','${v.img}')"><div style="width:72px;height:84px;background:#F5E0EC;border-radius:8px;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;"><picture>
         <source srcset="../images/dorso/scrub-sunflower.webp" type="image/webp" />
         <img src="../images/dorso/scrub-sunflower.webp" alt="Фина подхранваща пудра от слънчогледови семки 2 в 1 – скраб и маска" style="width:100%;height:100%;object-fit:contain;padding:3px;" / loading="lazy">
-      </picture></div><div style="flex:1;min-width:0;"><div style="font-family:'Montserrat',sans-serif;font-size:.78rem;font-weight:600;color:#3B2030;line-height:1.3;">Фина подхранваща пудра от слънчогледови семки 2 в 1 – скраб и маска</div><div style="font-family:'Inter',sans-serif;font-size:.7rem;color:#9CA3AF;margin-top:1px;">Суха пудра</div></div><span style="font-size:.72rem;font-family:'Inter',sans-serif;color:#7B3A60;font-weight:600;white-space:nowrap;">Проф. употреба</span></div>`).join('');}
+      </picture></div><div style="flex:1;min-width:0;"><div style="font-family:'Montserrat',sans-serif;font-size:.92rem;font-weight:600;color:#3B2030;line-height:1.3;">Фина подхранваща пудра от слънчогледови семки 2 в 1 – скраб и маска</div><div style="font-family:'Inter',sans-serif;font-size:.8rem;color:#9CA3AF;margin-top:1px;">Суха пудра</div></div><span style="font-size:.72rem;font-family:'Inter',sans-serif;color:#7B3A60;font-weight:600;white-space:nowrap;">Проф. употреба</span></div>`).join('');}
 function select(id,img){selectedId=id;const el=document.getElementById('main-img');el.style.opacity='0';setTimeout(()=>{el.src=img;el.style.opacity='1';updateStickyBar();},200);render();}
 function switchTab(btn,id){document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));btn.classList.add('active');document.getElementById(id).classList.add('active');}
 render();
