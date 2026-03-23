@@ -327,7 +327,7 @@
     var token = localStorage.getItem('agros_token');
     if (token) {
       try {
-        await fetch('http://localhost:3001/api/orders', {
+        await fetch('/api/orders', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
           body: JSON.stringify({

@@ -314,7 +314,7 @@
       btn.textContent = 'Зареждане…';
 
       try {
-        const res  = await fetch('http://localhost:3001/api/auth/register', {
+        const res  = await fetch('/api/auth/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name, email, password })
@@ -333,7 +333,7 @@
         window.location.href = redirectTo;
 
       } catch {
-        errorDiv.textContent = 'Не може да се свърже с сървъра. Уверете се, че server.js работи.';
+        errorDiv.textContent = 'Грешка при свързване. Опитайте отново.';
         errorDiv.classList.remove('hidden');
         btn.disabled = false;
         btn.textContent = 'Създай акаунт';

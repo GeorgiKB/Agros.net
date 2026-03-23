@@ -264,7 +264,7 @@
       errorDiv.classList.add('hidden');
 
       try {
-        var res  = await fetch('http://localhost:3001/api/auth/google', {
+        var res  = await fetch('/api/auth/google', {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },
           body:    JSON.stringify({ credential })
@@ -355,7 +355,7 @@
       btn.textContent = 'Зареждане…';
 
       try {
-        const res  = await fetch('http://localhost:3001/api/auth/login', {
+        const res  = await fetch('/api/auth/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password })
@@ -374,7 +374,7 @@
         window.location.href = redirectTo;
 
       } catch {
-        errorDiv.textContent = 'Не може да се свърже с сървъра. Уверете се, че server.js работи.';
+        errorDiv.textContent = 'Грешка при свързване. Опитайте отново.';
         errorDiv.classList.remove('hidden');
         btn.disabled = false;
         btn.textContent = 'Влез в акаунта';

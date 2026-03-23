@@ -24,6 +24,33 @@ const MIME_TYPES = {
 };
 
 const server = http.createServer((req, res) => {
+  // Proxy API requests to local Express server (port 3001)
+  if (req.url.startsWith('/api/')) {
+    const chunks = [];
+    req.on('data', chunk => chunks.push(chunk));
+    req.on('end', () => {
+      const body = Buffer.concat(chunks);
+      const options = {
+        hostname: 'localhost',
+        port: 3001,
+        path: req.url,
+        method: req.method,
+        headers: { ...req.headers, host: 'localhost:3001' },
+      };
+      const proxyReq = http.request(options, proxyRes => {
+        res.writeHead(proxyRes.statusCode, proxyRes.headers);
+        proxyRes.pipe(res);
+      });
+      proxyReq.on('error', () => {
+        res.writeHead(503, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Backend server not available. Run: node server.js' }));
+      });
+      if (body.length) proxyReq.write(body);
+      proxyReq.end();
+    });
+    return;
+  }
+
   let urlPath = req.url === '/' ? '/index.html' : req.url;
   urlPath = urlPath.split('?')[0];
 
