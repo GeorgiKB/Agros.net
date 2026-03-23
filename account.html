@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon"             type="image/x-icon" href="favicon.ico" />
+  <link rel="icon"             type="image/png"    href="images/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon"             type="image/png"    href="images/favicon-192x192.png" sizes="192x192" />
+  <link rel="apple-touch-icon"                     href="images/apple-touch-icon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Моят акаунт в Agros — преглед на поръчки, история и управление на профил." />
+  <link rel="canonical" href="https://agros.net/account.html" />
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="Agros" />
+  <meta property="og:locale"      content="bg_BG" />
+  <meta property="og:title"       content="Моят акаунт — Agros" />
+  <meta property="og:description" content="Моят акаунт в Agros — преглед на поръчки, история и управление на профил." />
+  <meta property="og:url"         content="https://agros.net/account.html" />
+  <meta property="og:image"       content="https://agros.net/images/agros-logo.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height"content="630" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Моят акаунт — Agros" />
+  <meta name="twitter:description" content="Моят акаунт в Agros — преглед на поръчки, история и управление на профил." />
+  <meta name="twitter:image"       content="https://agros.net/images/agros-logo.png" />
+  <title>Моят акаунт — Agros</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, sans-serif; background-color: #F7F3EC; color: #1A1A1A; }
+    h1, h2, h3, .font-display { font-family: 'Montserrat', sans-serif; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #F7F3EC; }
+    ::-webkit-scrollbar-thumb { background: #3ABF82; border-radius: 4px; }
+
+    .nav-link { position: relative; }
+    .nav-link::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:1.5px; background:#C8922A; transition:width 0.25s ease; }
+    .nav-link:hover::after { width:100%; }
+    .nav-link.active::after { width:100%; }
+
+    .btn { transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s ease, background-color 0.2s ease; }
+    .btn:hover  { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); opacity: 0.9; }
+
+    .card {
+      background: #FEFCF8;
+      border-radius: 1.25rem;
+      box-shadow:
+        0 2px 8px rgba(34,144,94,0.07),
+        0 8px 32px rgba(34,144,94,0.07),
+        0 1px 2px rgba(0,0,0,0.04);
+    }
+
+    .order-row { transition: background-color 0.15s ease; }
+    .order-row:hover { background-color: #EEF2EB; }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.01em;
+    }
+    .status-badge.delivered  { background:#D7E4D4; color:#186060; }
+    .status-badge.processing { background:#F0C96A33; color:#9B6C14; }
+    .status-badge.shipped    { background:#EDE5D5; color:#6B3A20; }
+
+    .avatar {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #22905E, #3ABF82);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.5rem; font-weight: 700;
+      color: #F7F3EC;
+      flex-shrink: 0;
+    }
+
+    .stat-num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #186060;
+      letter-spacing: -0.02em;
+    }
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Agros 98",
+  "url": "https://agros.net",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://agros.net/images/agros-logo.png",
+    "width": 200,
+    "height": 80
+  },
+  "description": "Agros 98 е български производител на студено пресовани масла и натурални продукти от 1998 г. Марки OLLEO, D'ORSO и NOTEO.",
+  "foundingDate": "1998",
+  "areaServed": "BG",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "availableLanguage": "Bulgarian"
+  }
+}
+  </script>
+</head>
+<body>
+
+  <!-- ══════════════ ANNOUNCEMENT BAR ══════════════ -->
+  <div class="bg-forest-700 text-cream-100 text-center py-2.5 text-xs font-body tracking-wide" style="letter-spacing:0.04em;">
+    🌿&nbsp; Безплатна доставка при поръчки над&nbsp;<strong>25.57&nbsp;€</strong>&nbsp;&nbsp;·&nbsp;&nbsp;Произведено в България от Agros&nbsp;98
+  </div>
+
+  <!-- ══════════════ NAVIGATION ══════════════ -->
+  <nav class="sticky top-0 z-50 bg-cream-50/95 backdrop-blur-md border-b border-cream-200"
+       style="box-shadow: 0 1px 0 rgba(34,144,94,0.06), 0 4px 24px rgba(34,144,94,0.05);">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 rounded-lg">
+          <picture>
+        <source srcset="images/agros-logo.webp" type="image/webp" />
+        <img src="images/agros-logo.png" alt="Agros" class="h-10 w-auto" />
+      </picture>
+        </a>
+        <div class="hidden md:flex items-center gap-7">
+          <a href="brands.html"  class="nav-link text-sm font-body font-medium text-gray-600 hover:text-forest-800 transition-colors duration-200">Продукти</a>
+          <a href="about.html"   class="nav-link text-sm font-body font-medium text-gray-600 hover:text-forest-800 transition-colors duration-200">За нас</a>
+          <a href="blog.html"    class="nav-link text-sm font-body font-medium text-gray-600 hover:text-forest-800 transition-colors duration-200">Блог</a>
+          <a href="contact.html" class="nav-link text-sm font-body font-medium text-gray-600 hover:text-forest-800 transition-colors duration-200">Контакти</a>
+        </div>
+        <div class="flex items-center gap-1">
+          <button class="p-2.5 rounded-full hover:bg-forest-50 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400" aria-label="Търсене">
+            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+          <button class="relative p-2.5 rounded-full hover:bg-forest-50 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400" aria-label="Количка">
+            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+          </button>
+          <button class="md:hidden p-2.5 rounded-full hover:bg-forest-50 transition-colors duration-200" aria-label="Меню">
+            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══════════════ HERO BANNER ══════════════ -->
+  <section style="background: linear-gradient(135deg, #124830 0%, #22905E 60%, #506E4E 100%); position:relative; overflow:hidden;">
+    <!-- Grain texture -->
+    <div aria-hidden="true" style="position:absolute;inset:0;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E\");pointer-events:none;"></div>
+    <!-- Blobs -->
+    <div aria-hidden="true" style="position:absolute;top:-60px;right:-60px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(200,146,42,0.12) 0%,transparent 65%);"></div>
+
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-12 relative">
+      <div class="flex items-center gap-5">
+        <div class="avatar" id="avatar-initials">А</div>
+        <div>
+          <p class="font-body text-forest-200 text-sm mb-1 tracking-wide" style="letter-spacing:0.05em;">МОЯ СМЕТКА</p>
+          <h1 class="font-display font-bold text-cream-50 leading-tight" style="font-size:clamp(1.5rem,3vw,2.2rem);letter-spacing:-0.02em;" id="welcome-name">Зареждане…</h1>
+          <p class="font-body text-forest-200/70 text-sm mt-1" id="member-since">Член от —</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ DASHBOARD ══════════════ -->
+  <main class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-10">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+
+      <!-- ── LEFT COLUMN: Profile ─────────────────────── -->
+      <div class="lg:col-span-1 flex flex-col gap-5">
+
+        <!-- Profile card -->
+        <div class="card p-6">
+          <h2 class="font-display font-semibold text-forest-900 text-lg mb-5">Профил</h2>
+
+          <div class="space-y-4">
+            <div>
+              <p class="text-xs font-body font-medium text-gray-400 uppercase tracking-widest mb-1">Ime</p>
+              <p class="font-body font-medium text-gray-800" id="profile-name">—</p>
+            </div>
+            <div class="h-px bg-cream-200"></div>
+            <div>
+              <p class="text-xs font-body font-medium text-gray-400 uppercase tracking-widest mb-1">Имейл</p>
+              <p class="font-body text-gray-700 text-sm" id="profile-email">—</p>
+            </div>
+            <div class="h-px bg-cream-200"></div>
+            <div>
+              <p class="text-xs font-body font-medium text-gray-400 uppercase tracking-widest mb-1">Член от</p>
+              <p class="font-body text-gray-700 text-sm" id="profile-since">—</p>
+            </div>
+          </div>
+
+          <button onclick="window.AgrosAuth.logout()"
+                  class="btn mt-6 w-full py-2.5 rounded-full font-body font-medium text-sm text-gray-600 border border-cream-300 hover:border-terra-300 hover:text-terra-700 hover:bg-terra-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terra-300"
+                  style="transition:background-color 0.2s ease,border-color 0.2s ease,color 0.2s ease;">
+            Изход от акаунта
+          </button>
+        </div>
+
+        <!-- Stats card -->
+        <div class="card p-6">
+          <h2 class="font-display font-semibold text-forest-900 text-lg mb-5">Обобщение</h2>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="text-center">
+              <p class="stat-num" id="stat-orders">—</p>
+              <p class="text-xs font-body text-gray-400 mt-1">Поръчки</p>
+            </div>
+            <div class="text-center">
+              <p class="stat-num" id="stat-total">—</p>
+              <p class="text-xs font-body text-gray-400 mt-1">Изразходвани €</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick links -->
+        <div class="card p-6">
+          <h2 class="font-display font-semibold text-forest-900 text-lg mb-4">Бързи връзки</h2>
+          <div class="space-y-2">
+            <a href="brands.html" class="flex items-center gap-3 py-2.5 px-3 rounded-xl hover:bg-forest-50 transition-colors duration-200 group">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3ABF82" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              <span class="font-body text-sm text-gray-700 group-hover:text-forest-800">Разгледай продуктите</span>
+            </a>
+            <a href="contact.html" class="flex items-center gap-3 py-2.5 px-3 rounded-xl hover:bg-forest-50 transition-colors duration-200 group">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3ABF82" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span class="font-body text-sm text-gray-700 group-hover:text-forest-800">Свържете се с нас</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── RIGHT COLUMN: Orders ─────────────────────── -->
+      <div class="lg:col-span-2">
+
+        <div class="flex items-center justify-between mb-5">
+          <h2 class="font-display font-semibold text-forest-900 text-xl">История на поръчките</h2>
+          <span id="order-count-badge" class="text-xs font-body font-medium text-gray-400 bg-cream-200 px-3 py-1 rounded-full"></span>
+        </div>
+
+        <!-- Loading state -->
+        <div id="orders-loading" class="card p-10 flex items-center justify-center gap-3">
+          <svg class="animate-spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3ABF82" stroke-width="2">
+            <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+          </svg>
+          <span class="font-body text-sm text-gray-500">Зареждане на поръчките…</span>
+        </div>
+
+        <!-- Orders list -->
+        <div id="orders-list" class="hidden space-y-4"></div>
+
+        <!-- Empty state -->
+        <div id="orders-empty" class="hidden card p-12 text-center">
+          <div class="w-16 h-16 rounded-full bg-forest-50 flex items-center justify-center mx-auto mb-4">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3ABF82" stroke-width="1.5">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+          </div>
+          <h3 class="font-display font-semibold text-forest-900 text-lg mb-2">Все още няма поръчки</h3>
+          <p class="font-body text-sm text-gray-500 mb-6">Разгледайте нашите натурални продукти и направете първата си поръчка.</p>
+          <a href="brands.html"
+             class="btn inline-flex items-center gap-2 py-3 px-7 rounded-full font-body font-semibold text-sm text-cream-50 focus-visible:outline-none"
+             style="background:#186060;">
+            Към продуктите
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ══════════════ FOOTER ══════════════ -->
+  <footer class="bg-forest-900 py-10 mt-16">
+    <div class="max-w-7xl mx-auto px-5 text-center">
+      <picture>
+        <source srcset="images/agros-logo.webp" type="image/webp" />
+        <img src="images/agros-logo.png" alt="Agros" class="h-8 w-auto mx-auto mb-3 opacity-60" />
+      </picture>
+      <p class="font-body text-sm text-cream-300/60">© 2024 Agros 98 ООД. Всички права запазени.</p>
+      <p class="font-body text-xs text-cream-300/40 mt-1">гр. Варна, ул. Царевец 36 &nbsp;·&nbsp; +359 888 858 996 &nbsp;·&nbsp; office@agros.net</p>
+    </div>
+  </footer>
+
+  <script src="/auth.js"></script>
+  <script>
+    const API = 'http://localhost:3001';
+
+    // ── Auth guard ────────────────────────────────────────────────────────────
+    const token = window.AgrosAuth.getToken();
+    const user  = window.AgrosAuth.getUser();
+    if (!token || !user) {
+      window.location.href = '/login.html';
+    }
+
+    // ── Populate profile ──────────────────────────────────────────────────────
+    function formatDate(iso) {
+      const d = new Date(iso);
+      return d.toLocaleDateString('bg-BG', { year: 'numeric', month: 'long', day: 'numeric' });
+    }
+
+    function initials(name) {
+      return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+    }
+
+    if (user) {
+      document.getElementById('welcome-name').textContent   = `Здравейте, ${user.name}!`;
+      document.getElementById('avatar-initials').textContent = initials(user.name);
+      document.getElementById('profile-name').textContent   = user.name;
+      document.getElementById('profile-email').textContent  = user.email;
+      if (user.createdAt) {
+        const since = formatDate(user.createdAt);
+        document.getElementById('profile-since').textContent  = since;
+        document.getElementById('member-since').textContent   = `Член от ${since}`;
+      }
+    }
+
+    // ── Load orders ───────────────────────────────────────────────────────────
+    function statusLabel(s) {
+      if (s === 'доставена')    return { cls: 'delivered',  dot: '#22905E', text: 'Доставена' };
+      if (s === 'изпратена')    return { cls: 'shipped',    dot: '#9B5035', text: 'Изпратена' };
+      return                           { cls: 'processing', dot: '#9B6C14', text: 'В обработка' };
+    }
+
+    function renderOrder(order) {
+      const st   = statusLabel(order.status);
+      const date = formatDate(order.createdAt);
+      const id   = String(order.id).slice(-6).toUpperCase();
+
+      const itemsHtml = order.items.map(it =>
+        `<div class="flex items-center justify-between py-1.5">
+          <div class="flex-1 min-w-0">
+            <span class="font-body text-sm text-gray-800 truncate block">${it.name}</span>
+            <span class="font-body text-xs text-gray-400">${it.size} × ${it.qty}</span>
+          </div>
+          <span class="font-body text-sm font-medium text-gray-700 ml-4 flex-shrink-0">${(it.price * it.qty).toFixed(2)} € <span style="font-size:0.85em;opacity:0.6;font-weight:400;">(${((it.price * it.qty) * 1.9558).toFixed(2)} лв.)</span></span>
+        </div>`
+      ).join('');
+
+      return `
+        <div class="card overflow-hidden">
+          <!-- Order header -->
+          <div class="flex items-center justify-between px-6 py-4 border-b border-cream-200">
+            <div class="flex items-center gap-4">
+              <div>
+                <p class="font-body text-xs text-gray-400 mb-0.5">Поръчка #${id}</p>
+                <p class="font-body text-sm font-medium text-gray-700">${date}</p>
+              </div>
+            </div>
+            <span class="status-badge ${st.cls}">
+              <span style="width:6px;height:6px;border-radius:50%;background:${st.dot};display:inline-block;flex-shrink:0;"></span>
+              ${st.text}
+            </span>
+          </div>
+          <!-- Items -->
+          <div class="px-6 py-4 divide-y divide-cream-100">
+            ${itemsHtml}
+          </div>
+          <!-- Total -->
+          <div class="flex items-center justify-between px-6 py-3.5 bg-forest-50 border-t border-forest-100">
+            <span class="font-body text-sm text-gray-500">Общо</span>
+            <span class="font-body font-bold text-forest-900 text-base">${order.total.toFixed(2)} € <span style="font-size:0.8em;opacity:0.6;font-weight:400;">(${(order.total * 1.9558).toFixed(2)} лв.)</span></span>
+          </div>
+        </div>`;
+    }
+
+    async function loadOrders() {
+      try {
+        const res    = await fetch(`${API}/api/orders`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (res.status === 401) { window.AgrosAuth.logout(); return; }
+        const orders = await res.json();
+
+        document.getElementById('orders-loading').style.display = 'none';
+
+        if (!orders.length) {
+          document.getElementById('orders-empty').classList.remove('hidden');
+          document.getElementById('stat-orders').textContent = '0';
+          document.getElementById('stat-total').textContent  = '0.00';
+          return;
+        }
+
+        const total = orders.reduce((s, o) => s + o.total, 0);
+        document.getElementById('stat-orders').textContent       = orders.length;
+        document.getElementById('stat-total').textContent        = total.toFixed(2);
+        document.getElementById('order-count-badge').textContent = `${orders.length} поръчки`;
+
+        const list = document.getElementById('orders-list');
+        list.innerHTML = orders.map(renderOrder).join('');
+        list.classList.remove('hidden');
+
+      } catch {
+        document.getElementById('orders-loading').innerHTML =
+          '<p class="font-body text-sm text-terra-700">Грешка при зареждане. Уверете се, че server.js работи.</p>';
+      }
+    }
+
+    loadOrders();
+
+    // ── Success toast (from payment page redirect) ────────────────────────────
+    if (new URLSearchParams(window.location.search).get('success') === '1') {
+      const toast = document.createElement('div');
+      toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#186060;color:white;font-family:Inter,sans-serif;font-size:14px;font-weight:600;padding:14px 24px;border-radius:50px;box-shadow:0 8px 32px rgba(24,96,96,0.35);z-index:9999;display:flex;align-items:center;gap:10px;animation:toastIn 0.4s cubic-bezier(0.34,1.56,0.64,1);';
+      toast.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Поръчката е получена успешно!';
+      document.head.insertAdjacentHTML('beforeend', '<style>@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}</style>');
+      document.body.appendChild(toast);
+      setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.5s'; setTimeout(() => toast.remove(), 500); }, 5000);
+    }
+  </script>
+<script src="nav-dropdown.js"></script>
+</body>
+</html>

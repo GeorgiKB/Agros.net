@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon"             type="image/x-icon" href="favicon.ico" />
+  <link rel="icon"             type="image/png"    href="images/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon"             type="image/png"    href="images/favicon-192x192.png" sizes="192x192" />
+  <link rel="apple-touch-icon"                     href="images/apple-touch-icon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Регистрация в Agros — създайте безплатен акаунт и се възползвайте от специални оферти и лесно проследяване на поръчки." />
+  <link rel="canonical" href="https://agros.net/register.html" />
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="Agros" />
+  <meta property="og:locale"      content="bg_BG" />
+  <meta property="og:title"       content="Регистрация — Agros" />
+  <meta property="og:description" content="Регистрация в Agros — създайте безплатен акаунт и се възползвайте от специални оферти и лесно проследяване на поръчки." />
+  <meta property="og:url"         content="https://agros.net/register.html" />
+  <meta property="og:image"       content="https://agros.net/images/agros-logo.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height"content="630" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Регистрация — Agros" />
+  <meta name="twitter:description" content="Регистрация в Agros — създайте безплатен акаунт и се възползвайте от специални оферти и лесно проследяване на поръчки." />
+  <meta name="twitter:image"       content="https://agros.net/images/agros-logo.png" />
+  <title>Регистрация — Agros</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, sans-serif; background-color: #F7F3EC; color: #1A1A1A; }
+    h1, h2, h3, .font-display { font-family: 'Montserrat', sans-serif; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #F7F3EC; }
+    ::-webkit-scrollbar-thumb { background: #3ABF82; border-radius: 4px; }
+
+    .nav-link { position: relative; }
+    .nav-link::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:1.5px; background:#C8922A; transition:width 0.25s ease; }
+    .nav-link:hover::after { width:100%; }
+
+    .btn { transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s ease, background-color 0.2s ease; }
+    .btn:hover  { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); opacity: 0.9; }
+
+    .input-field {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid #DDD0BC;
+      border-radius: 0.75rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9375rem;
+      background: #FEFCF8;
+      color: #1A1A1A;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .input-field:focus { border-color: #3ABF82; box-shadow: 0 0 0 3px rgba(34,144,94,0.12); }
+    .input-field::placeholder { color: #b0a89a; }
+
+    .card-shadow {
+      box-shadow:
+        0 2px 8px rgba(34,144,94,0.07),
+        0 8px 32px rgba(34,144,94,0.08),
+        0 1px 2px rgba(0,0,0,0.04);
+    }
+
+    .pw-strength { height: 3px; border-radius: 2px; transition: width 0.3s ease, background-color 0.3s ease; }
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Agros 98",
+  "url": "https://agros.net",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://agros.net/images/agros-logo.png",
+    "width": 200,
+    "height": 80
+  },
+  "description": "Agros 98 е български производител на студено пресовани масла и натурални продукти от 1998 г. Марки OLLEO, D'ORSO и NOTEO.",
+  "foundingDate": "1998",
+  "areaServed": "BG",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "availableLanguage": "Bulgarian"
+  }
+}
+  </script>
+</head>
+<body>
+
+  <!-- ══════════════ ANNOUNCEMENT BAR ══════════════ -->
+  <div class="bg-forest-700 text-cream-100 text-center py-2.5 text-xs font-body tracking-wide" style="letter-spacing:0.04em;">
+    🌿&nbsp; Безплатна доставка при поръчки над&nbsp;<strong>25.57&nbsp;€</strong>&nbsp;&nbsp;·&nbsp;&nbsp;Произведено в България от Agros&nbsp;98
+  </div>
+
+  <!-- ══════════════ NAVIGATION ══════════════ -->
+  <nav class="sticky top-0 z-50 bg-cream-50/95 backdrop-blur-md border-b border-cream-200"
+       style="box-shadow: 0 1px 0 rgba(34,144,94,0.06), 0 4px 24px rgba(34,144,94,0.05);">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 rounded-lg">
+          <picture>
+        <source srcset="images/agros-logo.webp" type="image/webp" />
+        <img src="images/agros-logo.png" alt="Agros" class="h-10 w-auto" />
+      </picture>
+        </a>
+        <div class="hidden md:flex items-center gap-7">
+          <a href="brands.html"  class="nav-link text-sm font-body font-medium text-gray-600 hover:text-forest-800 transition-colors duration-200">Продукти</a>
+          <a href="about.html"   class="nav-link text-sm font-body font-medium text-gray-600 hover:text-forest-800 transition-colors duration-200">За нас</a>
+          <a href="blog.html"    class="nav-link text-sm font-body font-medium text-gray-600 hover:text-forest-800 transition-colors duration-200">Блог</a>
+          <a href="contact.html" class="nav-link text-sm font-body font-medium text-gray-600 hover:text-forest-800 transition-colors duration-200">Контакти</a>
+        </div>
+        <div class="flex items-center gap-1">
+          <button class="p-2.5 rounded-full hover:bg-forest-50 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400" aria-label="Търсене">
+            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+          <button class="relative p-2.5 rounded-full hover:bg-forest-50 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400" aria-label="Количка">
+            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+          </button>
+          <button class="md:hidden p-2.5 rounded-full hover:bg-forest-50 transition-colors duration-200" aria-label="Меню">
+            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══════════════ REGISTER FORM ══════════════ -->
+  <main class="min-h-[calc(100vh-10rem)] flex items-center justify-center px-5 py-16">
+
+    <!-- Background blobs -->
+    <div class="pointer-events-none fixed inset-0 overflow-hidden" aria-hidden="true">
+      <div style="position:absolute;top:10%;right:12%;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(34,144,94,0.09) 0%,transparent 65%);"></div>
+      <div style="position:absolute;bottom:15%;left:6%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(200,146,42,0.07) 0%,transparent 65%);"></div>
+    </div>
+
+    <div class="relative w-full max-w-md">
+
+      <!-- Logo mark -->
+      <div class="text-center mb-8">
+        <a href="index.html">
+          <picture>
+        <source srcset="images/agros-logo.webp" type="image/webp" />
+        <img src="images/agros-logo.png" alt="Agros" class="h-12 w-auto mx-auto mb-5" />
+      </picture>
+        </a>
+        <h1 class="font-display font-bold text-forest-900 mb-2" style="font-size:1.875rem;letter-spacing:-0.02em;">Създайте акаунт</h1>
+        <p class="font-body text-sm text-gray-500">Безплатна регистрация — само 30 секунди</p>
+      </div>
+
+      <!-- Card -->
+      <div class="bg-cream-50 rounded-2xl p-8 card-shadow">
+
+        <!-- Error message -->
+        <div id="error-msg" class="hidden mb-5 px-4 py-3 rounded-xl text-sm font-body font-medium text-terra-800 bg-terra-100 border border-terra-200"></div>
+
+        <form id="register-form" novalidate>
+
+          <!-- Name -->
+          <div class="mb-5">
+            <label for="name" class="block text-sm font-body font-medium text-gray-700 mb-1.5">Вашето име</label>
+            <input id="name" name="name" type="text" autocomplete="name"
+                   class="input-field" placeholder="Иван Иванов" required />
+          </div>
+
+          <!-- Email -->
+          <div class="mb-5">
+            <label for="email" class="block text-sm font-body font-medium text-gray-700 mb-1.5">Имейл адрес</label>
+            <input id="email" name="email" type="email" autocomplete="email"
+                   class="input-field" placeholder="вашият@имейл.бг" required />
+          </div>
+
+          <!-- Password -->
+          <div class="mb-6">
+            <label for="password" class="block text-sm font-body font-medium text-gray-700 mb-1.5">Парола</label>
+            <div class="relative">
+              <input id="password" name="password" type="password" autocomplete="new-password"
+                     class="input-field pr-12" placeholder="Минимум 6 символа" required />
+              <button type="button" id="toggle-pw"
+                      class="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-forest-700 transition-colors duration-200"
+                      aria-label="Покажи паролата">
+                <svg id="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+            <!-- Password strength bar -->
+            <div class="mt-2 bg-cream-200 rounded-full overflow-hidden h-[3px]">
+              <div id="pw-bar" class="pw-strength bg-terra-300" style="width:0%;"></div>
+            </div>
+            <p id="pw-hint" class="mt-1 text-xs font-body text-gray-400"></p>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" id="submit-btn"
+                  class="btn w-full py-3.5 rounded-full font-body font-semibold text-cream-50 text-sm tracking-wide focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400"
+                  style="background:#186060;">
+            Създай акаунт
+          </button>
+
+        </form>
+
+        <!-- Divider -->
+        <div class="flex items-center gap-3 my-6">
+          <div class="flex-1 h-px bg-cream-200"></div>
+          <span class="text-xs font-body text-gray-400">или</span>
+          <div class="flex-1 h-px bg-cream-200"></div>
+        </div>
+
+        <!-- Login link -->
+        <p class="text-center text-sm font-body text-gray-500">
+          Вече имате акаунт?&nbsp;
+          <a href="login.html" class="font-medium text-forest-700 hover:text-forest-900 underline underline-offset-2 transition-colors duration-200">
+            Влезте
+          </a>
+        </p>
+
+      </div>
+
+      <!-- Trust note -->
+      <p class="text-center text-xs font-body text-gray-400 mt-5">
+        🔒 Вашите данни са защитени и никога не се споделят.
+      </p>
+
+    </div>
+  </main>
+
+  <!-- ══════════════ FOOTER ══════════════ -->
+  <footer class="bg-forest-900 py-8 mt-0">
+    <div class="max-w-7xl mx-auto px-5 text-center">
+      <picture>
+        <source srcset="images/agros-logo.webp" type="image/webp" />
+        <img src="images/agros-logo.png" alt="Agros" class="h-8 w-auto mx-auto mb-3 opacity-60" />
+      </picture>
+      <p class="font-body text-sm text-cream-300/60">© 2024 Agros 98 ООД. Всички права запазени.</p>
+    </div>
+  </footer>
+
+  <script src="/auth.js"></script>
+  <script>
+    var redirectTo = new URLSearchParams(window.location.search).get('redirect') || '/account.html';
+
+    // Redirect if already logged in
+    if (window.AgrosAuth && window.AgrosAuth.getUser()) {
+      window.location.href = redirectTo;
+    }
+
+    // Toggle password visibility
+    document.getElementById('toggle-pw').addEventListener('click', function () {
+      const pw   = document.getElementById('password');
+      const icon = document.getElementById('eye-icon');
+      if (pw.type === 'password') {
+        pw.type = 'text';
+        icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>';
+      } else {
+        pw.type = 'password';
+        icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+      }
+    });
+
+    // Password strength meter
+    document.getElementById('password').addEventListener('input', function () {
+      const val  = this.value;
+      const bar  = document.getElementById('pw-bar');
+      const hint = document.getElementById('pw-hint');
+      let strength = 0;
+      if (val.length >= 6)  strength++;
+      if (val.length >= 10) strength++;
+      if (/[A-Z]/.test(val)) strength++;
+      if (/[0-9]/.test(val)) strength++;
+      if (/[^A-Za-z0-9]/.test(val)) strength++;
+
+      const levels = [
+        { w:'0%',   color:'#DDD0BC', label:'' },
+        { w:'25%',  color:'#C47B5E', label:'Слаба' },
+        { w:'50%',  color:'#E4A94A', label:'Средна' },
+        { w:'75%',  color:'#82B27F', label:'Добра' },
+        { w:'100%', color:'#22905E', label:'Силна' },
+      ];
+      const lvl = levels[Math.min(strength, 4)];
+      bar.style.width = lvl.w;
+      bar.style.backgroundColor = lvl.color;
+      hint.textContent = lvl.label;
+    });
+
+    // Form submit
+    document.getElementById('register-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const btn      = document.getElementById('submit-btn');
+      const errorDiv = document.getElementById('error-msg');
+      const name     = document.getElementById('name').value.trim();
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      errorDiv.classList.add('hidden');
+
+      if (password.length < 6) {
+        errorDiv.textContent = 'Паролата трябва да е поне 6 символа.';
+        errorDiv.classList.remove('hidden');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Зареждане…';
+
+      try {
+        const res  = await fetch('http://localhost:3001/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, password })
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          errorDiv.textContent = data.error || 'Грешка при регистрация';
+          errorDiv.classList.remove('hidden');
+          btn.disabled = false;
+          btn.textContent = 'Създай акаунт';
+          return;
+        }
+
+        window.AgrosAuth.save(data.token, data.user);
+        window.location.href = redirectTo;
+
+      } catch {
+        errorDiv.textContent = 'Не може да се свърже с сървъра. Уверете се, че server.js работи.';
+        errorDiv.classList.remove('hidden');
+        btn.disabled = false;
+        btn.textContent = 'Създай акаунт';
+      }
+    });
+  </script>
+<script src="nav-dropdown.js"></script>
+</body>
+</html>

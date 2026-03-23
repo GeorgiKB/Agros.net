@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@source "./*.html";
+@source "./products/*.html";
+
+@theme {
+  /* Forest green palette */
+  --color-forest-50:  #E8F5EF;
+  --color-forest-100: #C8EAD8;
+  --color-forest-200: #90D4B0;
+  --color-forest-300: #6DD4A8;
+  --color-forest-400: #44C988;
+  --color-forest-500: #3ABF82;
+  --color-forest-600: #269A68;
+  --color-forest-700: #22905E;
+  --color-forest-800: #186060;
+  --color-forest-900: #124830;
+
+  /* Cream palette */
+  --color-cream-50:  #FEFCF8;
+  --color-cream-100: #F7F3EC;
+  --color-cream-200: #EDE5D5;
+  --color-cream-300: #DDD0BC;
+
+  /* Honey / gold palette */
+  --color-honey-300: #F0C96A;
+  --color-honey-400: #E4A94A;
+  --color-honey-500: #C8922A;
+  --color-honey-600: #A97520;
+  --color-honey-700: #9B6C14;
+
+  /* Terra / teal palette */
+  --color-terra-100: #D0F0EE;
+  --color-terra-200: #9ADAD6;
+  --color-terra-300: #5EC4BC;
+  --color-terra-500: #18988B;
+  --color-terra-700: #0F6B62;
+  --color-terra-800: #083F3B;
+
+  /* D'ORSO / rose palette */
+  --color-dorso-100: #F5E0EC;
+  --color-dorso-400: #C47B8E;
+  --color-dorso-600: #7B3A60;
+  --color-dorso-700: #5A2A4A;
+  --color-dorso-800: #3B2030;
+
+  /* Font families */
+  --font-display: "Montserrat", Georgia, serif;
+  --font-body:    Inter, system-ui, sans-serif;
+}

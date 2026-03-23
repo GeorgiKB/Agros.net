@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon"             type="image/x-icon" href="favicon.ico" />
+  <link rel="icon"             type="image/png"    href="images/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon"             type="image/png"    href="images/favicon-192x192.png" sizes="192x192" />
+  <link rel="apple-touch-icon"                     href="images/apple-touch-icon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Блог на Agros — статии за здравословно хранене, студено пресовани масла, грижа за тялото и полезни съвети от природата." />
+  <link rel="canonical" href="https://agros.net/blog.html" />
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="Agros" />
+  <meta property="og:locale"      content="bg_BG" />
+  <meta property="og:title"       content="Блог — Agros" />
+  <meta property="og:description" content="Блог на Agros — статии за здравословно хранене, студено пресовани масла, грижа за тялото и полезни съвети от природата." />
+  <meta property="og:url"         content="https://agros.net/blog.html" />
+  <meta property="og:image"       content="https://agros.net/images/agros-logo.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height"content="630" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Блог — Agros" />
+  <meta name="twitter:description" content="Блог на Agros — статии за здравословно хранене, студено пресовани масла, грижа за тялото и полезни съвети от природата." />
+  <meta name="twitter:image"       content="https://agros.net/images/agros-logo.png" />
+  <title>Блог — Agros</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, sans-serif; background-color: #F7F3EC; color: #1A1A1A; }
+    h1, h2, h3, .font-display { font-family: 'Montserrat', sans-serif; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #F7F3EC; }
+    ::-webkit-scrollbar-thumb { background: #3ABF82; border-radius: 4px; }
+
+    /* Nav underline hover */
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1.5px;
+      background: #C8922A;
+      transition: width 0.25s ease;
+    }
+    .nav-link:hover::after,
+    .nav-link:focus-visible::after { width: 100%; }
+    .nav-link.active::after { width: 100%; }
+
+    /* Buttons */
+    .btn {
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1),
+                  opacity 0.2s ease,
+                  background-color 0.2s ease;
+    }
+    .btn:hover  { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0px); opacity: 0.9; }
+
+    /* Blog card image zoom */
+    .blog-img {
+      transition: transform 0.5s ease;
+    }
+    .blog-card:hover .blog-img { transform: scale(1.06); }
+
+    /* Smooth scroll */
+    html { scroll-behavior: smooth; }
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Agros 98",
+  "url": "https://agros.net",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://agros.net/images/agros-logo.png",
+    "width": 200,
+    "height": 80
+  },
+  "description": "Agros 98 е български производител на студено пресовани масла и натурални продукти от 1998 г. Марки OLLEO, D'ORSO и NOTEO.",
+  "foundingDate": "1998",
+  "areaServed": "BG",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "availableLanguage": "Bulgarian"
+  }
+}
+  </script>
+</head>
+<body>
+
+  <!-- ══════════════ ANNOUNCEMENT BAR ══════════════ -->
+  <div class="bg-forest-700 text-cream-100 text-center py-2.5 text-xs font-body tracking-wide" style="letter-spacing:0.04em;">
+    🌿&nbsp; Безплатна доставка при поръчки над&nbsp;<strong>25.57&nbsp;€</strong> <span style="font-size:0.8em;opacity:0.75;">(50&nbsp;лв.)</span>&nbsp;&nbsp;·&nbsp;&nbsp;Произведено в България от Agros&nbsp;98
+  </div>
+
+  <!-- ══════════════ NAVIGATION ══════════════ -->
+  <nav class="sticky top-0 z-50 bg-cream-50/95 backdrop-blur-md border-b border-cream-200"
+       style="box-shadow: 0 1px 0 rgba(34,144,94,0.06), 0 4px 24px rgba(34,144,94,0.05);">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+      <div class="flex items-center justify-between h-16">
+
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 rounded-lg">
+          <picture>
+        <source srcset="images/agros-logo.webp" type="image/webp" />
+        <img src="images/agros-logo.png" alt="Agros" class="h-12 w-auto" />
+      </picture>
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center gap-7">
+          <a href="brands.html" class="nav-link text-sm font-body font-medium text-gray-600 hover:text-forest-800 transition-colors duration-200 focus-visible:outline-none">Продукти</a>
+          <a href="about.html" class="nav-link text-sm font-body font-medium text-gray-600 hover:text-forest-800 transition-colors duration-200 focus-visible:outline-none">За нас</a>
+          <a href="blog.html"  class="nav-link active text-sm font-body font-medium text-forest-800 hover:text-forest-800 transition-colors duration-200 focus-visible:outline-none">Блог</a>
+          <a href="contact.html" class="nav-link text-sm font-body font-medium text-gray-600 hover:text-forest-800 transition-colors duration-200 focus-visible:outline-none">Контакти</a>
+        </div>
+
+        <!-- Right Actions -->
+        <div class="flex items-center gap-1">
+          <button class="p-2.5 rounded-full hover:bg-forest-50 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400" aria-label="Търсене">
+            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+          </button>
+          <button class="relative p-2.5 rounded-full hover:bg-forest-50 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400" aria-label="Количка">
+            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+          </button>
+          <!-- Mobile hamburger -->
+          <button class="md:hidden p-2.5 rounded-full hover:bg-forest-50 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400" aria-label="Меню">
+            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+  <!-- ══════════════ PAGE HEADER ══════════════ -->
+  <section class="py-16 bg-forest-800 relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none"
+         style="background: radial-gradient(ellipse at 20% 50%, rgba(200,146,42,0.09) 0%, transparent 55%),
+                            radial-gradient(ellipse at 80% 30%, rgba(34,144,94,0.16) 0%, transparent 55%);"></div>
+    <div class="relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+      <p class="text-honey-400 text-[11px] font-body tracking-widest uppercase mb-4">Блог &amp; Съвети</p>
+      <h1 class="font-display font-bold text-cream-50 mb-4"
+          style="font-size:clamp(2rem,5vw,3.5rem); letter-spacing:-0.03em;">
+        Знание за здравословен живот
+      </h1>
+      <p class="text-forest-200 font-body max-w-xl" style="line-height:1.7;">
+        Рецепти, козметични съвети и полезна информация за продуктите на Agros — директно от нашия екип.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════ BLOG GRID ══════════════ -->
+  <section class="py-20 bg-cream-100">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Article 1 — D'ORSO -->
+        <article class="blog-card bg-cream-50 rounded-2xl overflow-hidden group cursor-pointer focus-within:ring-2 focus-within:ring-forest-400"
+                 style="box-shadow: 0 2px 8px rgba(34,144,94,0.07), 0 1px 3px rgba(0,0,0,0.04);">
+          <div class="relative overflow-hidden" style="aspect-ratio:16/9;">
+            <img src="https://placehold.co/600x338/F5E0EC/7B3A60?text=D'ORSO+козметика" alt="Натурална козметика D'ORSO" class="w-full h-full object-cover blog-img" / loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <span class="absolute bottom-3 left-3 text-white text-[10px] font-body font-bold tracking-widest uppercase px-2.5 py-1 rounded-full" style="background:#7B3A60;">D'ORSO</span>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-400 font-body text-xs mb-2">12 март 2026</p>
+            <h3 class="font-display font-semibold text-forest-900 text-lg leading-snug mb-3 group-hover:text-forest-600 transition-colors duration-200">
+              Натуралната козметика D'ORSO — грижа без компромиси
+            </h3>
+            <p class="text-gray-500 font-body text-sm" style="line-height:1.7;">
+              Открийте как нашите масла за тяло и бустери се правят само от натурални съставки без парабени...
+            </p>
+            <a href="#" class="inline-flex items-center gap-1.5 text-forest-700 hover:text-honey-600 font-body text-sm font-medium mt-5 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400 rounded">
+              Прочети повече
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Article 2 — NOTEO -->
+        <article class="blog-card bg-cream-50 rounded-2xl overflow-hidden group cursor-pointer focus-within:ring-2 focus-within:ring-forest-400"
+                 style="box-shadow: 0 2px 8px rgba(34,144,94,0.07), 0 1px 3px rgba(0,0,0,0.04);">
+          <div class="relative overflow-hidden" style="aspect-ratio:16/9;">
+            <img src="https://placehold.co/600x338/F5EBE0/6B3A20?text=Ядкови+брашна" alt="Ядкови и ленени брашна NOTEO" class="w-full h-full object-cover blog-img" / loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <span class="absolute bottom-3 left-3 text-cream-50 text-[10px] font-body font-bold tracking-widest uppercase px-2.5 py-1 rounded-full" style="background:#9B5035;">NOTEO</span>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-400 font-body text-xs mb-2">5 март 2026</p>
+            <h3 class="font-display font-semibold text-forest-900 text-lg leading-snug mb-3 group-hover:text-forest-600 transition-colors duration-200">
+              Ядкови и ленени брашна — суперхрани за вашата кухня
+            </h3>
+            <p class="text-gray-500 font-body text-sm" style="line-height:1.7;">
+              Как да включите здравословните брашна на NOTEO в ежедневните си рецепти за по-богат хранителен профил...
+            </p>
+            <a href="#" class="inline-flex items-center gap-1.5 text-forest-700 hover:text-honey-600 font-body text-sm font-medium mt-5 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400 rounded">
+              Прочети повече
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Article 3 — OLLEO -->
+        <article class="blog-card bg-cream-50 rounded-2xl overflow-hidden group cursor-pointer focus-within:ring-2 focus-within:ring-forest-400"
+                 style="box-shadow: 0 2px 8px rgba(34,144,94,0.07), 0 1px 3px rgba(0,0,0,0.04);">
+          <div class="relative overflow-hidden" style="aspect-ratio:16/9;">
+            <img src="https://placehold.co/600x338/D5E8D6/2C5F2E?text=Студено+пресовани+масла" alt="Студено пресовани масла OLLEO" class="w-full h-full object-cover blog-img" / loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <span class="absolute bottom-3 left-3 bg-forest-700 text-cream-50 text-[10px] font-body font-bold tracking-widest uppercase px-2.5 py-1 rounded-full">OLLEO</span>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-400 font-body text-xs mb-2">28 февруари 2026</p>
+            <h3 class="font-display font-semibold text-forest-900 text-lg leading-snug mb-3 group-hover:text-forest-600 transition-colors duration-200">
+              Студено пресованите масла OLLEO — здраве в бутилка
+            </h3>
+            <p class="text-gray-500 font-body text-sm" style="line-height:1.7;">
+              Защо студеното пресоване е единственият правилен начин за добиване на пълноценни масла с максимален хранителен потенциал...
+            </p>
+            <a href="#" class="inline-flex items-center gap-1.5 text-forest-700 hover:text-honey-600 font-body text-sm font-medium mt-5 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400 rounded">
+              Прочети повече
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Article 4 — NOTEO Протеини -->
+        <article class="blog-card bg-cream-50 rounded-2xl overflow-hidden group cursor-pointer focus-within:ring-2 focus-within:ring-forest-400"
+                 style="box-shadow: 0 2px 8px rgba(34,144,94,0.07), 0 1px 3px rgba(0,0,0,0.04);">
+          <div class="relative overflow-hidden" style="aspect-ratio:16/9;">
+            <img src="https://placehold.co/600x338/EDCABB/6B3A20?text=Растителни+протеини" alt="Растителни протеини NOTEO" class="w-full h-full object-cover blog-img" / loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <span class="absolute bottom-3 left-3 text-cream-50 text-[10px] font-body font-bold tracking-widest uppercase px-2.5 py-1 rounded-full" style="background:#9B5035;">NOTEO</span>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-400 font-body text-xs mb-2">20 февруари 2026</p>
+            <h3 class="font-display font-semibold text-forest-900 text-lg leading-snug mb-3 group-hover:text-forest-600 transition-colors duration-200">
+              Растителните протеини — пълноценна алтернатива за спортисти
+            </h3>
+            <p class="text-gray-500 font-body text-sm" style="line-height:1.7;">
+              Протеините на NOTEO от грах, коноп и слънчоглед осигуряват всички незаменими аминокиселини за активен начин на живот...
+            </p>
+            <a href="#" class="inline-flex items-center gap-1.5 text-forest-700 hover:text-honey-600 font-body text-sm font-medium mt-5 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400 rounded">
+              Прочети повече
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Article 5 — D'ORSO -->
+        <article class="blog-card bg-cream-50 rounded-2xl overflow-hidden group cursor-pointer focus-within:ring-2 focus-within:ring-forest-400"
+                 style="box-shadow: 0 2px 8px rgba(34,144,94,0.07), 0 1px 3px rgba(0,0,0,0.04);">
+          <div class="relative overflow-hidden" style="aspect-ratio:16/9;">
+            <img src="https://placehold.co/600x338/F5E0EC/5A2A4A?text=Арган+и+шипка" alt="Арганово масло и шипка D'ORSO" class="w-full h-full object-cover blog-img" / loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <span class="absolute bottom-3 left-3 text-white text-[10px] font-body font-bold tracking-widest uppercase px-2.5 py-1 rounded-full" style="background:#7B3A60;">D'ORSO</span>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-400 font-body text-xs mb-2">14 февруари 2026</p>
+            <h3 class="font-display font-semibold text-forest-900 text-lg leading-snug mb-3 group-hover:text-forest-600 transition-colors duration-200">
+              Арганово масло и шипка — тайната на млада кожа
+            </h3>
+            <p class="text-gray-500 font-body text-sm" style="line-height:1.7;">
+              Как да използвате козметичните масла на D'ORSO за ежедневна грижа и видими резултати от първата седмица...
+            </p>
+            <a href="#" class="inline-flex items-center gap-1.5 text-forest-700 hover:text-honey-600 font-body text-sm font-medium mt-5 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400 rounded">
+              Прочети повече
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Article 6 — OLLEO -->
+        <article class="blog-card bg-cream-50 rounded-2xl overflow-hidden group cursor-pointer focus-within:ring-2 focus-within:ring-forest-400"
+                 style="box-shadow: 0 2px 8px rgba(34,144,94,0.07), 0 1px 3px rgba(0,0,0,0.04);">
+          <div class="relative overflow-hidden" style="aspect-ratio:16/9;">
+            <img src="https://placehold.co/600x338/D5E8D6/1F451F?text=Ленено+масло" alt="Ленено масло OLLEO" class="w-full h-full object-cover blog-img" / loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <span class="absolute bottom-3 left-3 bg-forest-700 text-cream-50 text-[10px] font-body font-bold tracking-widest uppercase px-2.5 py-1 rounded-full">OLLEO</span>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-400 font-body text-xs mb-2">7 февруари 2026</p>
+            <h3 class="font-display font-semibold text-forest-900 text-lg leading-snug mb-3 group-hover:text-forest-600 transition-colors duration-200">
+              Лененото масло OLLEO — омега-3 директно от природата
+            </h3>
+            <p class="text-gray-500 font-body text-sm" style="line-height:1.7;">
+              Ползите от ежедневната консумация на студено пресовано ленено масло за сърцето, мозъка и имунната система...
+            </p>
+            <a href="#" class="inline-flex items-center gap-1.5 text-forest-700 hover:text-honey-600 font-body text-sm font-medium mt-5 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400 rounded">
+              Прочети повече
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ FOOTER ══════════════ -->
+  </main>
+
+  <footer id="contact" class="bg-forest-900">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+
+        <!-- Brand -->
+        <div class="lg:col-span-1">
+          <a href="index.html" class="mb-5 inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400 rounded-lg">
+            <picture>
+        <source srcset="images/agros-logo.webp" type="image/webp" />
+        <img src="images/agros-logo.png" alt="Agros" class="h-10 w-auto" style="" />
+      </picture>
+          </a>
+          <p class="text-forest-300 font-body text-sm mb-6" style="line-height:1.75;">
+            Натурални продукти за здраве и красота. Произведено от Agros&nbsp;98, Варна, България.
+          </p>
+          <div class="flex items-center gap-2.5">
+            <a href="javascript:void(0)" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/12 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400"
+               style="background:rgba(255,255,255,0.07);" aria-label="Facebook">
+              <svg class="w-4 h-4 text-forest-300" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+            <a href="javascript:void(0)" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/12 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400"
+               style="background:rgba(255,255,255,0.07);" aria-label="YouTube">
+              <svg class="w-4 h-4 text-forest-300" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/>
+              </svg>
+            </a>
+            <a href="javascript:void(0)" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/12 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400"
+               style="background:rgba(255,255,255,0.07);" aria-label="Instagram">
+              <svg class="w-4 h-4 text-forest-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Products -->
+        <div>
+          <h4 class="text-cream-100 font-body font-semibold text-sm tracking-wide mb-5">Продукти</h4>
+          <ul class="space-y-3">
+            <li><a href="brands.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-forest-400 rounded">OLLEO Масла</a></li>
+            <li><a href="brands.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">NOTEO Брашна</a></li>
+            <li><a href="brands.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">NOTEO Протеини</a></li>
+            <li><a href="brands.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">D'ORSO Козметика</a></li>
+            <li><a href="brands.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">Всички продукти</a></li>
+          </ul>
+        </div>
+
+        <!-- Info -->
+        <div>
+          <h4 class="text-cream-100 font-body font-semibold text-sm tracking-wide mb-5">Информация</h4>
+          <ul class="space-y-3">
+            <li><a href="about.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">За нас</a></li>
+            <li><a href="blog.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">Блог</a></li>
+            <li><a href="delivery.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">Доставка</a></li>
+            <li><a href="terms.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">Общи условия</a></li>
+            <li><a href="privacy.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">Политика за поверителност</a></li>
+            <li><a href="cookies.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">Информация за бисквитки</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="text-cream-100 font-body font-semibold text-sm tracking-wide mb-5">Контакти</h4>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <svg class="w-4 h-4 text-honey-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span class="text-forest-300 font-body text-sm" style="line-height:1.6;">ул. Цар Иван Шишман 36,<br>Варна, България</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 text-honey-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1 19.79 19.79 0 0 1 1.58 4.5 2 2 0 0 1 3.55 2.32h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.29 6.29l.88-.88a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 17.64z"/>
+              </svg>
+              <a href="tel:+359888858996" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">+359 888 858 996</a>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 text-honey-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+              <a href="mailto:office@agros.net" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">office@agros.net</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4"
+           style="border-top:1px solid rgba(255,255,255,0.07);">
+        <p class="text-forest-500 font-body text-xs">© 2026 Agros Grain Group. Всички права запазени.</p>
+        <div class="flex items-center gap-5">
+          <a href="privacy.html" class="text-forest-500 hover:text-forest-300 font-body text-xs transition-colors duration-200">Поверителност</a>
+          <a href="cookies.html" class="text-forest-500 hover:text-forest-300 font-body text-xs transition-colors duration-200">Бисквитки</a>
+          <a href="terms.html" class="text-forest-500 hover:text-forest-300 font-body text-xs transition-colors duration-200">Условия</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+<script src="/auth.js"></script>
+<script src="nav-dropdown.js"></script>
+</body>
+</html>

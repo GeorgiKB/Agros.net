@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon"             type="image/x-icon" href="../favicon.ico" />
+  <link rel="icon"             type="image/png"    href="../images/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon"             type="image/png"    href="../images/favicon-192x192.png" sizes="192x192" />
+  <link rel="apple-touch-icon"                     href="../images/apple-touch-icon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="OLLEO Бутилки — колекция студено пресовани натурални масла в бутилки 250–750 мл. Масла с чили, лимон, чесън, кориандър, трюфел и още." />
+  <link rel="canonical" href="https://agros.net/products/olleo-bottles.html" />
+  <!-- Open Graph -->
+  <meta property="og:type"        content="product" />
+  <meta property="og:site_name"   content="Agros" />
+  <meta property="og:locale"      content="bg_BG" />
+  <meta property="og:title"       content="OLLEO Бутилки — Студено пресовани масла | Agros" />
+  <meta property="og:description" content="OLLEO Бутилки — колекция студено пресовани натурални масла в бутилки 250–750 мл. Масла с чили, лимон, чесън, кориандър, трюфел и още." />
+  <meta property="og:url"         content="https://agros.net/products/olleo-bottles.html" />
+  <meta property="og:image"       content="https://agros.net/images/olleo-banner.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height"content="630" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="OLLEO Бутилки — Студено пресовани масла | Agros" />
+  <meta name="twitter:description" content="OLLEO Бутилки — колекция студено пресовани натурални масла в бутилки 250–750 мл. Масла с чили, лимон, чесън, кориандър, трюфел и още." />
+  <meta name="twitter:image"       content="https://agros.net/images/olleo-banner.png" />
+  <title>OLLEO Бутилки — Студено пресовани масла | Agros</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="preload" as="image" href="../images/olleo/natural.webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, sans-serif; background-color: #F7F3EC; color: #1A1A1A; }
+    h1, h2, h3, .font-display { font-family: 'Montserrat', sans-serif; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #F7F3EC; }
+    ::-webkit-scrollbar-thumb { background: #3ABF82; border-radius: 4px; }
+    .nav-link { position: relative; }
+    .nav-link::after { content:''; position:absolute; bottom:-3px; left:0; width:0; height:1.5px; background:#C8922A; transition:width 0.25s ease; }
+    .nav-link:hover::after, .nav-link:focus-visible::after { width:100%; }
+    .btn { transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), opacity 0.2s ease, background-color 0.2s ease; }
+    .btn:hover  { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0px); opacity: 0.9; }
+    html { scroll-behavior: smooth; }
+
+    .variant-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 10px; border-radius: 12px; cursor: pointer;
+      border: 1.5px solid transparent;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    .variant-row:hover { background: rgba(34,144,94,0.04); }
+    .variant-row.selected { background: rgba(34,144,94,0.07); border-color: rgba(34,144,94,0.2); }
+
+    .qty-btn {
+      width: 26px; height: 26px; border-radius: 50%;
+      border: 1.5px solid #D7E4D4; background: white; color: #186060;
+      font-size: 15px; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; flex-shrink: 0;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+    .qty-btn:hover { background: #EEF2EB; border-color: #3ABF82; }
+    .qty-val { min-width: 22px; text-align: center; font-weight: 600; font-size: 0.85rem; }
+
+    .tab-btn {
+      padding: 8px 0; font-size: 0.85rem; font-weight: 600; color: #9CA3AF;
+      border-bottom: 2px solid transparent; cursor: pointer;
+      background: none; border-top: none; border-left: none; border-right: none;
+      font-family: 'Inter', sans-serif; transition: color 0.2s, border-color 0.2s;
+    }
+    .tab-btn.active { color: #186060; border-bottom-color: #C8922A; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .purchase-card{border-radius:12px;border:1.5px solid #E5E7EB;padding:14px 16px;cursor:pointer;background:#FFF8F4;transition:border-color .15s ease,background .15s ease;user-select:none;}
+    .purchase-card.active{border-color:#C8922A;background:#FFF3EC;}
+    .purchase-radio{width:20px;height:20px;border-radius:50%;border:2px solid #D1D5DB;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:border-color .15s,background .15s;}
+    .purchase-card.active .purchase-radio{border-color:#1A1A1A;background:#1A1A1A;}
+    .purchase-radio-dot{width:8px;height:8px;border-radius:50%;background:white;opacity:0;transition:opacity .15s;}
+    .purchase-card.active .purchase-radio-dot{opacity:1;}
+    .sub-freq-select{width:100%;font-family:'Inter',sans-serif;font-size:.875rem;font-weight:500;color:#1A1A1A;background:white;border:1.5px solid #E5E7EB;border-radius:10px;padding:10px 40px 10px 14px;appearance:none;-webkit-appearance:none;cursor:pointer;outline:none;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+    .sub-freq-select:focus{border-color:#C8922A;}
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Agros 98",
+  "url": "https://agros.net",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://agros.net/images/agros-logo.png",
+    "width": 200,
+    "height": 80
+  },
+  "description": "Agros 98 е български производител на студено пресовани масла и натурални продукти от 1998 г. Марки OLLEO, D'ORSO и NOTEO.",
+  "foundingDate": "1998",
+  "areaServed": "BG",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "availableLanguage": "Bulgarian"
+  }
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "OLLEO Бутилки — студено пресовани масла",
+  "description": "OLLEO Бутилки — колекция студено пресовани натурални масла в бутилки 250–750 мл. Масла с чили, лимон, чесън, кориандър, трюфел и още.",
+  "image": "https://agros.net/images/olleo-banner.png",
+  "brand": {
+    "@type": "Brand",
+    "name": "OLLEO"
+  },
+  "url": "https://agros.net/products/olleo-bottles.html"
+}
+  </script>
+</head>
+<body>
+
+  <!-- Announcement bar -->
+  <div class="bg-forest-700 text-cream-100 text-center py-2.5 text-xs font-body tracking-wide" style="letter-spacing:0.04em;">
+    🌿&nbsp; Безплатна доставка при поръчки над&nbsp;<strong>25.57&nbsp;€</strong> <span style="font-size:0.8em;opacity:0.75;">(50&nbsp;лв.)</span>&nbsp;&nbsp;·&nbsp;&nbsp;Произведено в България от Agros&nbsp;98
+  </div>
+
+  <!-- Nav -->
+
+  <nav class="sticky top-0 z-50 bg-cream-50/95 backdrop-blur-md border-b border-cream-200"
+       style="box-shadow: 0 1px 0 rgba(34,144,94,0.06), 0 4px 24px rgba(34,144,94,0.05);">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+      <div class="flex items-center justify-between h-16">
+
+        <!-- Logo -->
+        <a href="../index.html" class="flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 rounded-lg">
+          <picture>
+        <source srcset="../images/agros-logo.webp" type="image/webp" />
+        <img src="../images/agros-logo.png" alt="Agros" class="h-12 w-auto" />
+      </picture>
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center gap-7">
+          <a href="../brands.html" class="nav-link text-sm font-body font-medium text-gray-600 hover:text-forest-800 transition-colors duration-200 focus-visible:outline-none">Продукти</a>
+          <a href="../about.html" class="nav-link text-sm font-body font-medium text-gray-600 hover:text-forest-800 transition-colors duration-200 focus-visible:outline-none">За нас</a>
+          <a href="../blog.html"  class="nav-link text-sm font-body font-medium text-gray-600 hover:text-forest-800 transition-colors duration-200 focus-visible:outline-none">Блог</a>
+          <a href="../contact.html" class="nav-link text-sm font-body font-medium text-gray-600 hover:text-forest-800 transition-colors duration-200 focus-visible:outline-none">Контакти</a>
+        </div>
+
+        <!-- Right Actions -->
+        <div class="flex items-center gap-1">
+          <button class="p-2.5 rounded-full hover:bg-forest-50 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400" aria-label="Търсене">
+            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+          </button>
+          <button class="relative p-2.5 rounded-full hover:bg-forest-50 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400" aria-label="Количка">
+            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+            <span class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-honey-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none" style="display:none;">0</span>
+          </button>
+          <!-- Mobile hamburger -->
+          <button class="md:hidden p-2.5 rounded-full hover:bg-forest-50 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400" aria-label="Меню">
+            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+  <!-- Sticky mini product bar (mobile only) -->
+  <div id="sticky-product-bar" class="lg:hidden" style="position:fixed;top:64px;left:0;right:0;z-index:39;background:rgba(247,243,236,0.97);backdrop-filter:blur(10px);border-bottom:1.5px solid #EDE5D5;padding:8px 16px;display:flex;align-items:center;gap:12px;transform:translateY(-110%);opacity:0;transition:transform .3s cubic-bezier(.34,1.56,.64,1),opacity .2s ease;box-shadow:0 4px 16px rgba(0,0,0,0.07);">
+    <div style="width:48px;height:58px;background:#EEF2EB;border-radius:8px;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+      <img id="sticky-img" src="" alt="" style="width:100%;height:100%;object-fit:contain;padding:3px;" />
+    </div>
+    <div style="flex:1;min-width:0;">
+      <div id="sticky-name" style="font-family:'Montserrat',sans-serif;font-size:0.78rem;font-weight:600;color:#124830;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></div>
+      <div id="sticky-size" style="font-family:'Inter',sans-serif;font-size:0.7rem;color:#9CA3AF;margin-top:1px;"></div>
+      <div id="sticky-price" style="font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:700;color:#124830;margin-top:2px;"></div>
+    </div>
+  </div>
+
+  <div>
+    <div>
+      <div style="background:linear-gradient(120deg,#FDF3D0 0%,#E8B84B 55%,#C8922A 100%); padding:28px 0 32px; position:relative; overflow:hidden;">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 75% 50%,rgba(255,200,60,0.18) 0%,transparent 65%);pointer-events:none;"></div>
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 relative">
+          <span style="display:inline-block;background:rgba(0,0,0,0.18);color:rgba(80,40,0,0.90);font-size:10px;font-family:'Inter',sans-serif;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:14px;">Студено пресовани масла</span>
+          <div>
+            <picture>
+        <source srcset="../images/olleo/olleo-logo.webp" type="image/webp" />
+        <img src="../images/olleo/olleo-logo.webp" alt="OLLEO" style="height:36px;width:auto;" />
+      </picture>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Breadcrumb -->
+      <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10" style="padding-top:16px; padding-bottom:12px;">
+        <nav class="flex items-center gap-2 text-xs font-body text-gray-400 mb-3">
+          <a href="../index.html" class="hover:text-forest-700 transition-colors duration-200">Начало</a>
+          <span>/</span>
+          <a href="../brands.html" class="hover:text-forest-700 transition-colors duration-200">Продукти</a>
+          <span>/</span>
+          <span class="text-honey-600 font-medium">OLLEO</span>
+          <span>/</span>
+          <span class="text-gray-600">Бутилки</span>
+        </nav>
+        <!-- Format switcher -->
+        <div style="display:inline-flex;background:white;border:1.5px solid #D7E4D4;border-radius:99px;padding:3px;gap:2px;">
+          <span style="padding:6px 15px;border-radius:99px;font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:700;background:#9B6200;color:white;">Бутилки</span>
+          <a href="olleo-doses.html" style="padding:6px 15px;border-radius:99px;font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:600;color:#6B7280;text-decoration:none;transition:color 0.15s,background 0.15s;" onmouseover="this.style.background='#EEF2EB';this.style.color='#186060';" onmouseout="this.style.background='transparent';this.style.color='#6B7280';">Дози</a>
+        </div>
+      </div>
+
+      <!-- Product section -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto px-5 sm:px-8 lg:px-10" style="padding-top:16px; padding-bottom:48px;">
+
+        <!-- Image -->
+        <div id="main-img-wrap" class="rounded-2xl overflow-hidden flex items-center justify-center lg:sticky lg:top-20 lg:aspect-square"
+             style="background:#EEF2EB; box-shadow:0 4px 30px rgba(34,144,94,0.10),0 1px 6px rgba(0,0,0,0.05);">
+          <picture>
+        <source srcset="../images/olleo/natural.webp" type="image/webp" />
+        <img id="main-img" src="../images/olleo/natural.webp" alt="OLLEO Студено пресовани натурални масла в бутилки 250–750 мл"
+               class="w-full h-full object-contain p-10" style="max-height:500px; transition:opacity 0.22s ease;" />
+      </picture>
+        </div>
+
+        <!-- Info -->
+        <div class="flex flex-col gap-5">
+
+          <!-- Badge -->
+          <span class="inline-flex w-fit items-center text-white text-[11px] font-body font-bold tracking-widest uppercase px-3 py-1.5 rounded-full" style="background:#9B6200;">OLLEO</span>
+
+          <!-- Title + desc -->
+          <div>
+            <h1 id="product-title" class="font-display font-bold text-forest-900 leading-tight mb-3"
+                style="font-size:clamp(1.5rem,2.5vw,2rem);letter-spacing:-0.025em;">Студено пресовани масла</h1>
+            <p id="product-desc" class="font-body text-gray-500 text-sm" style="line-height:1.7;">Произведени от 100% български слънчоглед. Студено пресовани без топлинна обработка — Омега 3 &amp; 6, витамини Е, А, Д. Без консерванти, без рафиниране. Продават се в <strong>пакети по 6 бутилки</strong>.</p>
+          </div>
+
+          <!-- Checkmarks -->
+          <div id="product-checks" class="grid grid-cols-2 gap-x-4 gap-y-2"></div>
+
+          <!-- Tabs -->
+          <div style="border-bottom:1px solid #EDE5D5;">
+            <div class="flex gap-6">
+              <button class="tab-btn active" onclick="switchTab(this,'tab-ing')">Съставки</button>
+              <button class="tab-btn" onclick="switchTab(this,'tab-use')">Начин на употреба</button>
+            </div>
+          </div>
+          <div>
+            <div id="tab-ing" class="tab-content active">
+              <p id="tab-ing-text" class="font-body text-gray-600 text-sm" style="line-height:1.75;"></p>
+            </div>
+            <div id="tab-use" class="tab-content">
+              <p id="tab-use-text" class="font-body text-gray-600 text-sm" style="line-height:1.75;"></p>
+            </div>
+          </div>
+
+          <!-- Variant selector -->
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-display font-semibold text-forest-900 text-sm">Избери Вкус</h3>
+              <div class="flex gap-1">
+                <button onclick="setFilter('sunflower')" id="f-sunflower" class="text-[11px] font-body font-semibold px-2.5 py-1 rounded-full border" style="background:#EEF2EB;color:#186060;border-color:#B0CAAD;">Слънчогледово масло</button>
+                <button onclick="setFilter('flax')" id="f-flax" class="text-[11px] font-body font-semibold px-2.5 py-1 rounded-full border" style="background:white;color:#6B7280;border-color:#D7E4D4;">Ленено масло</button>
+                <button onclick="setFilter('coriander')" id="f-coriander" class="text-[11px] font-body font-semibold px-2.5 py-1 rounded-full border" style="background:white;color:#6B7280;border-color:#D7E4D4;">Кориандрово масло</button>
+              </div>
+            </div>
+            <div id="variant-list" class="flex flex-col gap-1.5"></div>
+            <!-- Mix panel -->
+            <div id="mix-panel" style="display:none;margin-top:6px;border-radius:14px;border:1.5px solid rgba(34,144,94,0.2);background:rgba(34,144,94,0.04);padding:14px 14px 12px;">
+              <div class="flex items-center justify-between mb-3">
+                <span style="font-family:'Montserrat',sans-serif;font-size:.78rem;font-weight:700;color:#124830;">Избери вкусове за Микс пакета</span>
+                <div class="flex items-center gap-2">
+                  <span style="font-family:'Inter',sans-serif;font-size:.72rem;color:#6B7280;">Общо бутилки:</span>
+                  <select id="mix-target-sel" onchange="setMixTarget(+this.value)" style="font-family:'Inter',sans-serif;font-size:.78rem;font-weight:700;color:#124830;background:white;border:1.5px solid #D7E4D4;border-radius:8px;padding:4px 8px;cursor:pointer;outline:none;">
+                    <option value="6">6</option>
+                    <option value="12">12</option>
+                    <option value="18">18</option>
+                    <option value="24">24</option>
+                  </select>
+                </div>
+              </div>
+              <div id="mix-flavors" class="flex flex-col gap-1.5"></div>
+              <div class="flex items-center justify-between mt-3 pt-3" style="border-top:1px solid #EDE5D5;">
+                <div class="flex items-center gap-2">
+                  <div style="width:120px;height:6px;background:#EDE5D5;border-radius:99px;overflow:hidden;">
+                    <div id="mix-progress-fill" style="height:100%;background:#3ABF82;border-radius:99px;width:0%;transition:width .2s ease;"></div>
+                  </div>
+                  <span id="mix-counter-label" style="font-family:'Inter',sans-serif;font-size:.78rem;font-weight:600;color:#6B7280;">0 / 6 бутилки</span>
+                </div>
+                <span id="mix-price-label" style="font-family:'Inter',sans-serif;font-size:.82rem;font-weight:700;color:#124830;"></span>
+              </div>
+              <div id="mix-hint" style="font-family:'Inter',sans-serif;font-size:.72rem;color:#C8922A;margin-top:6px;display:none;"></div>
+            </div>
+            <!-- Purchase type widget -->
+            <div class="flex flex-col gap-2 mt-4">
+              <div id="card-single" class="purchase-card active" onclick="setPurchaseMode('single')">
+                <div class="flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <div class="purchase-radio"><div class="purchase-radio-dot"></div></div>
+                    <span class="font-body font-medium text-gray-800 text-sm">Еднократна поръчка</span>
+                  </div>
+                  <span id="price-single" class="font-body font-bold text-gray-900 text-sm whitespace-nowrap">—</span>
+                </div>
+              </div>
+              <div id="card-sub" class="purchase-card" onclick="setPurchaseMode('subscribe')">
+                <div class="flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3">
+                    <div class="purchase-radio"><div class="purchase-radio-dot"></div></div>
+                    <span class="font-body font-medium text-gray-800 text-sm">Абонирай се и <strong style="color:#C8922A;">спести 15%</strong></span>
+                  </div>
+                  <div class="text-right">
+                    <div id="price-orig" class="font-body text-xs text-gray-400 line-through" style="min-height:14px;"></div>
+                    <span id="price-sub" class="font-body font-bold text-sm" style="color:#C8922A;">—</span>
+                  </div>
+                </div>
+                <div id="sub-panel" style="display:none;margin-top:12px;" onclick="event.stopPropagation()">
+                  <p class="font-body text-xs text-gray-500 mb-2">Избери честота на доставка</p>
+                  <div class="relative">
+                    <select id="sub-freq" onchange="subFreq=this.value" class="sub-freq-select">
+                      <option value="2">Доставка на всеки 2 седмици</option>
+                      <option value="3">Доставка на всеки 3 седмици</option>
+                      <option value="4" selected>Доставка на всеки 4 седмици (популярно)</option>
+                      <option value="5">Доставка на всеки 5 седмици</option>
+                      <option value="6">Доставка на всеки 6 седмици</option>
+                      <option value="7">Доставка на всеки 7 седмици</option>
+                      <option value="8">Доставка на всеки 8 седмици</option>
+                    </select>
+                    <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+                  </div>
+                  <div class="flex flex-col gap-2 mt-3">
+                    <div class="flex items-start gap-2">
+                      <svg class="w-4 h-4 flex-shrink-0 mt-0.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>
+                      <span class="font-body text-xs text-gray-500">Можеш да прекратиш абонамента си по всяко време.</span>
+                    </div>
+                    <div class="flex items-start gap-2">
+                      <svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#3ABF82;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                      <span class="font-body text-xs text-gray-500">Можеш да променяш честотата на доставка, количеството и вкуса на продуктите през профила си.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button id="add-btn" onclick="addToCart(this)" class="btn mt-3 w-full flex items-center justify-center gap-2 text-white font-body font-semibold px-6 py-3.5 rounded-full focus-visible:outline-none focus-visible:ring-2" style="background:#C8922A;box-shadow:0 4px 20px rgba(200,146,42,0.40),0 1px 4px rgba(200,146,42,0.20);">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              Добави в количка
+            </button>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+
+
+  <!-- Footer -->
+    <!-- Footer -->
+    <!-- Footer -->
+  
+    </div>
+  </div>
+
+  </main>
+
+  <footer class="mt-20 bg-forest-900">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+
+        <!-- Brand -->
+        <div class="lg:col-span-1">
+          <a href="../index.html" class="mb-5 inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400 rounded-lg">
+            <picture>
+        <source srcset="../images/agros-logo.webp" type="image/webp" />
+        <img src="../images/agros-logo.png" alt="Agros" class="h-10 w-auto" style="" />
+      </picture>
+          </a>
+          <p class="text-forest-300 font-body text-sm mb-6" style="line-height:1.75;">
+            Натурални продукти за здраве и красота. Произведено от Agros&nbsp;98, Варна, България.
+          </p>
+          <div class="flex items-center gap-2.5">
+            <a href="javascript:void(0)" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/12 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400"
+               style="background:rgba(255,255,255,0.07);" aria-label="Facebook">
+              <svg class="w-4 h-4 text-forest-300" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+            <a href="javascript:void(0)" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/12 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400"
+               style="background:rgba(255,255,255,0.07);" aria-label="YouTube">
+              <svg class="w-4 h-4 text-forest-300" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/>
+              </svg>
+            </a>
+            <a href="javascript:void(0)" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/12 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400"
+               style="background:rgba(255,255,255,0.07);" aria-label="Instagram">
+              <svg class="w-4 h-4 text-forest-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Products -->
+        <div>
+          <h4 class="text-cream-100 font-body font-semibold text-sm tracking-wide mb-5">Продукти</h4>
+          <ul class="space-y-3">
+            <li><a href="../brands.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">OLLEO Масла</a></li>
+            <li><a href="../brands.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">NOTEO Брашна</a></li>
+            <li><a href="../brands.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">NOTEO Протеини</a></li>
+            <li><a href="../brands.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">D'ORSO Козметика</a></li>
+            <li><a href="../brands.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">Всички продукти</a></li>
+          </ul>
+        </div>
+
+        <!-- Info -->
+        <div>
+          <h4 class="text-cream-100 font-body font-semibold text-sm tracking-wide mb-5">Информация</h4>
+          <ul class="space-y-3">
+            <li><a href="../about.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">За нас</a></li>
+            <li><a href="../delivery.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">Доставка</a></li>
+            <li><a href="../terms.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">Общи условия</a></li>
+            <li><a href="../privacy.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">Политика за поверителност</a></li>
+            <li><a href="../cookies.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">Информация за бисквитки</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="text-cream-100 font-body font-semibold text-sm tracking-wide mb-5">Контакти</h4>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <svg class="w-4 h-4 text-honey-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span class="text-forest-300 font-body text-sm" style="line-height:1.6;">ул. Цар Иван Шишман 36,<br>Варна, България</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 text-honey-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1 19.79 19.79 0 0 1 1.58 4.5 2 2 0 0 1 3.55 2.32h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.29 6.29l.88-.88a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 17.64z"/>
+              </svg>
+              <a href="tel:+359888858996" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">+359 888 858 996</a>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 text-honey-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+              <a href="mailto:office@agros.net" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">office@agros.net</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4"
+           style="border-top:1px solid rgba(255,255,255,0.07);">
+        <p class="text-forest-500 font-body text-xs">© 2026 Agros Grain Group. Всички права запазені.</p>
+        <div class="flex items-center gap-5">
+          <a href="../privacy.html" class="text-forest-500 hover:text-forest-300 font-body text-xs transition-colors duration-200">Поверителност</a>
+          <a href="../cookies.html" class="text-forest-500 hover:text-forest-300 font-body text-xs transition-colors duration-200">Бисквитки</a>
+          <a href="../terms.html" class="text-forest-500 hover:text-forest-300 font-body text-xs transition-colors duration-200">Условия</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+<script>
+const EUR_RATE = 1.9558;
+function fmtEUR(bgn) {
+  const eur = (bgn / EUR_RATE).toFixed(2);
+  return eur + ' €<span class="bgn-price" style="font-size:0.78em;opacity:0.55;font-weight:400;margin-left:5px;">(' + bgn.toFixed(2) + ' лв.)</span>';
+}
+// Prices are per pack of 6 bottles; unitPrice used for Mix mode (per individual bottle)
+const VARIANTS = [
+  { id:'nat750', name:'Натурално слънчогледово олио', size:'6 × 750 мл', unitPrice:8.96,  price:'53.76', img:'../images/olleo/natural.png',       type:'sunflower' },
+  { id:'lem250', name:'С лимон',                      size:'6 × 250 мл', unitPrice:4.79,  price:'28.74', img:'../images/olleo/lemon.png',         type:'sunflower' },
+  { id:'gar250', name:'С чесън',                      size:'6 × 250 мл', unitPrice:4.79,  price:'28.74', img:'../images/olleo/garlic.png',        type:'sunflower' },
+  { id:'chi250', name:'С чили',                       size:'6 × 250 мл', unitPrice:4.79,  price:'28.74', img:'../images/olleo/chilli.png',        type:'sunflower' },
+  { id:'tru250', name:'С трюфел',                     size:'6 × 250 мл', unitPrice:9.80,  price:'58.80', img:'../images/olleo/trufel.png',        type:'sunflower' },
+  { id:'oli250', name:'Extra Virgin Mix',              size:'6 × 250 мл', unitPrice:6.20,  price:'37.20', img:'../images/olleo/olive-oil.png',    type:'sunflower' },
+  { id:'ome250', name:'Omega Mix',                     size:'6 × 250 мл', unitPrice:6.90,  price:'41.40', img:'../images/olleo/omega-mix.png',     type:'sunflower' },
+  { id:'fla250', name:'Ленено',                        size:'6 × 250 мл', unitPrice:5.81,  price:'34.86', img:'../images/olleo/flax-oil.png',      type:'flax' },
+  { id:'cor250', name:'С кориандър',                   size:'6 × 250 мл', unitPrice:21.01, price:'126.06',img:'../images/olleo/coriander-oil.png', type:'coriander' },
+];
+const MIX_UNIT = 6;
+// Only 250ml variants can be mixed (same bottle size)
+const MIX_VARIANTS = VARIANTS.filter(v => v.id !== 'nat750');
+let mixTarget = 6;
+let mixQty = {};
+MIX_VARIANTS.forEach(v => { mixQty[v.id] = 0; });
+const CHECK_SVG = `<svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 20 20" fill="#3ABF82"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>`;
+const CONTENT = {
+  sunflower: {
+    img:   '../images/olleo/natural.png',
+    title: 'Студено пресовани слънчогледови масла',
+    desc:  'Произведени от 100% български слънчоглед. Студено пресовани без топлинна обработка — Омега 3 &amp; 6, витамини Е, А, Д. Без консерванти, без рафиниране.',
+    checks: ['Студено пресовано','Без консерванти','Богато на Омега 3 &amp; 6','100% Натурално','Произведено в България','Без ГМО'],
+    ing:   'Студено пресовани 100% <strong>български слънчогледови ядки</strong>. За ароматизираните варианти — есенциални масла от лимон, чесън, чили, трюфел. Без консерванти, без добавки.',
+    use:   'Подходящо за салати, сосове, супи, зеленчукови кремове, месо и риба. Не е подходящо за пържене, варене или печене. При температури под 20°C може да се появи утайка — нормален процес.',
+  },
+  flax: {
+    img:   '../images/olleo/flax-oil.png',
+    title: 'Студено пресовано ленено масло',
+    desc:  'Произведено от 100% български лен. Изключително богато на Омега-3 мастни киселини — до 57%. Студено пресовано без топлинна обработка. Без консерванти, без рафиниране.',
+    checks: ['Студено пресовано','Без консерванти','Омега-3 до 57%','100% Натурално','Произведено в България','Без ГМО'],
+    ing:   'Студено пресовани 100% <strong>български ленени семена</strong>. Без консерванти, без добавки, без рафиниране.',
+    use:   'Подходящо за салати, смутита и студени ястия. Не е подходящо за термична обработка — високата температура унищожава Омега-3. Съхранявайте на хладно и тъмно място.',
+  },
+  coriander: {
+    img:   '../images/olleo/coriander-oil.png',
+    title: 'Студено пресовано кориандрово масло',
+    desc:  'Произведено от 100% български кориандър. Богато на линолова киселина и антиоксиданти. Студено пресовано без топлинна обработка. Без консерванти, без рафиниране.',
+    checks: ['Студено пресовано','Без консерванти','Богато на антиоксиданти','100% Натурално','Произведено в България','Без ГМО'],
+    ing:   'Студено пресовани 100% <strong>български кориандрови семена</strong>. Без консерванти, без добавки, без рафиниране.',
+    use:   'Подходящо за салати, маринати, хляб и сладкиши. Придава неповторим вкус и аромат на ястията. Не е подходящо за пържене при висока температура.',
+  },
+};
+function updateContent(type) {
+  const c = CONTENT[type];
+  document.getElementById('product-title').textContent = c.title;
+  document.getElementById('product-desc').innerHTML = c.desc;
+  document.getElementById('product-checks').innerHTML = c.checks.map(t =>
+    `<div class="flex items-center gap-2">${CHECK_SVG}<span class="font-body text-sm text-gray-600">${t}</span></div>`
+  ).join('');
+  document.getElementById('tab-ing-text').innerHTML = c.ing;
+  document.getElementById('tab-use-text').innerHTML = c.use;
+  const el = document.getElementById('main-img');
+  el.style.opacity = '0';
+  setTimeout(() => { el.src = c.img; el.style.opacity = '1'; }, 200);
+  const first = VARIANTS.find(v => v.type === type);
+  if (first) selectedId = first.id;
+}
+
+let qty = {};
+let purchaseMode = 'single';
+let subFreq = '4';
+let activeFilter = 'sunflower';
+let selectedId = 'nat750';
+let isMixMode = false;
+VARIANTS.forEach(v => { qty[v.id] = 0; });
+
+function mixTotal(){ return MIX_VARIANTS.reduce((s,v)=>s+mixQty[v.id],0); }
+function mixPrice(){ return MIX_VARIANTS.reduce((s,v)=>s+mixQty[v.id]*v.unitPrice,0); }
+function isMixValid(){ const t=mixTotal(); return t>0 && t%MIX_UNIT===0; }
+function calcTotal(){
+  if(isMixMode) return mixPrice();
+  return VARIANTS.reduce((s,v)=>s+qty[v.id]*parseFloat(v.price),0);
+}
+
+function updateMixPanel(){
+  const total=mixTotal();
+  document.getElementById('mix-progress-fill').style.width=Math.min(100,(total/mixTarget)*100)+'%';
+  document.getElementById('mix-counter-label').textContent=total+' / '+mixTarget+' бутилки';
+  const priceEl=document.getElementById('mix-price-label');
+  priceEl.innerHTML=total>0?fmtEUR(mixPrice()):'';
+  const hint=document.getElementById('mix-hint');
+  if(total===0){ hint.style.display='none'; }
+  else if(total%MIX_UNIT!==0){
+    hint.textContent='Добавете още '+(MIX_UNIT-(total%MIX_UNIT))+' бутилки за да завършите пакета.';
+    hint.style.display='block';
+  } else { hint.style.display='none'; }
+  renderMixFlavors();
+  updatePurchaseWidget();
+}
+
+function setMixTarget(n){
+  mixTarget=n;
+  let over=mixTotal()-n;
+  if(over>0){ for(let i=MIX_VARIANTS.length-1;i>=0&&over>0;i--){ const cut=Math.min(mixQty[MIX_VARIANTS[i].id],over);mixQty[MIX_VARIANTS[i].id]-=cut;over-=cut; } }
+  updateMixPanel();
+}
+
+function chMixQty(id,d){
+  const newVal=mixQty[id]+d;
+  if(newVal<0) return;
+  if(d>0&&mixTotal()>=mixTarget) return;
+  mixQty[id]=newVal;
+  updateMixPanel();
+}
+
+function renderMixFlavors(){
+  const total=mixTotal();
+  document.getElementById('mix-flavors').innerHTML=MIX_VARIANTS.map(v=>`
+    <div style="display:flex;align-items:center;gap:10px;padding:7px 8px;border-radius:10px;background:${mixQty[v.id]>0?'rgba(34,144,94,0.06)':'transparent'};">
+      <div style="width:40px;height:48px;background:#EEF2EB;border-radius:7px;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+        <img src="${v.img}" alt="${v.name}" style="width:100%;height:100%;object-fit:contain;padding:2px;" />
+      </div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-family:'Montserrat',sans-serif;font-size:.75rem;font-weight:600;color:#124830;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${v.name}</div>
+        <div style="font-family:'Inter',sans-serif;font-size:.68rem;color:#9CA3AF;">250 мл · ${v.unitPrice.toFixed(2)} лв. / бутилка</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:5px;">
+        <button class="qty-btn" onclick="chMixQty('${v.id}',-1)" ${mixQty[v.id]===0?'style="opacity:0.4;cursor:not-allowed;"':''}>−</button>
+        <span style="min-width:20px;text-align:center;font-weight:700;font-size:.85rem;font-family:'Inter',sans-serif;">${mixQty[v.id]}</span>
+        <button class="qty-btn" onclick="chMixQty('${v.id}',1)" ${total>=mixTarget?'style="opacity:0.4;cursor:not-allowed;"':''}>+</button>
+      </div>
+    </div>`).join('');
+}
+
+function updatePurchaseWidget(){
+  const total=calcTotal();const sub=total*0.85;
+  document.getElementById('price-single').innerHTML=total>0?fmtEUR(total):'—';
+  document.getElementById('price-orig').innerHTML=total>0?fmtEUR(total):'';
+  document.getElementById('price-sub').innerHTML=total>0?fmtEUR(sub):'—';
+  document.getElementById('card-single').classList.toggle('active',purchaseMode==='single');
+  document.getElementById('card-sub').classList.toggle('active',purchaseMode==='subscribe');
+  document.getElementById('sub-panel').style.display=purchaseMode==='subscribe'?'block':'none';
+  const btn=document.getElementById('add-btn');
+  if(isMixMode&&!isMixValid()){ btn.disabled=true;btn.style.opacity='0.5';btn.style.cursor='not-allowed'; }
+  else { btn.disabled=false;btn.style.opacity='1';btn.style.cursor='pointer'; }
+}
+function setPurchaseMode(mode){purchaseMode=mode;updatePurchaseWidget();}
+
+function selectMix(){
+  isMixMode=true;selectedId='mix';
+  document.getElementById('mix-panel').style.display='block';
+  renderMixFlavors();
+  updateMixPanel();
+  render();
+}
+function deselectMix(){
+  isMixMode=false;
+  document.getElementById('mix-panel').style.display='none';
+}
+
+function render() {
+  const shown = VARIANTS.filter(v => v.type === activeFilter);
+  const mixRow=`
+    <div class="variant-row ${selectedId==='mix'?'selected':''}" onclick="selectMix()">
+      <div style="width:56px;height:66px;background:linear-gradient(135deg,#EEF2EB 0%,#D0E8D8 100%);border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.7rem;">🎨</div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-family:'Montserrat',sans-serif;font-size:.78rem;font-weight:700;color:#124830;line-height:1.3;">Микс по избор</div>
+        <div style="font-family:'Inter',sans-serif;font-size:.7rem;color:#9CA3AF;margin-top:1px;">Избери вкусовете сам — пакети по 6, 12, 18… × 250 мл</div>
+        <div style="font-family:'Inter',sans-serif;font-size:.72rem;font-weight:600;color:#3ABF82;margin-top:2px;">Цена на смесения пакет →</div>
+      </div>
+      <svg style="width:16px;height:16px;flex-shrink:0;color:#9CA3AF;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+    </div>`;
+  document.getElementById('variant-list').innerHTML = shown.map(v => `
+    <div class="variant-row ${selectedId===v.id&&!isMixMode?'selected':''}" onclick="select('${v.id}','${v.img}')">
+      <div style="width:56px;height:66px;background:#EEF2EB;border-radius:8px;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+        <img src="${v.img}" alt="${v.name}" style="width:100%;height:100%;object-fit:contain;padding:3px;" />
+      </div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-family:'Montserrat',sans-serif;font-size:0.78rem;font-weight:600;color:#124830;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${v.name}</div>
+        <div style="font-family:'Inter',sans-serif;font-size:0.7rem;color:#9CA3AF;margin-top:1px;">${v.size}</div>
+        <div style="font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:700;color:#124830;margin-top:2px;">${fmtEUR(parseFloat(v.price))}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:5px;" onclick="event.stopPropagation()">
+        <button class="qty-btn" onclick="chQty('${v.id}',-1)">−</button>
+        <span class="qty-val" id="q-${v.id}">${qty[v.id]}</span>
+        <button class="qty-btn" onclick="chQty('${v.id}',1)">+</button>
+      </div>
+    </div>`).join('') + mixRow;
+}
+
+function select(id, img) {
+  isMixMode=false;selectedId = id;
+  deselectMix();
+  const el = document.getElementById('main-img');
+  el.style.opacity = '0';
+  setTimeout(() => { el.src = img; el.style.opacity = '1'; }, 200);
+  render();
+  updateStickyBar();
+  updatePurchaseWidget();
+}
+
+function chQty(id, d) {
+  qty[id] = Math.max(0, qty[id] + d);
+  const el = document.getElementById('q-' + id);
+  if (el) el.textContent = qty[id];
+  updatePurchaseWidget();
+}
+
+function setFilter(f) {
+  if(isMixMode) deselectMix();
+  activeFilter = f;
+  isMixMode = false;
+  ['sunflower','flax','coriander'].forEach(k => {
+    const b = document.getElementById('f-' + k);
+    if (k === f) { b.style.background = '#EEF2EB'; b.style.color = '#186060'; b.style.borderColor = '#B0CAAD'; }
+    else         { b.style.background = 'white';   b.style.color = '#6B7280'; b.style.borderColor = '#D7E4D4'; }
+  });
+  updateContent(f);
+  render();
+}
+
+function switchTab(btn, id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+
+function addToCart(btn){
+  let added=false;const isSub=purchaseMode==='subscribe';
+  if(isMixMode){
+    if(!isMixValid()) return;
+    if(typeof AgrosCart!=='undefined'){
+      MIX_VARIANTS.forEach(v=>{
+        if(mixQty[v.id]>0){
+          const totalPrice=isSub?(v.unitPrice*mixQty[v.id]*0.85).toFixed(2):(v.unitPrice*mixQty[v.id]).toFixed(2);
+          const name='OLLEO Микс — '+v.name+(isSub?' (Абонамент)':'');
+          AgrosCart.addItem(null,name,mixQty[v.id]+' × 250 мл',totalPrice,v.img,'OLLEO');
+        }
+      });
+    }
+    added=true;
+  } else {
+    VARIANTS.forEach(v=>{
+      if(qty[v.id]>0&&typeof AgrosCart!=='undefined'){
+        const price=isSub?(parseFloat(v.price)*0.85).toFixed(2):v.price;
+        const name=isSub?'OLLEO '+v.name+' (Абонамент)':'OLLEO '+v.name;
+        for(let i=0;i<qty[v.id];i++)AgrosCart.addItem(null,name,v.size,price,v.img,'OLLEO');
+        added=true;
+      }
+    });
+  }
+  if(added&&btn){const orig=btn.innerHTML;btn.innerHTML='✓ Добавено';btn.style.background='#3ABF82';btn.disabled=true;setTimeout(()=>{btn.innerHTML=orig;btn.style.background='#C8922A';btn.disabled=false;updatePurchaseWidget();},1400);}
+}
+
+updateContent(activeFilter);
+render();
+updatePurchaseWidget();
+
+// Sticky mini product bar
+function updateStickyBar() {
+  const v = VARIANTS.find(x => x.id === selectedId);
+  if (!v) return;
+  document.getElementById('sticky-img').src = v.img;
+  document.getElementById('sticky-name').textContent = v.name;
+  document.getElementById('sticky-size').textContent = v.size;
+  document.getElementById('sticky-price').innerHTML = fmtEUR(parseFloat(v.price));
+}
+updateStickyBar();
+const _stickyBar = document.getElementById('sticky-product-bar');
+const _imgWrap = document.getElementById('main-img-wrap');
+new IntersectionObserver(([entry]) => {
+  if (window.innerWidth >= 1024) return;
+  if (!entry.isIntersecting) {
+    _stickyBar.style.transform = 'translateY(0)';
+    _stickyBar.style.opacity = '1';
+  } else {
+    _stickyBar.style.transform = 'translateY(-110%)';
+    _stickyBar.style.opacity = '0';
+  }
+}, { threshold: 0 }).observe(_imgWrap);
+</script>
+<script src="/auth.js"></script>
+<script src="/cart.js"></script>
+<script src="../nav-dropdown.js"></script>
+</body>
+</html>

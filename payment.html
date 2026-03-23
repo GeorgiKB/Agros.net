@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Плащане — Agros</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #F2EDE4; color: #1A1A1A; min-height: 100vh; }
+    h1, h2, h3, .font-display { font-family: 'Montserrat', sans-serif; }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #F2EDE4; }
+    ::-webkit-scrollbar-thumb { background: #186060; border-radius: 4px; }
+
+    /* ── Checkout Nav ──────────────────────────────────────────── */
+    .co-nav {
+      background: #FEFCF8;
+      border-bottom: 1px solid rgba(221,208,188,0.6);
+      box-shadow: 0 1px 0 rgba(24,96,96,0.05), 0 2px 12px rgba(24,96,96,0.04);
+      position: sticky; top: 0; z-index: 50;
+    }
+    .co-nav-inner {
+      max-width: 1080px; margin: 0 auto;
+      padding: 0 24px;
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .co-logo img { height: 38px; width: auto; display: block; }
+
+    .co-steps { display: flex; align-items: center; gap: 0; }
+    .co-step {
+      display: flex; align-items: center; gap: 7px;
+      font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+      color: #9CA3AF;
+    }
+    .co-step.done { color: #186060; }
+    .co-step.active { color: #1A1A1A; font-weight: 600; }
+    .co-step-num {
+      width: 22px; height: 22px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700;
+      border: 1.5px solid currentColor;
+    }
+    .co-step.done .co-step-num { background: #186060; border-color: #186060; color: white; }
+    .co-step.active .co-step-num { background: #1A1A1A; border-color: #1A1A1A; color: white; }
+    .co-sep { width: 32px; height: 1.5px; background: #DDD0BC; margin: 0 4px; }
+
+    .co-secure {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 500; color: #6B7280;
+    }
+    .co-secure svg { color: #186060; }
+
+    /* ── Layout ────────────────────────────────────────────────── */
+    .checkout-main { max-width: 1080px; margin: 0 auto; padding: 36px 24px 60px; }
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 860px) {
+      .checkout-grid { grid-template-columns: 1fr; }
+      .summary-sticky { position: static !important; }
+    }
+    .form-col { display: flex; flex-direction: column; gap: 16px; }
+    .summary-sticky { position: sticky; top: 88px; }
+
+    /* ── Cards ─────────────────────────────────────────────────── */
+    .c-card {
+      background: #FEFCF8;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow:
+        0 0 0 1px rgba(221,208,188,0.5),
+        0 2px 8px rgba(24,96,96,0.06),
+        0 8px 32px rgba(24,96,96,0.07);
+    }
+
+    .c-card-head {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 24px;
+    }
+    .c-step-badge {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: #186060; color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .c-card-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 17px; font-weight: 700;
+      color: #1A1A1A; letter-spacing: -0.01em;
+      flex: 1;
+    }
+
+    /* ── Form Fields ───────────────────────────────────────────── */
+    .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .field-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .col-span-2 { grid-column: span 2; }
+    @media (max-width: 560px) {
+      .field-grid, .field-grid-3 { grid-template-columns: 1fr; }
+      .col-span-2 { grid-column: span 1; }
+    }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field-label {
+      font-size: 11px; font-weight: 600; color: #6B7280;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .field-label .req { color: #186060; }
+    .input-f {
+      width: 100%; padding: 12px 14px;
+      border: 1.5px solid #DDD0BC; border-radius: 12px;
+      font-family: 'Inter', sans-serif; font-size: 14.5px;
+      background: white; color: #1A1A1A; outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .input-f:focus {
+      border-color: #186060;
+      box-shadow: 0 0 0 3px rgba(24,96,96,0.1);
+    }
+    .input-f::placeholder { color: #C5BDB3; }
+    .input-f.error { border-color: #EF4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.1); }
+    textarea.input-f { resize: none; }
+
+    .form-fields { display: flex; flex-direction: column; gap: 14px; }
+
+    /* ── Demo notice ────────────────────────────────────────────── */
+    .demo-notice {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 12px 14px; border-radius: 12px; margin-bottom: 16px;
+      background: #FFF8E7; border: 1px solid #F0C96A;
+      font-size: 13px; font-weight: 500; color: #92400E; line-height: 1.5;
+    }
+    .demo-notice svg { flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Stripe container ───────────────────────────────────────── */
+    #stripe-element-container {
+      padding: 16px; border: 1.5px solid #DDD0BC; border-radius: 12px;
+      background: white; min-height: 60px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    #stripe-element-container:focus-within {
+      border-color: #186060; box-shadow: 0 0 0 3px rgba(24,96,96,0.1);
+    }
+
+    /* ── Loading spinner ────────────────────────────────────────── */
+    .loading-row {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; padding: 24px 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spin { animation: spin 0.8s linear infinite; }
+
+    /* ── Payment method icons ───────────────────────────────────── */
+    .pay-icons { display: flex; gap: 6px; margin-left: auto; }
+    .pay-icon {
+      height: 22px; border-radius: 4px; opacity: 0.75;
+    }
+
+    /* ── Summary card ───────────────────────────────────────────── */
+    .summary-title {
+      font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700;
+      color: #1A1A1A; letter-spacing: -0.01em; margin-bottom: 18px;
+    }
+    .summary-items { display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; }
+    .summary-item { display: flex; align-items: center; gap: 12px; }
+    .summary-img {
+      width: 52px; height: 52px; border-radius: 10px; object-fit: cover;
+      background: #EEF2EB; flex-shrink: 0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    .summary-item-info { flex: 1; min-width: 0; }
+    .summary-item-name {
+      font-size: 13.5px; font-weight: 500; color: #1A1A1A;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      line-height: 1.3;
+    }
+    .summary-item-meta { font-size: 12px; color: #9CA3AF; margin-top: 2px; }
+    .summary-item-price { font-size: 14px; font-weight: 600; color: #1A1A1A; flex-shrink: 0; }
+
+    .summary-divider { height: 1px; background: rgba(221,208,188,0.6); margin: 16px 0; }
+
+    .summary-row {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 13.5px; margin-bottom: 8px;
+    }
+    .summary-row-label { color: #6B7280; }
+    .summary-row-value { font-weight: 500; color: #1A1A1A; }
+
+    .discount-pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: #D7EDD7; color: #186060;
+      font-size: 12px; font-weight: 600;
+      padding: 3px 10px; border-radius: 9999px;
+    }
+
+    .total-row {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-top: 12px; padding-top: 14px;
+      border-top: 1.5px solid rgba(221,208,188,0.8);
+    }
+    .total-label {
+      font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; color: #1A1A1A;
+    }
+    .total-eur {
+      font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 800;
+      color: #186060; letter-spacing: -0.03em; line-height: 1;
+    }
+    .total-bgn { font-size: 12px; color: #9CA3AF; text-align: right; margin-top: 3px; }
+
+    /* ── Pay button ─────────────────────────────────────────────── */
+    .pay-btn {
+      width: 100%; margin-top: 20px;
+      padding: 16px 24px;
+      background: #186060; color: white; border: none;
+      border-radius: 9999px; cursor: pointer;
+      font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      box-shadow: 0 4px 16px rgba(24,96,96,0.3), 0 8px 32px rgba(24,96,96,0.15);
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease, opacity 0.2s ease;
+    }
+    .pay-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(24,96,96,0.4), 0 12px 40px rgba(24,96,96,0.2);
+    }
+    .pay-btn:active:not(:disabled) { transform: translateY(0); opacity: 0.92; }
+    .pay-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .pay-btn svg { flex-shrink: 0; }
+
+    /* ── Trust badges ───────────────────────────────────────────── */
+    .trust-row {
+      display: flex; align-items: center; justify-content: center;
+      gap: 16px; margin-top: 14px;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 11px; font-weight: 500; color: #9CA3AF;
+    }
+    .trust-item svg { color: #186060; }
+
+    .terms-note {
+      font-size: 11.5px; color: #B0A89A; text-align: center; margin-top: 12px; line-height: 1.5;
+    }
+    .terms-note a { color: #186060; text-decoration: underline; }
+    .terms-note a:hover { color: #0f4040; }
+
+    .back-link {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      margin-top: 14px; font-size: 13px; font-weight: 500; color: #6B7280;
+      text-decoration: none; transition: color 0.2s ease;
+    }
+    .back-link:hover { color: #186060; }
+
+    /* ── Payment error ──────────────────────────────────────────── */
+    .pay-error {
+      display: none; margin-top: 12px; padding: 12px 14px; border-radius: 10px;
+      background: #FEF2F2; border: 1px solid #FECACA;
+      font-size: 13px; font-weight: 500; color: #DC2626; line-height: 1.5;
+    }
+
+    /* ── Secure note ────────────────────────────────────────────── */
+    .secure-note {
+      display: flex; align-items: center; gap: 6px; margin-top: 12px;
+      font-size: 12px; color: #9CA3AF;
+    }
+    .secure-note svg { color: #186060; }
+
+    /* ── Demo banner ────────────────────────────────────────────── */
+    #demo-banner {
+      max-width: 1080px; margin: 16px auto 0; padding: 0 24px;
+    }
+    .demo-banner-inner {
+      padding: 12px 16px; border-radius: 12px;
+      background: #FFF8E7; border: 1px solid #F0C96A;
+      font-size: 13px; color: #92400E; font-weight: 500; line-height: 1.5;
+    }
+
+    /* ── Success overlay ────────────────────────────────────────── */
+    #success-overlay {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(15,25,15,0.65); backdrop-filter: blur(8px);
+      align-items: center; justify-content: center; padding: 24px;
+    }
+    #success-overlay.show { display: flex; }
+
+    #success-card {
+      background: white; border-radius: 28px; padding: 48px 40px;
+      max-width: 440px; width: 100%; text-align: center;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.25);
+      animation: popIn 0.45s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes popIn { from { opacity:0; transform:scale(0.8) translateY(20px); } to { opacity:1; transform:scale(1) translateY(0); } }
+
+    .success-circle {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: linear-gradient(135deg, #186060, #22907a);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+      box-shadow: 0 8px 32px rgba(24,96,96,0.35);
+      animation: scaleIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 0.1s both;
+    }
+    @keyframes scaleIn { from { transform:scale(0); } to { transform:scale(1); } }
+
+    .check-path {
+      stroke-dasharray: 60; stroke-dashoffset: 60;
+      animation: drawCheck 0.5s ease 0.4s forwards;
+    }
+    @keyframes drawCheck { to { stroke-dashoffset: 0; } }
+
+    .success-title {
+      font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 800;
+      color: #1A1A1A; letter-spacing: -0.02em; margin-bottom: 10px;
+    }
+    .success-subtitle {
+      font-size: 14.5px; color: #6B7280; line-height: 1.7; margin-bottom: 20px;
+    }
+    .success-order-badge {
+      display: inline-block; padding: 6px 18px; border-radius: 9999px;
+      background: #F2EDE4; font-family: 'Montserrat', sans-serif;
+      font-size: 13px; font-weight: 700; color: #186060; margin-bottom: 28px;
+      letter-spacing: 0.04em;
+    }
+    .success-actions { display: flex; flex-direction: column; gap: 10px; }
+    .success-btn-primary {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px 28px; border-radius: 9999px;
+      background: #186060; color: white; text-decoration: none;
+      font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700;
+      box-shadow: 0 4px 16px rgba(24,96,96,0.3);
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease;
+    }
+    .success-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(24,96,96,0.4); }
+    .success-btn-secondary {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 13px 28px; border-radius: 9999px;
+      background: transparent; color: #6B7280; text-decoration: none;
+      font-size: 14px; font-weight: 500; border: 1.5px solid #DDD0BC;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .success-btn-secondary:hover { color: #186060; border-color: #186060; }
+
+    /* ── Footer ─────────────────────────────────────────────────── */
+    .co-footer {
+      background: #186060; padding: 28px 24px; text-align: center; margin-top: 0;
+    }
+    .co-footer img { height: 28px; width: auto; margin: 0 auto 8px; opacity: 0.55; display: block; }
+    .co-footer p { font-size: 12px; color: rgba(255,255,255,0.4); }
+  </style>
+</head>
+<body>
+
+  <!-- ══ CHECKOUT NAV ══════════════════════════════════════════════ -->
+  <nav class="co-nav">
+    <div class="co-nav-inner">
+      <a href="index.html" class="co-logo">
+        <picture>
+          <source srcset="images/agros-logo.webp" type="image/webp" />
+          <img src="images/agros-logo.png" alt="Agros" />
+        </picture>
+      </a>
+
+      <ol class="co-steps">
+        <li class="co-step done">
+          <span class="co-step-num">
+            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 6l3 3 5-5"/></svg>
+          </span>
+          Количка
+        </li>
+        <li class="co-sep"></li>
+        <li class="co-step active">
+          <span class="co-step-num">2</span>
+          Доставка
+        </li>
+        <li class="co-sep"></li>
+        <li class="co-step active">
+          <span class="co-step-num">3</span>
+          Плащане
+        </li>
+      </ol>
+
+      <div class="co-secure">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Сигурно плащане
+      </div>
+    </div>
+  </nav>
+
+  <!-- ══ DEMO BANNER ══════════════════════════════════════════════ -->
+  <div id="demo-banner" style="display:none;">
+    <div class="demo-banner-inner">
+      <strong>Демо режим</strong> — Stripe не е конфигуриран. Поръчките се записват, но реално плащане не се извършва.
+    </div>
+  </div>
+
+  <!-- ══ MAIN ══════════════════════════════════════════════════════ -->
+  <main class="checkout-main">
+    <div class="checkout-grid">
+
+      <!-- ─── FORM COLUMN ─────────────────────────────────────── -->
+      <div class="form-col">
+
+        <!-- 1 · Delivery -->
+        <div class="c-card">
+          <div class="c-card-head">
+            <div class="c-step-badge">1</div>
+            <h2 class="c-card-title">Данни за доставка</h2>
+          </div>
+          <form id="delivery-form" novalidate class="form-fields">
+            <div class="field-grid">
+              <div class="field">
+                <label class="field-label" for="d-name">Три имена <span class="req">*</span></label>
+                <input id="d-name" type="text" autocomplete="name" class="input-f" placeholder="Иван Иванов" required />
+              </div>
+              <div class="field">
+                <label class="field-label" for="d-phone">Телефон <span class="req">*</span></label>
+                <input id="d-phone" type="tel" autocomplete="tel" class="input-f" placeholder="+359 88 ..." required />
+              </div>
+            </div>
+            <div class="field">
+              <label class="field-label" for="d-email">Имейл <span id="email-req-mark"></span></label>
+              <input id="d-email" type="email" autocomplete="email" class="input-f" placeholder="вашият@имейл.бг" />
+            </div>
+            <div class="field-grid">
+              <div class="field col-span-2">
+                <label class="field-label" for="d-address">Адрес <span class="req">*</span></label>
+                <input id="d-address" type="text" autocomplete="street-address" class="input-f" placeholder="ул. Примерна 1" required />
+              </div>
+              <div class="field">
+                <label class="field-label" for="d-city">Град <span class="req">*</span></label>
+                <input id="d-city" type="text" autocomplete="address-level2" class="input-f" placeholder="Варна" required />
+              </div>
+            </div>
+            <div class="field">
+              <label class="field-label" for="d-note">Бележка</label>
+              <textarea id="d-note" rows="2" class="input-f" placeholder="Допълнителни инструкции за доставка..."></textarea>
+            </div>
+          </form>
+        </div>
+
+        <!-- 2 · Payment -->
+        <div class="c-card">
+          <div class="c-card-head">
+            <div class="c-step-badge">2</div>
+            <h2 class="c-card-title">Начин на плащане</h2>
+            <div class="pay-icons">
+              <!-- Visa -->
+              <svg height="22" viewBox="0 0 48 16" xmlns="http://www.w3.org/2000/svg" style="opacity:0.55">
+                <text x="0" y="13" font-family="Arial" font-size="14" font-weight="900" fill="#1A1F71">VISA</text>
+              </svg>
+              <!-- MC circles -->
+              <svg height="22" viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg" style="opacity:0.55">
+                <circle cx="10" cy="10" r="10" fill="#EB001B"/>
+                <circle cx="20" cy="10" r="10" fill="#F79E1B"/>
+                <path d="M15 4.5a10 10 0 0 1 0 11A10 10 0 0 1 15 4.5z" fill="#FF5F00"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Loading -->
+          <div id="payment-loading" class="loading-row">
+            <svg class="spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#186060" stroke-width="2">
+              <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+            </svg>
+            <span style="font-size:14px;color:#9CA3AF;">Инициализиране…</span>
+          </div>
+
+          <!-- Stripe -->
+          <div id="stripe-payment-section" style="display:none;">
+            <div id="stripe-element-container"><div id="payment-element"></div></div>
+            <p class="secure-note">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Защитено плащане чрез Stripe
+            </p>
+          </div>
+
+          <!-- Demo -->
+          <div id="demo-payment-section" style="display:none;" class="form-fields">
+            <div class="demo-notice">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Демо режим — въведете произволни данни. Реално плащане не се извършва.
+            </div>
+            <div class="field">
+              <label class="field-label">Номер на карта</label>
+              <input id="demo-card" type="text" class="input-f" placeholder="4242 4242 4242 4242" maxlength="19" />
+            </div>
+            <div class="field-grid">
+              <div class="field">
+                <label class="field-label">Валидност</label>
+                <input id="demo-expiry" type="text" class="input-f" placeholder="ММ/ГГ" maxlength="5" />
+              </div>
+              <div class="field">
+                <label class="field-label">CVV</label>
+                <input id="demo-cvv" type="text" class="input-f" placeholder="123" maxlength="4" />
+              </div>
+            </div>
+            <p class="secure-note">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Симулирано плащане — без реално таксуване
+            </p>
+          </div>
+
+          <div id="payment-error" class="pay-error"></div>
+        </div>
+
+      </div>
+
+      <!-- ─── SUMMARY COLUMN ───────────────────────────────────── -->
+      <aside>
+        <div class="summary-sticky">
+          <div class="c-card">
+            <p class="summary-title">Вашата поръчка</p>
+            <div id="cart-summary" class="summary-items"></div>
+
+            <div class="summary-divider"></div>
+
+            <!-- Discount -->
+            <div id="discount-row" style="display:none;" class="summary-row" style="margin-bottom:8px;">
+              <div id="discount-badge" class="discount-pill">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                <span id="discount-text">−0%</span>
+              </div>
+              <span id="discount-amount" style="font-size:13.5px;font-weight:600;color:#186060;"></span>
+            </div>
+
+            <!-- Shipping -->
+            <div class="summary-row">
+              <span class="summary-row-label">Доставка</span>
+              <span id="shipping-label" class="summary-row-value">—</span>
+            </div>
+
+            <!-- Total -->
+            <div class="total-row">
+              <span class="total-label">Общо</span>
+              <div style="text-align:right;">
+                <div id="total-eur" class="total-eur"></div>
+                <div id="total-bgn" class="total-bgn"></div>
+              </div>
+            </div>
+
+            <!-- Pay button -->
+            <button id="pay-btn" class="pay-btn" onclick="handlePay()">
+              <span id="pay-btn-text">Плати</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+
+            <!-- Trust -->
+            <div class="trust-row">
+              <span class="trust-item">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                SSL
+              </span>
+              <span style="color:#DDD0BC;font-size:11px;">·</span>
+              <span class="trust-item">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Stripe
+              </span>
+              <span style="color:#DDD0BC;font-size:11px;">·</span>
+              <span class="trust-item">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Сигурно
+              </span>
+            </div>
+
+            <p class="terms-note">
+              Като поръчвате, приемате нашите <a href="terms.html">Общи условия</a>
+            </p>
+          </div>
+
+          <a href="brands.html" class="back-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+            Продължи пазаруването
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- ══ SUCCESS OVERLAY ═══════════════════════════════════════════ -->
+  <div id="success-overlay">
+    <div id="success-card">
+      <div class="success-circle">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <path class="check-path" d="M7 16l7 7 11-11" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 class="success-title">Поръчката е получена!</h2>
+      <p class="success-subtitle">Благодарим ви! Ще се свържем с вас на посочения телефон за потвърждение и детайли за доставката.</p>
+      <div id="success-order-id" class="success-order-badge"></div>
+      <div class="success-actions">
+        <a id="success-primary-btn" href="account.html?success=1" class="success-btn-primary">
+          Вижте поръчката
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="brands.html" class="success-btn-secondary">Продължи пазаруването</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ FOOTER ═════════════════════════════════════════════════════ -->
+  <footer class="co-footer">
+    <picture>
+      <source srcset="images/agros-logo.webp" type="image/webp" />
+      <img src="images/agros-logo.png" alt="Agros" />
+    </picture>
+    <p>© 2024 Agros 98 ООД. Всички права запазени.</p>
+  </footer>
+
+  <script src="/auth.js"></script>
+  <script>
+    const API             = 'http://localhost:3001';
+    const EUR_TO_BGN      = 1.9558;
+    const FREE_SHIP_THRESHOLD = 25.57;
+
+    // ── Guest / auth detection ────────────────────────────────────
+    const isGuest = new URLSearchParams(window.location.search).has('guest');
+    const token   = window.AgrosAuth ? window.AgrosAuth.getToken() : null;
+    const user    = window.AgrosAuth ? window.AgrosAuth.getUser()  : null;
+
+    if (!isGuest && (!token || !user)) {
+      window.location.href = '/login.html?redirect=/payment.html';
+    }
+
+    // Mark email as required for guests
+    if (isGuest) {
+      document.getElementById('email-req-mark').innerHTML = '<span class="req">*</span>';
+      document.getElementById('d-email').required = true;
+      document.getElementById('success-primary-btn').href  = 'index.html';
+      document.getElementById('success-primary-btn').textContent = 'Към началната страница';
+    }
+
+    // ── Load cart ─────────────────────────────────────────────────
+    let cart = [];
+    try { cart = JSON.parse(localStorage.getItem('agros_cart') || '[]'); } catch(e) {}
+    if (!cart.length) { window.location.href = '/brands.html'; }
+
+    // ── State ─────────────────────────────────────────────────────
+    let stripeInstance = null;
+    let stripeElements = null;
+    let demoMode       = false;
+
+    // ── Totals ────────────────────────────────────────────────────
+    function getSubtotal() { return cart.reduce((s, i) => s + i.price * i.qty, 0); }
+    function getDiscount(subtotal) { return 0; }
+    function getShipping(subtotal) {
+      return subtotal >= FREE_SHIP_THRESHOLD ? 0 : 3.99;
+    }
+    function getTotal() {
+      const sub = getSubtotal(), disc = getDiscount(sub), ship = getShipping(sub - disc);
+      return sub - disc + ship;
+    }
+
+    // ── Render summary ────────────────────────────────────────────
+    function renderSummary() {
+      document.getElementById('cart-summary').innerHTML = cart.map(item => `
+        <div class="summary-item">
+          <img src="${item.img || ''}" alt="${item.name}" class="summary-img" onerror="this.style.visibility='hidden'" />
+          <div class="summary-item-info">
+            <div class="summary-item-name">${item.name}</div>
+            <div class="summary-item-meta">${item.volume || ''} × ${item.qty}</div>
+          </div>
+          <div class="summary-item-price">${(item.price * item.qty).toFixed(2)} €</div>
+        </div>
+      `).join('');
+
+      const sub  = getSubtotal(), disc = getDiscount(sub), ship = getShipping(sub - disc), total = sub - disc + ship;
+
+      document.getElementById('discount-row').style.display = 'none';
+
+      const sl = document.getElementById('shipping-label');
+      if (sub >= FREE_SHIP_THRESHOLD) {
+        sl.innerHTML = '<span style="color:#186060;font-weight:600;">Безплатна</span>';
+      } else {
+        sl.textContent = '3.99 €';
+      }
+
+      document.getElementById('total-eur').textContent    = `${total.toFixed(2)} €`;
+      document.getElementById('total-bgn').textContent    = `≈ ${(total * EUR_TO_BGN).toFixed(2)} лв.`;
+      document.getElementById('pay-btn-text').textContent = `Плати ${total.toFixed(2)} €`;
+    }
+
+    // ── Init ──────────────────────────────────────────────────────
+    async function init() {
+      try {
+        const cfgRes = await fetch(`${API}/api/config`);
+        const cfg    = await cfgRes.json();
+
+        renderSummary();
+
+        if (cfg.stripeConfigured && cfg.stripePublicKey && !cfg.stripePublicKey.includes('REPLACE')) {
+          await initStripe(cfg.stripePublicKey);
+        } else {
+          initDemoMode();
+        }
+      } catch(e) {
+        initDemoMode();
+      }
+    }
+
+    async function initStripe(publicKey) {
+      try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (token) headers.Authorization = `Bearer ${token}`;
+
+        const res = await fetch(`${API}/api/payments/create-intent`, {
+          method: 'POST', headers,
+          body: JSON.stringify({ amountEur: getTotal(), description: 'Agros поръчка' })
+        });
+        if (!res.ok) { initDemoMode(); return; }
+
+        const { clientSecret } = await res.json();
+        stripeInstance = Stripe(publicKey);
+        stripeElements = stripeInstance.elements({
+          clientSecret,
+          appearance: {
+            theme: 'stripe',
+            variables: { colorPrimary: '#186060', colorBackground: '#FFFFFF', colorText: '#1A1A1A', borderRadius: '12px', fontFamily: 'Inter, system-ui, sans-serif' }
+          }
+        });
+        stripeElements.create('payment').mount('#payment-element');
+        document.getElementById('payment-loading').style.display         = 'none';
+        document.getElementById('stripe-payment-section').style.display  = 'block';
+      } catch(e) { initDemoMode(); }
+    }
+
+    function initDemoMode() {
+      demoMode = true;
+      document.getElementById('demo-banner').style.display         = 'block';
+      document.getElementById('payment-loading').style.display      = 'none';
+      document.getElementById('demo-payment-section').style.display = 'block';
+
+      document.getElementById('demo-card').addEventListener('input', function() {
+        let v = this.value.replace(/\D/g,'').slice(0,16);
+        this.value = v.replace(/(.{4})/g,'$1 ').trim();
+      });
+      document.getElementById('demo-expiry').addEventListener('input', function() {
+        let v = this.value.replace(/\D/g,'').slice(0,4);
+        if (v.length > 2) v = v.slice(0,2) + '/' + v.slice(2);
+        this.value = v;
+      });
+    }
+
+    // ── Validate delivery ─────────────────────────────────────────
+    function getDelivery() {
+      const name    = document.getElementById('d-name').value.trim();
+      const phone   = document.getElementById('d-phone').value.trim();
+      const email   = document.getElementById('d-email').value.trim();
+      const address = document.getElementById('d-address').value.trim();
+      const city    = document.getElementById('d-city').value.trim();
+      const note    = document.getElementById('d-note').value.trim();
+
+      if (!name)             return { error: 'Моля, въведете вашето име.' };
+      if (!phone)            return { error: 'Моля, въведете телефон за връзка.' };
+      if (isGuest && !email) return { error: 'Моля, въведете имейл адрес.' };
+      if (!address)          return { error: 'Моля, въведете адрес за доставка.' };
+      if (!city)             return { error: 'Моля, въведете град.' };
+
+      return { name, phone, email, address, city, note };
+    }
+
+    function showError(msg) {
+      const el = document.getElementById('payment-error');
+      el.textContent = msg; el.style.display = 'block';
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // ── Pay ───────────────────────────────────────────────────────
+    async function handlePay() {
+      document.getElementById('payment-error').style.display = 'none';
+      const delivery = getDelivery();
+      if (delivery.error) { showError(delivery.error); return; }
+
+      const btn = document.getElementById('pay-btn');
+      btn.disabled = true;
+      document.getElementById('pay-btn-text').textContent = 'Обработва се…';
+
+      try {
+        if (demoMode) await processDemoPayment(delivery);
+        else          await processStripePayment(delivery);
+      } catch(err) {
+        showError('Грешка: ' + err.message);
+        btn.disabled = false;
+        document.getElementById('pay-btn-text').textContent = `Плати ${getTotal().toFixed(2)} €`;
+      }
+    }
+
+    async function processDemoPayment(delivery)  { await createOrder(delivery, null); }
+
+    async function processStripePayment(delivery) {
+      const result = await stripeInstance.confirmPayment({
+        elements: stripeElements,
+        confirmParams: {
+          return_url: window.location.href,
+          payment_method_data: { billing_details: { name: delivery.name, email: delivery.email || undefined, phone: delivery.phone, address: { line1: delivery.address, city: delivery.city } } }
+        },
+        redirect: 'if_required'
+      });
+      if (result.error) throw new Error(result.error.message);
+      await createOrder(delivery, result.paymentIntent ? result.paymentIntent.id : null);
+    }
+
+    async function createOrder(delivery, paymentIntentId) {
+      const total    = getTotal();
+      const endpoint = token ? `${API}/api/orders` : `${API}/api/orders/guest`;
+      const headers  = { 'Content-Type': 'application/json' };
+      if (token) headers.Authorization = `Bearer ${token}`;
+
+      const res  = await fetch(endpoint, {
+        method: 'POST', headers,
+        body: JSON.stringify({ items: cart, total, customer: delivery, paymentIntentId })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Грешка при запис на поръчка');
+
+      localStorage.removeItem('agros_cart');
+
+      const orderId = String(data.orderId).slice(-6).toUpperCase();
+      document.getElementById('success-order-id').textContent = `Поръчка #${orderId}`;
+      document.getElementById('success-overlay').classList.add('show');
+    }
+
+    // ── Boot ──────────────────────────────────────────────────────
+    init();
+
+    if (user && user.name) {
+      document.getElementById('d-name').value  = user.name;
+      document.getElementById('d-email').value = user.email || '';
+    }
+  </script>
+  <script src="nav-dropdown.js"></script>
+</body>
+</html>

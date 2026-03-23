@@ -1,0 +1,19 @@
+node_modules/
+temporary screenshots/
+*.json.bak
+
+# Google OAuth credentials - NEVER commit these
+client_secret*.json
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build artifacts
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db

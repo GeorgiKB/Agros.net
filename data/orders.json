@@ -1,0 +1,113 @@
+[
+  {
+    "id": 1773916111377,
+    "userId": 1773916111375,
+    "items": [
+      {
+        "name": "OLLEO Натурално слънчогледово олио",
+        "size": "750 мл",
+        "qty": 1,
+        "price": 8.96
+      },
+      {
+        "name": "OLLEO Олио от кориандър",
+        "size": "250 мл",
+        "qty": 1,
+        "price": 7.96
+      }
+    ],
+    "total": 16.92,
+    "status": "доставена",
+    "createdAt": "2026-03-05T10:28:31.377Z"
+  },
+  {
+    "id": 1773916111378,
+    "userId": 1773916111375,
+    "items": [
+      {
+        "name": "Dorso Масажен балсам",
+        "size": "200 мл",
+        "qty": 1,
+        "price": 24.95
+      }
+    ],
+    "total": 24.95,
+    "status": "доставена",
+    "createdAt": "2026-03-12T10:28:31.377Z"
+  },
+  {
+    "id": 1773916111379,
+    "userId": 1773916111375,
+    "items": [
+      {
+        "name": "OLLEO Чесново олио",
+        "size": "250 мл",
+        "qty": 2,
+        "price": 7.96
+      }
+    ],
+    "total": 15.92,
+    "status": "в обработка",
+    "createdAt": "2026-03-18T10:28:31.377Z"
+  },
+  {
+    "id": 1773916699607,
+    "userId": 1773916111375,
+    "items": [
+      {
+        "name": "OLLEO Omega Mix",
+        "size": "6 × 250 мл",
+        "qty": 3,
+        "price": 21.16780856938337
+      },
+      {
+        "name": "OLLEO С лимон",
+        "size": "6 × 250 мл",
+        "qty": 1,
+        "price": 14.694754064832804
+      }
+    ],
+    "total": 78.19817977298293,
+    "status": "нова",
+    "customer": {
+      "name": "Georgi Berbenkov",
+      "phone": "+359877310420",
+      "email": "gberbenkov@gmail.com",
+      "address": "Primorski, ul. \"Tsarevets\"",
+      "city": "Varna",
+      "note": ""
+    },
+    "paymentIntentId": null,
+    "createdAt": "2026-03-19T10:38:19.607Z"
+  },
+  {
+    "id": 1773917615995,
+    "userId": 1773916111375,
+    "items": [
+      {
+        "name": "NOTEO протеин Натурален (Абонамент)",
+        "size": "300 г",
+        "qty": 1,
+        "price": 5.5220370181000105
+      },
+      {
+        "name": "OLLEO Omega Mix",
+        "size": "6 × 250 мл",
+        "qty": 2,
+        "price": 21.16780856938337
+      }
+    ],
+    "total": 47.85765415686675,
+    "status": "нова",
+    "customer": {
+      "name": "Georgi Berbenkov",
+      "phone": "+359877310420",
+      "email": "gberbenkov@gmail.com",
+      "address": "Primorski, ul. \"Tsarevets\"",
+      "city": "Varna",
+      "note": ""
+    },
+    "paymentIntentId": null,
+    "createdAt": "2026-03-19T10:53:35.995Z"
+  }
+]

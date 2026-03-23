@@ -1,0 +1,2086 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon"             type="image/x-icon" href="favicon.ico" />
+  <link rel="icon"             type="image/png"    href="images/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon"             type="image/png"    href="images/favicon-192x192.png" sizes="192x192" />
+  <link rel="apple-touch-icon"                     href="images/apple-touch-icon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Agros — студено пресовани масла и натурални продукти от България. Открийте OLLEO масла, D'ORSO козметика и NOTEO протеини. Доставка из цяла страна." />
+  <link rel="canonical" href="https://agros.net/" />
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:site_name"   content="Agros" />
+  <meta property="og:locale"      content="bg_BG" />
+  <meta property="og:title"       content="Agros — Природни продукти за здраве и красота" />
+  <meta property="og:description" content="Agros — студено пресовани масла и натурални продукти от България. Открийте OLLEO масла, D'ORSO козметика и NOTEO протеини. Доставка из цяла страна." />
+  <meta property="og:url"         content="https://agros.net/" />
+  <meta property="og:image"       content="https://agros.net/images/olleo-banner.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height"content="630" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Agros — Природни продукти за здраве и красота" />
+  <meta name="twitter:description" content="Agros — студено пресовани масла и натурални продукти от България. Открийте OLLEO масла, D'ORSO козметика и NOTEO протеини. Доставка из цяла страна." />
+  <meta name="twitter:image"       content="https://agros.net/images/olleo-banner.png" />
+  <title>Agros — Природни продукти за здраве и красота</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preload" as="image" href="images/landing-noteo.webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: 'Inter', system-ui, sans-serif; background-color: #F7F3EC; color: #1A1A1A; }
+    h1, h2, h3, .font-display { font-family: 'Montserrat', sans-serif; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #F7F3EC; }
+    ::-webkit-scrollbar-thumb { background: #3ABF82; border-radius: 4px; }
+
+    /* Nav underline hover */
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1.5px;
+      background: #C8922A;
+      transition: width 0.25s ease;
+    }
+    .nav-link:hover::after,
+    .nav-link:focus-visible::after { width: 100%; }
+
+    /* Hero */
+    .hero-bg {
+      background:
+        radial-gradient(ellipse at 15% 60%, rgba(34,144,94,0.22) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 20%, rgba(200,146,42,0.10) 0%, transparent 50%),
+        linear-gradient(155deg, #0D4A38 0%, #22905E 45%, #30A870 100%);
+    }
+
+    /* Product card */
+    .product-card {
+      transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1),
+                  box-shadow 0.35s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(34,144,94,0.14), 0 4px 12px rgba(0,0,0,0.07) !important;
+    }
+
+    /* Buttons */
+    .btn {
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1),
+                  opacity 0.2s ease,
+                  background-color 0.2s ease;
+    }
+    .btn:hover  { transform: translateY(-1px); }
+    .btn:active { transform: translateY(0px); opacity: 0.9; }
+
+    /* Brand card arrow shift */
+    .brand-card .arrow-icon {
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .brand-card:hover .arrow-icon { transform: translateX(5px); }
+
+    /* Cart button on product */
+    .cart-btn {
+      transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    /* Blog card image zoom */
+    .blog-img {
+      transition: transform 0.5s ease;
+    }
+    .blog-card:hover .blog-img { transform: scale(1.06); }
+
+    /* Grain texture */
+    .grain-overlay::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    /* Pulse badge */
+    @keyframes soft-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+    .pulse-dot { animation: soft-pulse 2.5s ease-in-out infinite; }
+
+    /* Scroll indicator */
+    @keyframes scroll-bounce {
+      0%, 100% { transform: translateY(0); opacity: 0.6; }
+      50% { transform: translateY(6px); opacity: 1; }
+    }
+    .scroll-line { animation: scroll-bounce 1.8s ease-in-out infinite; }
+
+    /* Smooth scroll */
+    html { scroll-behavior: smooth; }
+
+    /* Product image zoom */
+    .prod-img { transition: transform 0.5s ease; }
+    .product-card:hover .prod-img { transform: scale(1.06); }
+
+    /* Quick-add button */
+    .quick-add {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .product-card:hover .quick-add {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+
+  <!-- ═══════════════════════════════════════════
+       MOBILE UI — comprehensive overhaul
+       ═══════════════════════════════════════════ -->
+  <style>
+    /* ── Bottom nav: hidden on desktop ── */
+    #mob-bottom-nav { display: none; }
+    #mob-nav { display: none; }
+
+    @media (max-width: 767px) {
+      #mob-bottom-nav { display: block !important; }
+      #mob-nav { display: block !important; }
+
+      /* ── Body: space for bottom nav ── */
+      body { padding-bottom: 62px !important; }
+      body.mob-nav-open { overflow: hidden !important; }
+
+      /* ── Announcement bar ── */
+      .bg-forest-700.text-center {
+        font-size: 10.5px !important;
+        padding-top: 7px !important;
+        padding-bottom: 7px !important;
+        letter-spacing: 0.025em !important;
+      }
+
+      /* ── Hide search icon on mobile (save space) ── */
+      nav button[aria-label="Търсене"] { display: none !important; }
+
+      /* ── Hero ── */
+      #hero-section { min-height: 100svh !important; min-height: 100vh !important; }
+      #hero-content {
+        min-height: 100svh !important; min-height: 100vh !important;
+        padding-top: 4.5rem !important;
+        padding-bottom: 2.5rem !important;
+        padding-left: 1.25rem !important;
+        padding-right: 1.25rem !important;
+      }
+      #hero-content h1 {
+        font-size: clamp(2.2rem, 10.5vw, 3.2rem) !important;
+        margin-bottom: 1.1rem !important;
+        line-height: 1.05 !important;
+      }
+      #hero-content > div > p {
+        font-size: 0.925rem !important;
+        margin-bottom: 1.5rem !important;
+        line-height: 1.7 !important;
+      }
+      /* CTAs: full-width stacked */
+      #hero-ctas {
+        flex-direction: column !important;
+        gap: 10px !important;
+        width: 100% !important;
+      }
+      #hero-ctas a {
+        width: 100% !important;
+        justify-content: center !important;
+        padding-top: 14px !important;
+        padding-bottom: 14px !important;
+        font-size: 0.95rem !important;
+        border-radius: 16px !important;
+      }
+      /* Hero benefits: 2×2 compact */
+      #hero-benefits {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+        padding: 14px 12px !important;
+        margin-top: 1.75rem !important;
+        border-radius: 14px !important;
+      }
+      #hero-benefits > div { gap: 8px !important; }
+      #hero-benefits .w-11 { width: 38px !important; height: 38px !important; }
+      #hero-benefits .w-11 svg { width: 16px !important; height: 16px !important; }
+      #hero-benefits .text-white.font-semibold { font-size: 0.78rem !important; }
+      #hero-benefits .text-xs { font-size: 0.68rem !important; }
+
+      /* ── Section vertical padding ── */
+      section.py-24 { padding-top: 3.5rem !important; padding-bottom: 3.5rem !important; }
+      section.py-20 { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+
+      /* ── Section two-col headers → single col ── */
+      section .flex.flex-col.md\:flex-row { flex-direction: column !important; gap: 6px !important; }
+
+      /* ── Brands swipe carousel ── */
+      #brands-swipe {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        -webkit-overflow-scrolling: touch !important;
+        gap: 14px !important;
+        padding-bottom: 6px !important;
+        padding-right: 20px !important;
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+      }
+      #brands-swipe::-webkit-scrollbar { display: none !important; }
+      #brands-swipe > a {
+        min-width: 79vw !important;
+        max-width: 79vw !important;
+        scroll-snap-align: start !important;
+        flex-shrink: 0 !important;
+        min-height: 340px !important;
+        border-radius: 22px !important;
+      }
+
+      /* ── Why Agros cards: horizontal layout ── */
+      #why-grid { grid-template-columns: 1fr !important; }
+      #why-grid > div {
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 14px !important;
+        padding: 16px !important;
+      }
+      #why-grid > div .w-12 { flex-shrink: 0 !important; }
+      #why-grid > div > div:last-child h3 { font-size: 1rem !important; }
+
+      /* ── Goals grid ── */
+      #goals-grid { gap: 10px !important; }
+      #goals-grid > a { padding: 14px 10px !important; gap: 8px !important; }
+      #goals-grid .w-14 { width: 46px !important; height: 46px !important; font-size: 20px !important; }
+
+      /* ── Testimonials swipe ── */
+      #testimonials-swipe {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        -webkit-overflow-scrolling: touch !important;
+        gap: 14px !important;
+        padding-bottom: 6px !important;
+        padding-right: 20px !important;
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+      }
+      #testimonials-swipe::-webkit-scrollbar { display: none !important; }
+      #testimonials-swipe > div {
+        min-width: 83vw !important;
+        max-width: 83vw !important;
+        scroll-snap-align: start !important;
+        flex-shrink: 0 !important;
+      }
+
+      /* ── Subscription plans swipe ── */
+      #sub-plans-swipe {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        -webkit-overflow-scrolling: touch !important;
+        gap: 14px !important;
+        padding-bottom: 6px !important;
+        padding-right: 20px !important;
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+      }
+      #sub-plans-swipe::-webkit-scrollbar { display: none !important; }
+      #sub-plans-swipe > div {
+        min-width: 80vw !important;
+        max-width: 80vw !important;
+        scroll-snap-align: start !important;
+        flex-shrink: 0 !important;
+      }
+
+      /* ── Blog swipe ── */
+      #blog-swipe {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        -webkit-overflow-scrolling: touch !important;
+        gap: 14px !important;
+        padding-bottom: 6px !important;
+        padding-right: 20px !important;
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+      }
+      #blog-swipe::-webkit-scrollbar { display: none !important; }
+      #blog-swipe > article {
+        min-width: 78vw !important;
+        max-width: 78vw !important;
+        scroll-snap-align: start !important;
+        flex-shrink: 0 !important;
+      }
+
+      /* ── Swipe hint label ── */
+      .swipe-hint { display: flex !important; }
+
+      /* ── About section: single column ── */
+      #about .grid { gap: 0 !important; }
+      #about .grid > div:first-child { padding-bottom: 1.5rem !important; }
+      #about .grid > div:last-child { padding-top: 0 !important; }
+
+      /* ── Newsletter form: stack ── */
+      .newsletter-form { flex-direction: column !important; }
+      .newsletter-form input { border-radius: 12px !important; }
+      .newsletter-form button { border-radius: 12px !important; width: 100% !important; }
+
+      /* ── Footer columns ── */
+      footer .grid { gap: 1.75rem !important; }
+      footer .mt-12 { margin-top: 1.75rem !important; }
+      footer .flex-col.sm\:flex-row { flex-direction: column !important; align-items: flex-start !important; gap: 1rem !important; }
+
+      /* ── Floating sub-trigger: hide on mobile (bottom nav covers this) ── */
+      #sub-trigger { display: none !important; }
+
+      /* ── Category cards: readable on mobile ── */
+      #products .grid > a > div[style*="aspect-ratio"] { border-radius: 16px !important; }
+
+      /* ── Goals grid on mobile: 2-col ── */
+      .goals-section .grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+      /* ── Bigger touch targets ── */
+      nav button, nav a { min-height: 44px !important; }
+      .btn { min-height: 48px !important; }
+
+      /* ── Better font sizing for body text on mobile ── */
+      section p.font-body { font-size: 0.9rem !important; line-height: 1.7 !important; }
+      section h2 { line-height: 1.15 !important; }
+
+      /* ── Cart drawer: full width on mobile ── */
+      #cart-drawer { width: 100vw !important; }
+
+      /* ── Modal: full screen feel on mobile ── */
+      #sub-modal {
+        border-radius: 20px 20px 0 0 !important;
+        padding: 28px 22px 22px !important;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        max-width: 100% !important;
+        animation: mobileModalIn 0.35s cubic-bezier(0.34,1.2,0.64,1) !important;
+      }
+      #sub-modal-overlay { align-items: flex-end !important; padding: 0 !important; }
+      @keyframes mobileModalIn {
+        from { opacity: 0; transform: translateY(40px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+    }
+
+    /* ── Swipe hint label: hidden on desktop ── */
+    .swipe-hint { display: none; }
+    .swipe-hint {
+      align-items: center;
+      gap: 5px;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      color: #3ABF82;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      margin-top: 10px;
+    }
+    .swipe-hint::before {
+      content: '';
+      width: 20px; height: 3px;
+      background: linear-gradient(90deg, #3ABF82, transparent);
+      border-radius: 2px;
+      display: inline-block;
+    }
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Agros 98",
+  "url": "https://agros.net",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://agros.net/images/agros-logo.png",
+    "width": 200,
+    "height": 80
+  },
+  "description": "Agros 98 е български производител на студено пресовани масла и натурални продукти от 1998 г. Марки OLLEO, D'ORSO и NOTEO.",
+  "foundingDate": "1998",
+  "areaServed": "BG",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "availableLanguage": "Bulgarian"
+  }
+}
+  </script>
+</head>
+<body>
+
+  <!-- ══════════════ ANNOUNCEMENT BAR ══════════════ -->
+  <div class="bg-forest-700 text-cream-100 text-center py-2.5 text-xs font-body tracking-wide" style="letter-spacing:0.04em;">
+    🌿&nbsp; Безплатна доставка при поръчки над&nbsp;<strong>25.57&nbsp;€</strong> <span style="font-size:0.8em;opacity:0.75;">(50&nbsp;лв.)</span>&nbsp;&nbsp;·&nbsp;&nbsp;Произведено в България от Agros&nbsp;98
+  </div>
+
+  <!-- ══════════════ NAVIGATION ══════════════ -->
+  <nav class="sticky top-0 z-50 bg-cream-50/95 backdrop-blur-md border-b border-cream-200"
+       style="box-shadow: 0 1px 0 rgba(34,144,94,0.06), 0 4px 24px rgba(34,144,94,0.05);">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+      <div class="flex items-center justify-between h-16">
+
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 rounded-lg">
+          <picture>
+        <source srcset="images/agros-logo.webp" type="image/webp" />
+        <img src="images/agros-logo.png" alt="Agros" class="h-12 w-auto" />
+      </picture>
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center gap-7">
+          <a href="brands.html" class="nav-link text-sm font-body font-medium text-gray-600 hover:text-forest-800 transition-colors duration-200 focus-visible:outline-none">Продукти</a>
+          <a href="about.html" class="nav-link text-sm font-body font-medium text-gray-600 hover:text-forest-800 transition-colors duration-200 focus-visible:outline-none">За нас</a>
+          <a href="blog.html"  class="nav-link text-sm font-body font-medium text-gray-600 hover:text-forest-800 transition-colors duration-200 focus-visible:outline-none">Блог</a>
+          <a href="contact.html" class="nav-link text-sm font-body font-medium text-gray-600 hover:text-forest-800 transition-colors duration-200 focus-visible:outline-none">Контакти</a>
+        </div>
+
+        <!-- Right Actions -->
+        <div class="flex items-center gap-1">
+          <button class="p-2.5 rounded-full hover:bg-forest-50 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400" aria-label="Търсене">
+            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+          </button>
+          <button id="cart-toggle-btn" class="relative p-2.5 rounded-full hover:bg-forest-50 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400" aria-label="Количка">
+            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+            <span id="cart-badge" class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-honey-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none" style="display:none;">0</span>
+          </button>
+          <!-- Mobile hamburger -->
+          <button id="mob-menu-btn" onclick="openMobileNav()" class="md:hidden p-2.5 rounded-full hover:bg-forest-50 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400" aria-label="Меню">
+            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+  <!-- ══════════════ HERO ══════════════ -->
+  <section id="hero-section" class="relative overflow-hidden grain-overlay" style="min-height: 92vh;">
+    <!-- BG photo -->
+    <picture>
+        <source srcset="images/landing-noteo.webp" type="image/webp" />
+        <img src="images/landing-noteo.webp" alt="" aria-hidden="true"
+         class="absolute inset-0 w-full h-full object-cover pointer-events-none" />
+      </picture>
+    <!-- Dark overlay to keep text readable -->
+    <div class="absolute inset-0 pointer-events-none"
+         style="background: linear-gradient(120deg, rgba(15,65,42,0.80) 0%, rgba(22,88,56,0.60) 40%, rgba(10,20,10,0.08) 75%, transparent 100%);"></div>
+    <!-- Decorative glow blobs -->
+    <div class="absolute top-1/4 right-1/3 w-[500px] h-[500px] rounded-full pointer-events-none"
+         style="background: radial-gradient(circle, rgba(200,146,42,0.10) 0%, transparent 65%);"></div>
+    <div class="absolute bottom-1/4 left-1/4 w-[400px] h-[400px] rounded-full pointer-events-none"
+         style="background: radial-gradient(circle, rgba(48,168,112,0.18) 0%, transparent 65%);"></div>
+
+    <!-- Content -->
+    <div id="hero-content" class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 flex flex-col justify-center" style="min-height:92vh; padding-top:5rem; padding-bottom:5rem;">
+      <div class="max-w-2xl">
+
+        <!-- Headline -->
+        <h1 class="font-display font-bold text-cream-50 leading-none mb-7"
+            style="font-size: clamp(2.8rem, 6.5vw, 5.5rem); letter-spacing:-0.03em;">
+          <span style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Студено пресовани масла и натурални продукти от България — Agros</span>
+          Природно.<br>
+          <em class="not-italic" style="color:#E4A94A;">Чисто.</em><br>
+          Вкусно.
+        </h1>
+
+        <!-- Subline -->
+        <p class="font-body mb-10 max-w-lg"
+           style="font-size: clamp(1rem, 1.5vw, 1.125rem); line-height: 1.75; color: rgba(255,255,255,0.92); text-shadow: 0 1px 8px rgba(0,0,0,0.45);">
+          Студено пресовани масла, растителни протеини, флорални брашна и натурална козметика — произведени с грижа за вашето здраве и природата.
+        </p>
+
+        <!-- CTAs -->
+        <div id="hero-ctas" class="flex flex-wrap gap-4">
+          <a href="brands.html"
+             class="btn inline-flex items-center gap-2.5 text-white font-body font-semibold px-8 py-4 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-honey-300"
+             style="background:#C8922A; box-shadow: 0 4px 20px rgba(200,146,42,0.45), 0 1px 4px rgba(200,146,42,0.25);">
+            Разгледай продуктите
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <a href="about.html"
+             class="btn inline-flex items-center gap-2.5 font-body font-medium px-8 py-4 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50"
+             style="background: rgba(255,255,255,0.10); border:1px solid rgba(255,255,255,0.25); color:#F7F3EC; backdrop-filter:blur(8px);">
+            Нашата история
+          </a>
+        </div>
+
+        <!-- Benefits row -->
+        <div id="hero-benefits" class="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-16 pt-10 rounded-xl px-6 py-6" style="border-top: 1px solid rgba(255,255,255,0.18); background: rgba(0,0,0,0.28); backdrop-filter: blur(6px);">
+
+          <div class="flex flex-col items-center text-center gap-3">
+            <div class="w-11 h-11 rounded-full flex items-center justify-center" style="background: rgba(255,255,255,0.2); box-shadow: 0 0 0 1px rgba(255,255,255,0.12);">
+              <svg class="w-5 h-5 text-honey-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                <path d="M5 8h14M5 8a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2M5 8V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v2m-7 4v4m-3-2h6"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-white font-body font-semibold text-sm">Безплатна доставка</div>
+              <div class="text-cream-200/85 font-body text-xs mt-0.5">При поръчки над 25.57&nbsp;€ <span style="font-size:0.85em;opacity:0.8;">(50&nbsp;лв.)</span></div>
+            </div>
+          </div>
+
+          <div class="flex flex-col items-center text-center gap-3">
+            <div class="w-11 h-11 rounded-full flex items-center justify-center" style="background: rgba(255,255,255,0.2); box-shadow: 0 0 0 1px rgba(255,255,255,0.12);">
+              <svg class="w-5 h-5 text-honey-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0 1 12 2.944a11.955 11.955 0 0 1-8.618 3.04A12.02 12.02 0 0 0 3 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-white font-body font-semibold text-sm">100% натурални съставки</div>
+              <div class="text-cream-200/85 font-body text-xs mt-0.5">Без консерванти и добавки</div>
+            </div>
+          </div>
+
+          <div class="flex flex-col items-center text-center gap-3">
+            <div class="w-11 h-11 rounded-full flex items-center justify-center overflow-hidden" style="box-shadow: 0 0 0 1px rgba(255,255,255,0.12);">
+              <svg viewBox="0 0 30 20" width="60" height="60" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="min-width:60px; min-height:60px;">
+                <rect width="30" height="20" fill="#fff"/>
+                <rect y="6.67" width="30" height="6.66" fill="#00966E"/>
+                <rect y="13.33" width="30" height="6.67" fill="#D62612"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-white font-body font-semibold text-sm">Произведено в България</div>
+              <div class="text-cream-200/85 font-body text-xs mt-0.5">Местно производство, Варна</div>
+            </div>
+          </div>
+
+          <div class="flex flex-col items-center text-center gap-3">
+            <div class="w-11 h-11 rounded-full flex items-center justify-center" style="background: rgba(255,255,255,0.2); box-shadow: 0 0 0 1px rgba(255,255,255,0.12);">
+              <svg class="w-5 h-5 text-honey-400" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+                <path d="M12 2C12 2 5 10.5 5 15a7 7 0 0 0 14 0c0-4.5-7-13-7-13z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-white font-body font-semibold text-sm">Студено пресовано</div>
+              <div class="text-cream-200/85 font-body text-xs mt-0.5">Запазени хранителни вещества</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ══════════════ BRANDS ══════════════ -->
+  <section id="brands" class="py-24 bg-cream-50">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+      <div class="flex flex-col md:flex-row md:items-start gap-8 mb-14">
+        <div class="flex-none">
+          <h2 class="font-display font-bold text-forest-900" style="font-size:clamp(1.75rem,3.5vw,2.5rem); letter-spacing:-0.03em; line-height:1.15;">
+            Три марки, една мисия
+          </h2>
+        </div>
+        <div class="flex-1 md:max-w-xl md:pt-1">
+          <p class="text-gray-500 font-body" style="line-height:1.75; font-size:1rem;">
+            Всяка марка е фокусирана върху специфична нужда — от кухнята до кожата.
+          </p>
+        </div>
+      </div>
+
+      <div id="brands-swipe" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- OLLEO -->
+        <a href="products/olleo-bottles.html"
+           class="brand-card group relative overflow-hidden rounded-3xl p-9 flex flex-col cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400"
+           style="min-height:440px;
+                  background: linear-gradient(140deg, #4A2C00 0%, #9B6200 50%, #D4950A 100%);
+                  box-shadow: 0 8px 40px rgba(155,98,0,0.30), 0 2px 8px rgba(155,98,0,0.15);">
+          <div class="absolute -top-12 -right-12 w-56 h-56 rounded-full pointer-events-none"
+               style="background: radial-gradient(circle, rgba(255,200,50,0.12) 0%, transparent 70%);"></div>
+          <div class="absolute -bottom-12 -left-12 w-44 h-44 rounded-full pointer-events-none"
+               style="background: radial-gradient(circle, rgba(255,200,50,0.10) 0%, transparent 70%);"></div>
+          <!-- Product photo -->
+          <picture>
+        <source srcset="images/olleo-banner.webp" type="image/webp" />
+        <img src="images/olleo-banner.webp" alt="" aria-hidden="true"
+               class="absolute bottom-0 right-0 w-full h-64 object-cover object-center pointer-events-none"
+               style="-webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 50%, transparent 100%); mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 50%, transparent 100%);" / loading="lazy">
+      </picture>
+          <!-- Bottom scrim for link contrast -->
+          <div class="absolute bottom-0 left-0 right-0 h-20 pointer-events-none" style="background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 100%);"></div>
+          <!-- Top scrim so text stays readable when image bleeds up -->
+          <div class="absolute top-0 left-0 right-0 h-64 pointer-events-none" style="background: linear-gradient(to bottom, rgba(74,44,0,0.60) 0%, transparent 100%);"></div>
+          <div class="relative z-10">
+            <span class="inline-block bg-white/15 text-yellow-200 text-[10px] font-body font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-5">
+              Студено пресовани масла
+            </span>
+            <div class="flex items-center mb-1" style="height:56px;">
+              <picture>
+        <source srcset="images/olleo/olleo-logo.webp" type="image/webp" />
+        <img src="images/olleo/olleo-logo.webp" alt="OLLEO" class="h-14 w-auto" style="filter: drop-shadow(0 2px 12px rgba(0,0,0,0.35));" />
+      </picture>
+            </div>
+            <p class="font-body text-sm mt-3" style="line-height:1.75; color:rgba(255,235,180,0.95); text-shadow: 0 1px 6px rgba(0,0,0,0.55), 0 2px 12px rgba(0,0,0,0.35);">
+              Студено пресовани масла от слънчоглед, лен, орех и маслини. Максимално запазени хранителни вещества, богати на Омега&nbsp;3&nbsp;&amp;&nbsp;6.
+            </p>
+          </div>
+          <div class="relative z-10 flex items-center gap-2 text-yellow-300 font-body text-sm font-semibold mt-auto pt-8">
+            Разгледай OLLEO
+            <svg class="w-4 h-4 arrow-icon" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </a>
+
+        <!-- NOTEO -->
+        <a href="products/noteo-proteins.html"
+           class="brand-card group relative overflow-hidden rounded-3xl p-9 flex flex-col cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terra-500"
+           style="min-height:440px;
+                  background: linear-gradient(140deg, #083F3B 0%, #18988B 50%, #1DB0A0 100%);
+                  box-shadow: 0 8px 40px rgba(24,152,139,0.30), 0 2px 8px rgba(24,152,139,0.15);">
+          <div class="absolute -top-12 -right-12 w-56 h-56 rounded-full pointer-events-none"
+               style="background: radial-gradient(circle, rgba(100,220,210,0.12) 0%, transparent 70%);"></div>
+          <div class="absolute -bottom-12 -left-12 w-44 h-44 rounded-full pointer-events-none"
+               style="background: radial-gradient(circle, rgba(100,220,210,0.10) 0%, transparent 70%);"></div>
+          <!-- Product photo -->
+          <picture>
+        <source srcset="images/noteo-banner.webp" type="image/webp" />
+        <img src="images/noteo-banner.webp" alt="" aria-hidden="true"
+               class="absolute bottom-0 right-0 w-full h-64 object-cover object-center pointer-events-none"
+               style="-webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 50%, transparent 100%); mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 50%, transparent 100%);" / loading="lazy">
+      </picture>
+          <!-- Bottom scrim for link contrast -->
+          <div class="absolute bottom-0 left-0 right-0 h-20 pointer-events-none" style="background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 100%);"></div>
+          <!-- Top scrim so text stays readable when image bleeds up -->
+          <div class="absolute top-0 left-0 right-0 h-64 pointer-events-none" style="background: linear-gradient(to bottom, rgba(8,63,59,0.65) 0%, transparent 100%);"></div>
+          <div class="relative z-10">
+            <span class="inline-block bg-white/15 text-teal-200 text-[10px] font-body font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-5">
+              Протеини, брашна и протеинови кремчета
+            </span>
+            <div class="flex items-center mb-1" style="height:56px;">
+              <picture>
+        <source srcset="images/noteo/NOTEO-logo.webp" type="image/webp" />
+        <img src="images/noteo/NOTEO-logo.webp" alt="NOTEO" class="h-9 w-auto" style="filter: drop-shadow(0 2px 12px rgba(0,0,0,0.35));" />
+      </picture>
+            </div>
+            <p class="font-body text-sm mt-3" style="line-height:1.75; color:rgba(200,245,240,0.95); text-shadow: 0 1px 6px rgba(0,0,0,0.55), 0 2px 12px rgba(0,0,0,0.35);">
+              Растителни протеини, здравословни брашна от лен и орех, и слънчогледово масло — суперхрани за активен и балансиран живот.
+            </p>
+          </div>
+          <div class="relative z-10 flex items-center gap-2 text-teal-300 font-body text-sm font-semibold mt-auto pt-8">
+            Разгледай NOTEO
+            <svg class="w-4 h-4 arrow-icon" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </a>
+
+        <!-- D'ORSO -->
+        <a href="products/dorso-body-care.html"
+           class="brand-card group relative overflow-hidden rounded-3xl p-9 flex flex-col cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dorso-400"
+           style="min-height:440px;
+                  background: linear-gradient(140deg, #2A1022 0%, #5A2248 50%, #8A3A70 100%);
+                  box-shadow: 0 8px 40px rgba(58,32,72,0.30), 0 2px 8px rgba(58,32,72,0.15);">
+          <div class="absolute -top-12 -right-12 w-56 h-56 rounded-full pointer-events-none"
+               style="background: radial-gradient(circle, rgba(240,185,215,0.12) 0%, transparent 70%);"></div>
+          <div class="absolute -bottom-12 -left-12 w-44 h-44 rounded-full pointer-events-none"
+               style="background: radial-gradient(circle, rgba(240,185,215,0.10) 0%, transparent 70%);"></div>
+          <!-- Product photo -->
+          <picture>
+        <source srcset="images/dorso-banner.webp" type="image/webp" />
+        <img src="images/dorso-banner.webp" alt="" aria-hidden="true"
+               class="absolute bottom-0 right-0 w-full h-64 object-cover object-center pointer-events-none"
+               style="-webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 50%, transparent 100%); mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 50%, transparent 100%);" / loading="lazy">
+      </picture>
+          <!-- Bottom scrim for link contrast -->
+          <div class="absolute bottom-0 left-0 right-0 h-20 pointer-events-none" style="background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 100%);"></div>
+          <!-- Top scrim so text stays readable when image bleeds up -->
+          <div class="absolute top-0 left-0 right-0 h-64 pointer-events-none" style="background: linear-gradient(to bottom, rgba(42,16,34,0.65) 0%, transparent 100%);"></div>
+          <div class="relative z-10">
+            <span class="inline-block bg-white/15 text-pink-200 text-[10px] font-body font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-5">
+              Масла за тяло, серуми и масажни балсами
+            </span>
+            <div class="flex items-center mb-1" style="height:56px;">
+              <picture>
+        <source srcset="images/dorso/dorso-logo.webp" type="image/webp" />
+        <img src="images/dorso/dorso-logo.webp" alt="D'ORSO" class="h-14 w-auto" style="filter: drop-shadow(0 2px 12px rgba(0,0,0,0.35));" />
+      </picture>
+            </div>
+            <p class="font-body text-sm mt-3" style="line-height:1.75; color:rgba(255,210,230,0.95); text-shadow: 0 1px 6px rgba(0,0,0,0.55), 0 2px 12px rgba(0,0,0,0.35);">
+              Масла за тяло, серуми и масажни балсами — грижа за кожата с чисти натурални съставки, без парабени и изкуствени добавки.
+            </p>
+          </div>
+          <div class="relative z-10 flex items-center gap-2 text-pink-300 font-body text-sm font-semibold mt-auto pt-8">
+            Разгледай D'ORSO
+            <svg class="w-4 h-4 arrow-icon" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════ WHY AGROS ══════════════ -->
+  <section class="py-24 bg-cream-50">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+      <div class="text-center mb-16">
+        <h2 class="font-display font-bold text-forest-900" style="font-size:clamp(1.75rem,4vw,3rem); letter-spacing:-0.03em;">
+          Защо хиляди клиенти избират нашите продукти
+        </h2>
+      </div>
+      <div id="why-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <div class="flex flex-col items-start gap-4 p-7 rounded-2xl" style="background:#E8F7F0; box-shadow: 0 2px 12px rgba(34,144,94,0.07), 0 1px 3px rgba(0,0,0,0.04);">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #22905E 0%, #3ABF82 100%); box-shadow: 0 4px 14px rgba(34,144,94,0.30);">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+              <path d="M5 8h14M5 8a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2M5 8V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v2m-7 4v4m-3-2h6"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-forest-900 text-lg">Безплатна доставка</h3>
+          </div>
+        </div>
+
+        <div class="flex flex-col items-start gap-4 p-7 rounded-2xl" style="background:#E8F7F0; box-shadow: 0 2px 12px rgba(34,144,94,0.07), 0 1px 3px rgba(0,0,0,0.04);">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #22905E 0%, #3ABF82 100%); box-shadow: 0 4px 14px rgba(34,144,94,0.30);">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+              <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0 1 12 2.944a11.955 11.955 0 0 1-8.618 3.04A12.02 12.02 0 0 0 3 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-forest-900 text-lg">100% Естествени съставки</h3>
+          </div>
+        </div>
+
+        <div class="flex flex-col items-start gap-4 p-7 rounded-2xl" style="background:#E8F7F0; box-shadow: 0 2px 12px rgba(34,144,94,0.07), 0 1px 3px rgba(0,0,0,0.04);">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #22905E 0%, #3ABF82 100%); box-shadow: 0 4px 14px rgba(34,144,94,0.30);">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M2 12h4m12 0h4M12 2v4m0 12v4"/>
+              <path d="M6.34 6.34l2.83 2.83m5.66 5.66 2.83 2.83M17.66 6.34l-2.83 2.83M8.17 15.83l-2.83 2.83"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-forest-900 text-lg">Произведено в България</h3>
+          </div>
+        </div>
+
+        <div class="flex flex-col items-start gap-4 p-7 rounded-2xl" style="background:#E8F7F0; box-shadow: 0 2px 12px rgba(34,144,94,0.07), 0 1px 3px rgba(0,0,0,0.04);">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #22905E 0%, #3ABF82 100%); box-shadow: 0 4px 14px rgba(34,144,94,0.30);">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24">
+              <path d="M4.5 12.5l2-5.5 5 2 2-6 2 6 5-2 2 5.5"/>
+              <path d="M3 17c0 0 4-3 9-3s9 3 9 3"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-forest-900 text-lg">Студено пресовано, без химия</h3>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════ GOALS ══════════════ -->
+  <section class="py-20 relative overflow-hidden" style="background: linear-gradient(160deg, #0D4A38 0%, #136A48 50%, #0D4A38 100%);">
+    <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at 20% 50%, rgba(200,146,42,0.08) 0%, transparent 55%), radial-gradient(ellipse at 80% 30%, rgba(48,168,112,0.10) 0%, transparent 50%);"></div>
+    <div class="relative max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+      <div class="flex flex-col md:flex-row md:items-start gap-8 mb-12">
+        <div class="flex-none">
+          <h2 class="font-display font-bold text-cream-50" style="font-size:clamp(1.75rem,3.5vw,2.5rem); letter-spacing:-0.03em; line-height:1.15;">
+            Постигнете целите<br>си с нас
+          </h2>
+        </div>
+        <div class="flex-1 md:max-w-xl md:pt-1">
+          <p class="font-body" style="color:rgba(237,229,213,0.70); line-height:1.75; font-size:1rem;">
+            Не знаеш от какво имаш нужда? Избери цел — ние ще ти покажем правилните продукти.
+          </p>
+        </div>
+      </div>
+
+      <div id="goals-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+
+        <a href="products/noteo-proteins.html"
+           class="group flex flex-col items-center text-center gap-3 p-6 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-honey-300"
+           style="background: rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.10); backdrop-filter:blur(6px); transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.25s ease;"
+           onmouseenter="this.style.transform='translateY(-4px)';this.style.background='rgba(255,255,255,0.12)'"
+           onmouseleave="this.style.transform='';this.style.background='rgba(255,255,255,0.07)'">
+          <div class="w-14 h-14 rounded-full flex items-center justify-center text-2xl" style="background: rgba(200,146,42,0.20);">💪</div>
+          <div>
+            <div class="font-display font-bold text-cream-100 text-sm mb-1">Изграждане на форма</div>
+            <div class="font-body text-cream-300/60 text-xs" style="line-height:1.5;">Растителни протеини и брашна за активен начин на живот</div>
+          </div>
+          <span class="font-body text-honey-300 text-xs font-semibold flex items-center gap-1 mt-auto">
+            Виж продукти
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+
+        <a href="products/omega-mix-250ml.html"
+           class="group flex flex-col items-center text-center gap-3 p-6 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-honey-300"
+           style="background: rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.10); backdrop-filter:blur(6px); transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.25s ease;"
+           onmouseenter="this.style.transform='translateY(-4px)';this.style.background='rgba(255,255,255,0.12)'"
+           onmouseleave="this.style.transform='';this.style.background='rgba(255,255,255,0.07)'">
+          <div class="w-14 h-14 rounded-full flex items-center justify-center text-2xl" style="background: rgba(200,146,42,0.20);">❤️</div>
+          <div>
+            <div class="font-display font-bold text-cream-100 text-sm mb-1">Сърдечно здраве</div>
+            <div class="font-body text-cream-300/60 text-xs" style="line-height:1.5;">Омега 3 & 6 от студено пресовани масла</div>
+          </div>
+          <span class="font-body text-honey-300 text-xs font-semibold flex items-center gap-1 mt-auto">
+            Виж продукти
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+
+        <a href="products/dorso-body-care.html"
+           class="group flex flex-col items-center text-center gap-3 p-6 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-honey-300"
+           style="background: rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.10); backdrop-filter:blur(6px); transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.25s ease;"
+           onmouseenter="this.style.transform='translateY(-4px)';this.style.background='rgba(255,255,255,0.12)'"
+           onmouseleave="this.style.transform='';this.style.background='rgba(255,255,255,0.07)'">
+          <div class="w-14 h-14 rounded-full flex items-center justify-center text-2xl" style="background: rgba(200,146,42,0.20);">🌸</div>
+          <div>
+            <div class="font-display font-bold text-cream-100 text-sm mb-1">Грижа за кожата</div>
+            <div class="font-body text-cream-300/60 text-xs" style="line-height:1.5;">Натурална козметика от чисти растителни масла</div>
+          </div>
+          <span class="font-body text-honey-300 text-xs font-semibold flex items-center gap-1 mt-auto">
+            Виж продукти
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+
+        <a href="products/olleo-bottles.html"
+           class="group flex flex-col items-center text-center gap-3 p-6 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-honey-300"
+           style="background: rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.10); backdrop-filter:blur(6px); transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.25s ease;"
+           onmouseenter="this.style.transform='translateY(-4px)';this.style.background='rgba(255,255,255,0.12)'"
+           onmouseleave="this.style.transform='';this.style.background='rgba(255,255,255,0.07)'">
+          <div class="w-14 h-14 rounded-full flex items-center justify-center text-2xl" style="background: rgba(200,146,42,0.20);">🥗</div>
+          <div>
+            <div class="font-display font-bold text-cream-100 text-sm mb-1">Здравословна кухня</div>
+            <div class="font-body text-cream-300/60 text-xs" style="line-height:1.5;">Ароматни масла за салати, готвене и дресинги</div>
+          </div>
+          <span class="font-body text-honey-300 text-xs font-semibold flex items-center gap-1 mt-auto">
+            Виж продукти
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+
+        <a href="products/noteo-flours.html"
+           class="group flex flex-col items-center text-center gap-3 p-6 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-honey-300 col-span-2 md:col-span-1"
+           style="background: rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.10); backdrop-filter:blur(6px); transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.25s ease;"
+           onmouseenter="this.style.transform='translateY(-4px)';this.style.background='rgba(255,255,255,0.12)'"
+           onmouseleave="this.style.transform='';this.style.background='rgba(255,255,255,0.07)'">
+          <div class="w-14 h-14 rounded-full flex items-center justify-center text-2xl" style="background: rgba(200,146,42,0.20);">☀️</div>
+          <div>
+            <div class="font-display font-bold text-cream-100 text-sm mb-1">Сутрешна рутина</div>
+            <div class="font-body text-cream-300/60 text-xs" style="line-height:1.5;">Протеинови шейкове и здравословни брашна за закуска</div>
+          </div>
+          <span class="font-body text-honey-300 text-xs font-semibold flex items-center gap-1 mt-auto">
+            Виж продукти
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════ CATEGORIES ══════════════ -->
+  <section id="products" class="py-24" style="background:#F5EDE3;">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+
+      <!-- Header: two-column like ohgood.bg -->
+      <div class="flex flex-col md:flex-row md:items-start gap-8 mb-14">
+        <div class="flex-none">
+          <h2 class="font-display font-bold text-forest-900" style="font-size:clamp(1.75rem,3.5vw,2.5rem); letter-spacing:-0.03em; line-height:1.15;">
+            Природни продукти<br>за всяка нужда
+          </h2>
+        </div>
+        <div class="flex-1 md:max-w-xl md:pt-1">
+          <p class="font-body text-gray-600" style="line-height:1.75; font-size:1rem;">
+            Agros обединява три марки с ясна мисия — натурални масла за кухнята, растителни протеини за спорта и чиста козметика за кожата. Внимателно подбрани съставки, без компромиси.
+          </p>
+        </div>
+      </div>
+
+      <!-- Category cards grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- OLLEO -->
+        <a href="brands.html?brand=OLLEO" class="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400 rounded-2xl">
+          <!-- Image card -->
+          <div class="relative overflow-hidden rounded-2xl mb-5" style="background:#EDE5D5; aspect-ratio:4/3;">
+            <picture>
+        <source srcset="images/olleo-banner.webp" type="image/webp" />
+        <img src="images/olleo-banner.webp" alt="OLLEO масла" class="w-full h-full object-cover" style="transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"/ loading="lazy">
+      </picture>
+          </div>
+          <!-- Info below card -->
+          <div>
+            <h3 class="font-display font-bold text-forest-900 mb-1" style="font-size:1.1rem;">OLLEO</h3>
+            <p class="font-body text-gray-500 text-sm mb-3" style="line-height:1.6;">Студено пресовани масла от слънчоглед, лен и маслини</p>
+            <div style="border-top:1px solid #DDD0BC; padding-top:0.75rem;">
+              <div class="flex items-center gap-2 text-sm font-body text-gray-700 mb-1.5">
+                <svg class="w-4 h-4 flex-none" style="color:#18988B;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+                За готвене и здравословна кухня
+              </div>
+              <div class="flex items-center gap-2 text-sm font-body text-gray-700">
+                <svg class="w-4 h-4 flex-none" style="color:#C8922A;" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L4.09 12.26a1 1 0 00.74 1.69l5.08-.18-1.9 8.23L19.91 11.74a1 1 0 00-.73-1.69l-5.08.18L13 2z"/></svg>
+                Богати на Омега 3 &amp; 6
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <!-- NOTEO -->
+        <a href="brands.html?brand=NOTEO" class="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terra-500 rounded-2xl">
+          <!-- Image card -->
+          <div class="relative overflow-hidden rounded-2xl mb-5" style="background:#D0F0EE; aspect-ratio:4/3;">
+            <picture>
+        <source srcset="images/noteo-banner.webp" type="image/webp" />
+        <img src="images/noteo-banner.webp" alt="NOTEO протеини" class="w-full h-full object-cover" style="transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"/ loading="lazy">
+      </picture>
+          </div>
+          <!-- Info below card -->
+          <div>
+            <h3 class="font-display font-bold text-forest-900 mb-1" style="font-size:1.1rem;">NOTEO</h3>
+            <p class="font-body text-gray-500 text-sm mb-3" style="line-height:1.6;">Растителни протеини и здравословни брашна</p>
+            <div style="border-top:1px solid #DDD0BC; padding-top:0.75rem;">
+              <div class="flex items-center gap-2 text-sm font-body text-gray-700 mb-1.5">
+                <svg class="w-4 h-4 flex-none" style="color:#18988B;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+                За спорт и активен живот
+              </div>
+              <div class="flex items-center gap-2 text-sm font-body text-gray-700">
+                <svg class="w-4 h-4 flex-none" style="color:#C8922A;" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L4.09 12.26a1 1 0 00.74 1.69l5.08-.18-1.9 8.23L19.91 11.74a1 1 0 00-.73-1.69l-5.08.18L13 2z"/></svg>
+                До 21 г протеин на порция
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <!-- D'ORSO -->
+        <a href="brands.html?brand=D'ORSO" class="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dorso-400 rounded-2xl">
+          <!-- Image card -->
+          <div class="relative overflow-hidden rounded-2xl mb-5" style="background:#F5E0EC; aspect-ratio:4/3;">
+            <picture>
+        <source srcset="images/dorso-banner.webp" type="image/webp" />
+        <img src="images/dorso-banner.webp" alt="D'ORSO козметика" class="w-full h-full object-cover" style="transition: transform 0.5s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"/ loading="lazy">
+      </picture>
+          </div>
+          <!-- Info below card -->
+          <div>
+            <h3 class="font-display font-bold text-forest-900 mb-1" style="font-size:1.1rem;">D'ORSO</h3>
+            <p class="font-body text-gray-500 text-sm mb-3" style="line-height:1.6;">Натурална козметика — масла, серуми и балсами</p>
+            <div style="border-top:1px solid #DDD0BC; padding-top:0.75rem;">
+              <div class="flex items-center gap-2 text-sm font-body text-gray-700 mb-1.5">
+                <svg class="w-4 h-4 flex-none" style="color:#18988B;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+                Без парабени и изкуствени добавки
+              </div>
+              <div class="flex items-center gap-2 text-sm font-body text-gray-700">
+                <svg class="w-4 h-4 flex-none" style="color:#C8922A;" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L4.09 12.26a1 1 0 00.74 1.69l5.08-.18-1.9 8.23L19.91 11.74a1 1 0 00-.73-1.69l-5.08.18L13 2z"/></svg>
+                100% натурални съставки
+              </div>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- View all link -->
+      <div class="text-center mt-12">
+        <a href="brands.html" class="btn inline-flex items-center gap-2.5 border-2 border-forest-700 text-forest-700 hover:bg-forest-700 hover:text-white font-body font-semibold px-8 py-3.5 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400" style="transition: background-color 0.2s ease, color 0.2s ease;">
+          Всички продукти
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════ TESTIMONIALS ══════════════ -->
+  <section class="py-24 bg-cream-50">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+      <div class="flex flex-col md:flex-row md:items-start gap-8 mb-14">
+        <div class="flex-none">
+          <p class="text-forest-500 text-[11px] font-body tracking-widest uppercase mb-3">Отзиви от клиенти</p>
+          <h2 class="font-display font-bold text-forest-900" style="font-size:clamp(1.75rem,3.5vw,2.5rem); letter-spacing:-0.03em; line-height:1.15;">
+            Какво казват<br>нашите клиенти
+          </h2>
+        </div>
+        <div class="flex-1 md:max-w-xl md:pt-1">
+          <div class="flex items-center gap-3 mt-1">
+            <div class="flex items-center gap-0.5">
+              <svg class="w-5 h-5" style="color:#F0C96A;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="w-5 h-5" style="color:#F0C96A;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="w-5 h-5" style="color:#F0C96A;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="w-5 h-5" style="color:#F0C96A;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg class="w-5 h-5" style="color:#F0C96A;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <span class="font-body text-gray-500 text-sm">4.9 от 5 — базирано на отзиви от реални клиенти</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="testimonials-swipe" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <div class="bg-white rounded-2xl p-7 flex flex-col gap-5" style="box-shadow: 0 4px 24px rgba(34,144,94,0.08), 0 1px 4px rgba(0,0,0,0.04);">
+          <div class="flex gap-0.5">
+            <svg class="w-4 h-4" style="color:#F0C96A;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" style="color:#F0C96A;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" style="color:#F0C96A;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" style="color:#F0C96A;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" style="color:#F0C96A;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="font-body text-gray-600 text-sm" style="line-height:1.75;">
+            „Маслото с лимон стана задължителна стъпка от сутринта ми. Слагам го в салата всеки ден — свежо, ароматно и с чист, истински вкус. Никога не съм купувала нещо подобно от магазина."
+          </p>
+          <div class="flex items-center gap-3 pt-3" style="border-top: 1px solid #F0EDE6;">
+            <div class="w-9 h-9 rounded-full flex items-center justify-center font-display font-bold text-sm text-white flex-shrink-0" style="background: linear-gradient(135deg,#3ABF82,#6DD4A8);">М</div>
+            <div>
+              <div class="font-body font-semibold text-forest-900 text-sm">Мария К.</div>
+              <div class="font-body text-gray-400 text-xs">Варна</div>
+            </div>
+            <span class="ml-auto inline-block bg-forest-50 text-forest-700 text-[10px] font-body font-bold tracking-widest uppercase px-2.5 py-1 rounded-full">OLLEO</span>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-7 flex flex-col gap-5" style="box-shadow: 0 4px 24px rgba(34,144,94,0.08), 0 1px 4px rgba(0,0,0,0.04);">
+          <div class="flex gap-0.5">
+            <svg class="w-4 h-4" style="color:#F0C96A;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" style="color:#F0C96A;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" style="color:#F0C96A;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" style="color:#F0C96A;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" style="color:#F0C96A;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="font-body text-gray-600 text-sm" style="line-height:1.75;">
+            „Протеинът на NOTEO е просто страхотен — без изкуствени добавки, приготвя се лесно и вкусът е истински. Използвам малиновия вариант след тренировка вече 3 месеца и съм много доволна от резултатите."
+          </p>
+          <div class="flex items-center gap-3 pt-3" style="border-top: 1px solid #F0EDE6;">
+            <div class="w-9 h-9 rounded-full flex items-center justify-center font-display font-bold text-sm text-white flex-shrink-0" style="background: linear-gradient(135deg,#18988B,#3BC9BF);">С</div>
+            <div>
+              <div class="font-body font-semibold text-forest-900 text-sm">Станислава Г.</div>
+              <div class="font-body text-gray-400 text-xs">София</div>
+            </div>
+            <span class="ml-auto inline-block text-[10px] font-body font-bold tracking-widest uppercase px-2.5 py-1 rounded-full" style="background:#E8F8F6; color:#18988B;">NOTEO</span>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-7 flex flex-col gap-5" style="box-shadow: 0 4px 24px rgba(34,144,94,0.08), 0 1px 4px rgba(0,0,0,0.04);">
+          <div class="flex gap-0.5">
+            <svg class="w-4 h-4" style="color:#F0C96A;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" style="color:#F0C96A;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" style="color:#F0C96A;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" style="color:#F0C96A;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg class="w-4 h-4" style="color:#F0C96A;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="font-body text-gray-600 text-sm" style="line-height:1.75;">
+            „Маслото за тяло D'ORSO с роза е луксозен продукт на достъпна цена. Кожата ми е по-мека и хидратирана — и то без парабени. Препоръчвам го на всяка жена, която цени натуралните козметични продукти."
+          </p>
+          <div class="flex items-center gap-3 pt-3" style="border-top: 1px solid #F0EDE6;">
+            <div class="w-9 h-9 rounded-full flex items-center justify-center font-display font-bold text-sm text-white flex-shrink-0" style="background: linear-gradient(135deg,#7B3A60,#C47B8E);">В</div>
+            <div>
+              <div class="font-body font-semibold text-forest-900 text-sm">Виктория Д.</div>
+              <div class="font-body text-gray-400 text-xs">Пловдив</div>
+            </div>
+            <span class="ml-auto inline-block text-[10px] font-body font-bold tracking-widest uppercase px-2.5 py-1 rounded-full" style="background:#F8E8F0; color:#7B3A60;">D'ORSO</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════ ABOUT ══════════════ -->
+  <section id="about" class="relative overflow-hidden">
+    <!-- Factory background image -->
+    <div class="absolute inset-0">
+      <picture>
+        <source srcset="images/factory.webp" type="image/webp" />
+        <img src="images/factory.webp" alt="Agros 98 фабрика — Варна" class="w-full h-full object-cover object-center" / loading="lazy">
+      </picture>
+      <!-- Dark green gradient overlay for brand consistency + readability -->
+      <div class="absolute inset-0" style="background: linear-gradient(110deg, rgba(15,60,38,0.87) 0%, rgba(25,85,52,0.75) 50%, rgba(10,40,25,0.65) 100%);"></div>
+      <!-- Warm radial accent top-right -->
+      <div class="absolute inset-0" style="background: radial-gradient(ellipse at 80% 15%, rgba(200,146,42,0.13) 0%, transparent 55%);"></div>
+      <!-- Subtle vignette bottom -->
+      <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(8,35,22,0.48) 0%, transparent 40%);"></div>
+    </div>
+
+    <div class="relative py-14 max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
+
+        <!-- Left: stat + badges -->
+        <div class="flex flex-col gap-4">
+          <div>
+            <div class="font-display font-bold text-cream-50 leading-none"
+                 style="font-size: clamp(3.5rem, 9vw, 6.5rem); letter-spacing:-0.05em; text-shadow: 0 6px 32px rgba(0,0,0,0.50);">25+</div>
+            <div class="font-body text-honey-300 font-medium text-sm tracking-widest uppercase mt-2">години опит</div>
+          </div>
+
+          <div class="w-14 h-px" style="background: linear-gradient(90deg, rgba(240,201,106,0.50), transparent);"></div>
+
+          <p class="font-body text-xs tracking-wide" style="color:rgba(237,229,213,0.55);">
+            Варна, България — сертифицирана фабрика от 1998 г.
+          </p>
+
+          <div class="flex flex-wrap gap-2">
+            <span class="inline-flex items-center px-3 py-1 rounded-full font-body text-[11px] font-semibold text-cream-100"
+                  style="background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.18); backdrop-filter: blur(6px);">FSSC / ISO</span>
+            <span class="inline-flex items-center px-3 py-1 rounded-full font-body text-[11px] font-semibold text-cream-100"
+                  style="background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.18); backdrop-filter: blur(6px);">HALAL</span>
+            <span class="inline-flex items-center px-3 py-1 rounded-full font-body text-[11px] font-semibold text-cream-100"
+                  style="background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.18); backdrop-filter: blur(6px);">KOSHER</span>
+            <span class="inline-flex items-center px-3 py-1 rounded-full font-body text-[11px] font-semibold text-cream-100"
+                  style="background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.18); backdrop-filter: blur(6px);">100% Веган</span>
+          </div>
+        </div>
+
+        <!-- Right: Text content -->
+        <div>
+          <p class="text-honey-300 text-[10px] font-body tracking-widest uppercase mb-2">Нашата история</p>
+          <h2 class="font-display font-bold text-cream-50 mb-4"
+              style="font-size:clamp(1.4rem,2.8vw,2.1rem); letter-spacing:-0.03em; text-shadow: 0 2px 16px rgba(0,0,0,0.35);">
+            Природата е нашата рецепта — за здраве, вкус и красота
+          </h2>
+          <p class="font-body mb-3 text-sm" style="color: rgba(237,229,213,0.82); line-height:1.70;">
+            Мотивирани от желанието да направим здравословния живот по-лесен и достъпен, разработихме продуктови линии, които съчетават природното богатство с удобството на съвременния начин на живот. Нашите студено пресовани масла, здравословни брашна и козметична марка <strong style="color:#EDE5D5; font-weight:600;">D'ORSO</strong> се произвеждат в сертифицираната ни фабрика.
+          </p>
+          <p class="font-body mb-6 text-sm" style="color: rgba(237,229,213,0.82); line-height:1.70;">
+            Без изкуствени добавки, консерванти или ароматизатори — само чистата природа. Рецептите ни се вдъхновяват от средиземноморската кухня и носят нейната вековна мъдрост.
+          </p>
+
+          <!-- Features row -->
+          <div class="grid grid-cols-2 gap-x-6 gap-y-3 mb-7">
+            <div class="flex items-center gap-2">
+              <svg class="w-3.5 h-3.5 flex-shrink-0" style="color:#F0C96A;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              <span class="font-body text-xs font-semibold" style="color:#EDE5D5;">Студено пресовано</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-3.5 h-3.5 flex-shrink-0" style="color:#F0C96A;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              <span class="font-body text-xs font-semibold" style="color:#EDE5D5;">100% веган</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-3.5 h-3.5 flex-shrink-0" style="color:#F0C96A;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              <span class="font-body text-xs font-semibold" style="color:#EDE5D5;">FSSC / ISO сертификат</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-3.5 h-3.5 flex-shrink-0" style="color:#F0C96A;" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+              <span class="font-body text-xs font-semibold" style="color:#EDE5D5;">HALAL и KOSHER</span>
+            </div>
+          </div>
+
+          <a href="#contact"
+             class="btn inline-flex items-center gap-2 font-body font-semibold px-6 py-3 rounded-full text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-honey-300"
+             style="background: linear-gradient(135deg, #C8922A 0%, #E4A94A 100%); color: #1A1A1A; box-shadow: 0 4px 20px rgba(200,146,42,0.45), 0 1px 4px rgba(200,146,42,0.20);">
+            Свържи се с нас
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════ BLOG PREVIEW ══════════════ -->
+  <section class="py-24" style="background:#F7F3EC;">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+
+      <!-- Header row -->
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+        <div>
+          <p class="text-forest-500 text-[11px] font-body tracking-widest uppercase mb-3">Знание от природата</p>
+          <h2 class="font-display font-bold text-forest-900 leading-tight" style="font-size:clamp(1.75rem,4vw,2.75rem); letter-spacing:-0.03em;">
+            Научи се как да живееш по-добре
+          </h2>
+          <p class="text-gray-500 font-body mt-3 max-w-md" style="line-height:1.7;">
+            Четете нашия блог за здравословно хранене, козметични рецепти и съвети за балансиран начин на живот.
+          </p>
+        </div>
+        <a href="blog.html"
+           class="inline-flex items-center gap-1.5 font-body font-semibold text-sm text-forest-700 hover:text-forest-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400 rounded whitespace-nowrap"
+           style="transition: color 0.2s ease;">
+          Всички статии
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Cards grid -->
+      <div id="blog-swipe" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- Card 1: OLLEO -->
+        <article class="bg-white rounded-2xl overflow-hidden group"
+                 style="box-shadow: 0 2px 16px rgba(34,144,94,0.08), 0 1px 4px rgba(0,0,0,0.04);">
+          <a href="blog.html" class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400 rounded-t-2xl">
+            <div class="relative flex items-center justify-center" style="aspect-ratio:4/3; background: linear-gradient(140deg,#C8DFC8 0%,#7DBFB0 100%);">
+              <h3 class="font-display font-semibold text-white text-center px-6 leading-snug" style="font-size:1.15rem; text-shadow:0 1px 8px rgba(0,0,0,0.18);">Студено пресовани масла</h3>
+              <span class="absolute bottom-3 left-3 font-body font-bold text-white text-[10px] tracking-widest uppercase px-3 py-1 rounded-full" style="background:#2C6E49;">OLLEO</span>
+            </div>
+          </a>
+          <div class="p-6">
+            <p class="text-gray-400 font-body text-xs mb-2">28 февруари 2026</p>
+            <h3 class="font-display font-semibold text-forest-900 text-lg leading-snug mb-3 group-hover:text-forest-600" style="transition: color 0.2s ease;">
+              Студено пресованите масла — здраве в бутилка
+            </h3>
+            <p class="font-body text-sm mb-5" style="color:#4A8A6A; line-height:1.7;">
+              Защо студеното пресоване е единственият правилен начин за добиване на пълноценни масла с максимален хранителен потенциал...
+            </p>
+            <div class="flex items-center justify-between">
+              <a href="blog.html" class="inline-flex items-center gap-1 font-body text-sm font-semibold text-forest-700 hover:text-forest-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400 rounded" style="transition: color 0.2s ease;">
+                Прочети повече
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <a href="products/natural-250ml.html" class="font-body text-sm font-semibold hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-honey-300 rounded" style="color:#C8922A; transition: opacity 0.2s ease;">
+                Купи продукта —
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2: NOTEO -->
+        <article class="bg-white rounded-2xl overflow-hidden group"
+                 style="box-shadow: 0 2px 16px rgba(24,152,139,0.09), 0 1px 4px rgba(0,0,0,0.04);">
+          <a href="blog.html" class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400 rounded-t-2xl">
+            <div class="relative flex items-center justify-center" style="aspect-ratio:4/3; background: linear-gradient(140deg,#B8E0D8 0%,#82C5BD 100%);">
+              <h3 class="font-display font-semibold text-center px-6 leading-snug" style="font-size:1.15rem; color:#0E5E56;">Растителни протеини</h3>
+              <span class="absolute bottom-3 left-3 font-body font-bold text-white text-[10px] tracking-widest uppercase px-3 py-1 rounded-full" style="background:#18988B;">NOTEO</span>
+            </div>
+          </a>
+          <div class="p-6">
+            <p class="text-gray-400 font-body text-xs mb-2">20 февруари 2026</p>
+            <h3 class="font-display font-semibold text-forest-900 text-lg leading-snug mb-3 group-hover:text-forest-600" style="transition: color 0.2s ease;">
+              Растителните протеини — пълноценна алтернатива за спортисти
+            </h3>
+            <p class="font-body text-sm mb-5" style="color:#18988B; line-height:1.7;">
+              Протеините на NOTEO осигуряват всички незаменими аминокиселини за активен и балансиран живот...
+            </p>
+            <div class="flex items-center justify-between">
+              <a href="blog.html" class="inline-flex items-center gap-1 font-body text-sm font-semibold text-forest-700 hover:text-forest-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400 rounded" style="transition: color 0.2s ease;">
+                Прочети повече
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <a href="products/noteo-protein-natural-300g.html" class="font-body text-sm font-semibold hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-honey-300 rounded" style="color:#C8922A; transition: opacity 0.2s ease;">
+                Купи продукта —
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3: D'ORSO -->
+        <article class="bg-white rounded-2xl overflow-hidden group"
+                 style="box-shadow: 0 2px 16px rgba(123,58,96,0.09), 0 1px 4px rgba(0,0,0,0.04);">
+          <a href="blog.html" class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-dorso-400 rounded-t-2xl">
+            <div class="relative flex items-center justify-center" style="aspect-ratio:4/3; background: linear-gradient(140deg,#E8D0DC 0%,#C4A0B2 100%);">
+              <h3 class="font-display font-semibold text-center px-6 leading-snug" style="font-size:1.15rem; color:#6B2B50;">Натурална козметика</h3>
+              <span class="absolute bottom-3 left-3 font-body font-bold text-white text-[10px] tracking-widest uppercase px-3 py-1 rounded-full" style="background:#7B3A60;">D'ORSO</span>
+            </div>
+          </a>
+          <div class="p-6">
+            <p class="text-gray-400 font-body text-xs mb-2">10 февруари 2026</p>
+            <h3 class="font-display font-semibold text-forest-900 text-lg leading-snug mb-3 group-hover:text-forest-600" style="transition: color 0.2s ease;">
+              5 начина за грижа за кожата с натурални масла
+            </h3>
+            <p class="font-body text-sm mb-5" style="color:#9B5080; line-height:1.7;">
+              Открийте как маслата D'ORSO могат да заменят скъпите козметични продукти с чист и природен аналог...
+            </p>
+            <div class="flex items-center justify-between">
+              <a href="blog.html" class="inline-flex items-center gap-1 font-body text-sm font-semibold text-forest-700 hover:text-forest-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400 rounded" style="transition: color 0.2s ease;">
+                Прочети повече
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+              <a href="products/dorso-oil-natural.html" class="font-body text-sm font-semibold hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-honey-300 rounded" style="color:#C8922A; transition: opacity 0.2s ease;">
+                Купи продукта —
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════ NEWSLETTER ══════════════ -->
+  <section class="py-20 relative overflow-hidden" style="background:#F7F3EC;">
+    <div class="absolute inset-0 pointer-events-none"
+         style="background: radial-gradient(ellipse at 20% 60%, rgba(48,168,112,0.07) 0%, transparent 55%),
+                            radial-gradient(ellipse at 80% 25%, rgba(200,146,42,0.08) 0%, transparent 50%);"></div>
+    <div class="relative max-w-3xl mx-auto px-5 sm:px-8">
+      <div class="flex flex-col md:flex-row md:items-start gap-8 mb-8">
+        <div class="flex-none">
+          <div class="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-4"
+               style="background:rgba(48,168,112,0.08); border:1px solid rgba(48,168,112,0.20);">
+            <span class="text-[11px] font-body tracking-widest uppercase" style="color:#4A7A4C;">Абонирайте се</span>
+          </div>
+          <h2 class="font-display font-bold text-forest-900"
+              style="font-size:clamp(1.5rem,3.5vw,2.5rem); letter-spacing:-0.03em; line-height:1.15;">
+            Рецепти, съвети и<br>ексклузивни оферти
+          </h2>
+        </div>
+        <div class="flex-1 md:max-w-xl md:pt-1">
+          <p class="font-body" style="color:#5a6e5b; line-height:1.75; font-size:1rem;">
+            Абонирайте се и получавайте здравословни рецепти, козметични съвети и специални оферти директно в пощата.
+          </p>
+        </div>
+      </div>
+      <form class="newsletter-form flex flex-col sm:flex-row gap-3">
+        <input type="email" placeholder="Вашият имейл адрес"
+               class="flex-1 font-body text-sm rounded-full px-5 py-3.5 focus:outline-none focus:ring-2 focus:ring-honey-400"
+               style="background:#fff; border:1px solid rgba(48,168,112,0.25); color:#0D3A22;" />
+        <button type="submit"
+                class="btn font-body font-semibold text-white px-7 py-3.5 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-honey-300"
+                style="background:#C8922A; box-shadow:0 4px 20px rgba(200,146,42,0.35);">
+          Абонирай се
+        </button>
+      </form>
+      <p class="font-body text-xs mt-4" style="color:#8a9e8b;">Без спам. Отписване по всяко време.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════ FOOTER ══════════════ -->
+  </main>
+
+  <footer id="contact" class="bg-forest-900">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+
+        <!-- Brand -->
+        <div class="lg:col-span-1">
+          <a href="index.html" class="mb-5 inline-block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400 rounded-lg">
+            <picture>
+        <source srcset="images/agros-logo.webp" type="image/webp" />
+        <img src="images/agros-logo.png" alt="Agros" class="h-10 w-auto" style="" />
+      </picture>
+          </a>
+          <p class="text-forest-300 font-body text-sm mb-6" style="line-height:1.75;">
+            Натурални продукти за здраве и красота. Произведено от Agros&nbsp;98, Варна, България.
+          </p>
+          <div class="flex items-center gap-2.5">
+            <a href="javascript:void(0)" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/12 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400"
+               style="background:rgba(255,255,255,0.07);" aria-label="Facebook">
+              <svg class="w-4 h-4 text-forest-300" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+            <a href="javascript:void(0)" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/12 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400"
+               style="background:rgba(255,255,255,0.07);" aria-label="YouTube">
+              <svg class="w-4 h-4 text-forest-300" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/>
+              </svg>
+            </a>
+            <a href="javascript:void(0)" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/12 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400"
+               style="background:rgba(255,255,255,0.07);" aria-label="Instagram">
+              <svg class="w-4 h-4 text-forest-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Products -->
+        <div>
+          <h4 class="text-cream-100 font-body font-semibold text-sm tracking-wide mb-5">Продукти</h4>
+          <ul class="space-y-3">
+            <li><a href="brands.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-forest-400 rounded">OLLEO Масла</a></li>
+            <li><a href="brands.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">NOTEO Брашна</a></li>
+            <li><a href="brands.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">NOTEO Протеини</a></li>
+            <li><a href="brands.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">D'ORSO Козметика</a></li>
+            <li><a href="brands.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">Всички продукти</a></li>
+          </ul>
+        </div>
+
+        <!-- Info -->
+        <div>
+          <h4 class="text-cream-100 font-body font-semibold text-sm tracking-wide mb-5">Информация</h4>
+          <ul class="space-y-3">
+            <li><a href="about.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">За нас</a></li>
+            <li><a href="delivery.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">Доставка</a></li>
+            <li><a href="terms.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">Общи условия</a></li>
+            <li><a href="privacy.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">Политика за поверителност</a></li>
+            <li><a href="cookies.html" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">Информация за бисквитки</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="text-cream-100 font-body font-semibold text-sm tracking-wide mb-5">Контакти</h4>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <svg class="w-4 h-4 text-honey-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span class="text-forest-300 font-body text-sm" style="line-height:1.6;">ул. Цар Иван Шишман 36,<br>Варна, България</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 text-honey-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1 19.79 19.79 0 0 1 1.58 4.5 2 2 0 0 1 3.55 2.32h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.29 6.29l.88-.88a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 17.64z"/>
+              </svg>
+              <a href="tel:+359888858996" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">+359 888 858 996</a>
+            </li>
+            <li class="flex items-center gap-3">
+              <svg class="w-4 h-4 text-honey-400 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+              <a href="mailto:office@agros.net" class="text-forest-300 font-body text-sm hover:text-cream-100 transition-colors duration-200">office@agros.net</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4"
+           style="border-top:1px solid rgba(255,255,255,0.07);">
+        <p class="text-forest-500 font-body text-xs">© 2026 Agros Grain Group. Всички права запазени.</p>
+        <div class="flex items-center gap-5">
+          <a href="privacy.html" class="text-forest-500 hover:text-forest-300 font-body text-xs transition-colors duration-200">Поверителност</a>
+          <a href="cookies.html" class="text-forest-500 hover:text-forest-300 font-body text-xs transition-colors duration-200">Бисквитки</a>
+          <a href="terms.html" class="text-forest-500 hover:text-forest-300 font-body text-xs transition-colors duration-200">Условия</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ═══════════════ MOBILE NAV DRAWER ═══════════════ -->
+  <div id="mob-nav" style="position:fixed;inset:0;z-index:600;pointer-events:none;">
+    <div id="mob-nav-backdrop" onclick="closeMobileNav()"
+         style="position:absolute;inset:0;background:rgba(8,35,22,0.60);backdrop-filter:blur(5px);opacity:0;transition:opacity 0.32s ease;pointer-events:none;"></div>
+    <div id="mob-nav-panel"
+         style="position:absolute;top:0;right:0;height:100%;width:min(320px,88vw);background:#FEFCF8;transform:translateX(100%);transition:transform 0.38s cubic-bezier(0.34,1.2,0.64,1);display:flex;flex-direction:column;overflow-y:auto;box-shadow:-8px 0 56px rgba(0,0,0,0.20);">
+      <!-- Header -->
+      <div style="padding:18px 20px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #EDE5D5;flex-shrink:0;">
+        <picture>
+        <source srcset="images/agros-logo.webp" type="image/webp" />
+        <img src="images/agros-logo.png" alt="Agros" style="height:38px;width:auto;" />
+      </picture>
+        <button onclick="closeMobileNav()" aria-label="Затвори"
+                style="background:rgba(0,0,0,0.05);border:none;cursor:pointer;color:#666;padding:8px;border-radius:50%;line-height:0;transition:background 0.2s ease;"
+                onmouseenter="this.style.background='rgba(0,0,0,0.10)'" onmouseleave="this.style.background='rgba(0,0,0,0.05)'">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <!-- Main nav links -->
+      <div style="padding:8px 0;border-bottom:1px solid #EDE5D5;flex-shrink:0;">
+        <a href="brands.html" style="display:flex;align-items:center;justify-content:space-between;padding:16px 22px;font-family:'Montserrat',sans-serif;font-size:17px;font-weight:700;color:#124830;text-decoration:none;border-bottom:1px solid #F5EDE3;">
+          Продукти <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8922A" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="about.html" style="display:flex;align-items:center;justify-content:space-between;padding:16px 22px;font-family:'Montserrat',sans-serif;font-size:17px;font-weight:700;color:#124830;text-decoration:none;border-bottom:1px solid #F5EDE3;">
+          За нас <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8922A" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="blog.html" style="display:flex;align-items:center;justify-content:space-between;padding:16px 22px;font-family:'Montserrat',sans-serif;font-size:17px;font-weight:700;color:#124830;text-decoration:none;border-bottom:1px solid #F5EDE3;">
+          Блог <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8922A" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="contact.html" style="display:flex;align-items:center;justify-content:space-between;padding:16px 22px;font-family:'Montserrat',sans-serif;font-size:17px;font-weight:700;color:#124830;text-decoration:none;">
+          Контакти <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C8922A" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <!-- Brand quick links -->
+      <div style="padding:20px 22px;flex:1;">
+        <p style="font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#3ABF82;margin:0 0 14px;">Нашите марки</p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <a href="products/olleo-bottles.html" onclick="closeMobileNav()"
+             style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:linear-gradient(135deg,#FFF8EC,#FFF0CC);border-radius:16px;text-decoration:none;border:1px solid rgba(200,146,42,0.15);">
+            <span style="font-size:24px;line-height:1;">🫙</span>
+            <div>
+              <div style="font-family:'Montserrat',sans-serif;font-size:15px;font-weight:700;color:#9B6C14;">OLLEO</div>
+              <div style="font-family:'Inter',sans-serif;font-size:11px;color:#C8922A;margin-top:1px;">Студено пресовани масла</div>
+            </div>
+            <svg style="margin-left:auto;flex-shrink:0;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C8922A" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="products/noteo-proteins.html" onclick="closeMobileNav()"
+             style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:linear-gradient(135deg,#E8F8F6,#C8F0EC);border-radius:16px;text-decoration:none;border:1px solid rgba(24,152,139,0.15);">
+            <span style="font-size:24px;line-height:1;">💪</span>
+            <div>
+              <div style="font-family:'Montserrat',sans-serif;font-size:15px;font-weight:700;color:#0F6B62;">NOTEO</div>
+              <div style="font-family:'Inter',sans-serif;font-size:11px;color:#18988B;margin-top:1px;">Протеини и брашна</div>
+            </div>
+            <svg style="margin-left:auto;flex-shrink:0;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#18988B" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="products/dorso-body-care.html" onclick="closeMobileNav()"
+             style="display:flex;align-items:center;gap:14px;padding:14px 16px;background:linear-gradient(135deg,#F8E8F0,#F0CCE0);border-radius:16px;text-decoration:none;border:1px solid rgba(123,58,96,0.15);">
+            <span style="font-size:24px;line-height:1;">🌸</span>
+            <div>
+              <div style="font-family:'Montserrat',sans-serif;font-size:15px;font-weight:700;color:#5A2248;">D'ORSO</div>
+              <div style="font-family:'Inter',sans-serif;font-size:11px;color:#7B3A60;margin-top:1px;">Натурална козметика</div>
+            </div>
+            <svg style="margin-left:auto;flex-shrink:0;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7B3A60" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+      <!-- Footer CTA + contacts -->
+      <div style="padding:16px 22px 28px;border-top:1px solid #EDE5D5;flex-shrink:0;">
+        <a href="brands.html"
+           style="display:flex;align-items:center;justify-content:center;gap:8px;padding:15px;background:#C8922A;color:#fff;border-radius:50px;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;text-decoration:none;margin-bottom:14px;box-shadow:0 4px 20px rgba(200,146,42,0.38);">
+          Всички продукти
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;justify-content:center;">
+          <a href="tel:+359888858996" style="font-family:'Inter',sans-serif;font-size:13px;color:#22905E;font-weight:600;text-decoration:none;">📞 +359 888 858 996</a>
+          <a href="mailto:office@agros.net" style="font-family:'Inter',sans-serif;font-size:13px;color:#22905E;font-weight:600;text-decoration:none;">✉ office@agros.net</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ MOBILE BOTTOM NAV ═══════════════ -->
+  <nav id="mob-bottom-nav" aria-label="Мобилна навигация"
+       style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:500;background:#FEFCF8;border-top:1px solid #E8E2D8;box-shadow:0 -4px 28px rgba(34,144,94,0.10);">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);height:58px;padding-bottom:env(safe-area-inset-bottom,4px);">
+      <a href="index.html"
+         style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:#22905E;padding:6px 0;">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.01em;">Начало</span>
+      </a>
+      <a href="brands.html"
+         style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-decoration:none;color:#888;padding:6px 0;">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.01em;">Продукти</span>
+      </a>
+      <button onclick="document.getElementById('cart-toggle-btn').click()"
+              style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:none;border:none;cursor:pointer;color:#888;position:relative;padding:6px 0;">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.01em;">Количка</span>
+        <span id="mob-cart-badge" style="position:absolute;top:4px;right:calc(50% - 18px);background:#C8922A;color:white;font-size:9px;font-weight:700;border-radius:50%;width:15px;height:15px;display:none;align-items:center;justify-content:center;line-height:1;"></span>
+      </button>
+      <button onclick="openMobileNav()"
+              style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:none;border:none;cursor:pointer;color:#888;padding:6px 0;">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+        <span style="font-family:'Inter',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.01em;">Меню</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══════════════ CART DRAWER ═══════════════ -->
+  <div id="cart-overlay" onclick="if(event.target===this)closeCart()" style="display:none;position:fixed;inset:0;z-index:1100;background:rgba(0,0,0,0.45);backdrop-filter:blur(3px);"></div>
+
+  <aside id="cart-drawer" role="dialog" aria-modal="true" aria-label="Количка" style="position:fixed;top:0;right:0;height:100dvh;width:min(440px,100vw);z-index:1101;background:#FEFCF8;box-shadow:-8px 0 48px rgba(0,0,0,0.16);transform:translateX(100%);transition:transform 0.38s cubic-bezier(0.34,1.2,0.64,1);display:flex;flex-direction:column;">
+
+    <!-- Drawer header -->
+    <div style="padding:20px 24px 18px;border-bottom:1px solid #EDE5D5;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <h2 style="font-family:'Montserrat',sans-serif;font-size:22px;font-weight:700;color:#124830;margin:0;letter-spacing:-0.02em;">Количка</h2>
+        <span id="cart-count-drawer" style="background:#3ABF82;color:white;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">0</span>
+      </div>
+      <button onclick="closeCart()" aria-label="Затвори количката" style="background:none;border:none;cursor:pointer;color:#aaa;padding:6px;border-radius:50%;transition:color 0.2s,background 0.2s;" onmouseenter="this.style.color='#333';this.style.background='rgba(0,0,0,0.06)'" onmouseleave="this.style.color='#aaa';this.style.background='none'">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Empty state -->
+    <div id="cart-empty" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 32px;text-align:center;">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#D7E4D4" stroke-width="1.2" style="margin-bottom:20px;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <h3 style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:700;color:#124830;margin:0 0 8px;">Количката е празна</h3>
+      <p style="font-family:'Inter',sans-serif;font-size:14px;color:#999;line-height:1.65;margin:0 0 24px;">Добавете продукти от нашата колекция.</p>
+      <button onclick="closeCart()" style="background:#22905E;color:white;border:none;border-radius:50px;padding:13px 28px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.2s;" onmouseenter="this.style.background='#30A870'" onmouseleave="this.style.background='#22905E'">Разгледай продукти</button>
+    </div>
+
+    <!-- Items list -->
+    <div id="cart-items" style="flex:1;overflow-y:auto;padding:16px 20px;display:none;flex-direction:column;gap:12px;scrollbar-width:thin;scrollbar-color:#B0CAAD #F7F3EC;"></div>
+
+    <!-- Footer -->
+    <div id="cart-footer" style="display:none;border-top:1px solid #EDE5D5;padding:18px 24px 22px;flex-shrink:0;">
+      <!-- Free shipping bar -->
+      <div style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <span id="cart-shipping-msg" style="font-family:'Inter',sans-serif;font-size:12px;color:#666;line-height:1.4;"></span>
+          <span style="font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:#3ABF82;flex-shrink:0;margin-left:8px;">25.57&nbsp;€</span>
+        </div>
+        <div style="height:5px;background:#EDE5D5;border-radius:3px;overflow:hidden;">
+          <div id="cart-shipping-progress" style="height:100%;background:linear-gradient(90deg,#3ABF82,#6DD4A8);border-radius:3px;transition:width 0.45s ease;width:0%;"></div>
+        </div>
+      </div>
+
+      <!-- Totals -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;padding:14px 16px;background:white;border-radius:14px;box-shadow:0 1px 6px rgba(0,0,0,0.05);">
+        <div>
+          <div style="font-family:'Inter',sans-serif;font-size:12px;color:#999;margin-bottom:2px;">Обща сума</div>
+          <div id="cart-total-bgn" style="font-family:'Inter',sans-serif;font-size:12px;color:#aaa;"></div>
+        </div>
+        <div id="cart-total-eur" style="font-family:'Montserrat',sans-serif;font-size:26px;font-weight:700;color:#124830;letter-spacing:-0.02em;"></div>
+      </div>
+
+      <!-- Checkout -->
+      <button onclick="handleCheckout()" style="width:100%;padding:16px;border:none;border-radius:50px;background:#22905E;color:white;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 20px rgba(34,144,94,0.35);transition:transform 0.2s cubic-bezier(0.34,1.56,0.64,1),background 0.2s;" onmouseenter="this.style.background='#30A870';this.style.transform='translateY(-1px)'" onmouseleave="this.style.background='#22905E';this.style.transform='translateY(0)'" onmousedown="this.style.transform='translateY(0)'" onmouseup="this.style.transform='translateY(-1px)'">
+        Продължи към поръчка
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <button onclick="closeCart()" style="width:100%;margin-top:10px;background:none;border:none;color:#aaa;font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;padding:6px;transition:color 0.2s;" onmouseenter="this.style.color='#666'" onmouseleave="this.style.color='#aaa'">Продължи пазаруването</button>
+    </div>
+  </aside>
+
+  <!-- Order confirmation modal -->
+  <div id="order-modal-overlay" onclick="if(event.target===this)closeOrderModal()" style="display:none;position:fixed;inset:0;z-index:1200;background:rgba(0,0,0,0.50);backdrop-filter:blur(4px);align-items:center;justify-content:center;padding:20px;">
+    <div id="order-modal" style="background:white;border-radius:24px;padding:40px 36px 32px;max-width:520px;width:100%;position:relative;box-shadow:0 24px 80px rgba(0,0,0,0.18);max-height:90dvh;overflow-y:auto;animation:cartModalIn 0.35s cubic-bezier(0.34,1.56,0.64,1);">
+      <button onclick="closeOrderModal()" aria-label="Затвори" style="position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;color:#aaa;padding:6px;" onmouseenter="this.style.color='#333'" onmouseleave="this.style.color='#aaa'">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <h2 style="font-family:'Montserrat',sans-serif;font-size:24px;font-weight:700;color:#124830;text-align:center;margin:0 0 6px;letter-spacing:-0.02em;">Оформете поръчката</h2>
+      <p style="font-family:'Inter',sans-serif;font-size:14px;color:#888;text-align:center;margin:0 0 24px;line-height:1.6;">Попълнете данните за доставка и ние ще се свържем с вас.</p>
+
+      <div id="order-summary" style="background:#F7F3EC;border-radius:14px;padding:16px;margin-bottom:20px;"></div>
+
+      <form id="order-form" onsubmit="submitOrder(event)" novalidate>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+          <input id="order-name" type="text" placeholder="Имена *" required style="grid-column:1/-1;padding:13px 18px;border:1.5px solid #D1D5DB;border-radius:50px;font-size:14px;font-family:'Inter',sans-serif;outline:none;color:#1A1A1A;" onfocus="this.style.borderColor='#22905E';this.style.boxShadow='0 0 0 3px rgba(34,144,94,0.12)'" onblur="this.style.borderColor='#D1D5DB';this.style.boxShadow='none'" />
+          <input id="order-phone" type="tel" placeholder="Телефон *" required style="padding:13px 18px;border:1.5px solid #D1D5DB;border-radius:50px;font-size:14px;font-family:'Inter',sans-serif;outline:none;color:#1A1A1A;" onfocus="this.style.borderColor='#22905E';this.style.boxShadow='0 0 0 3px rgba(34,144,94,0.12)'" onblur="this.style.borderColor='#D1D5DB';this.style.boxShadow='none'" />
+          <input id="order-email" type="email" placeholder="Имейл" style="padding:13px 18px;border:1.5px solid #D1D5DB;border-radius:50px;font-size:14px;font-family:'Inter',sans-serif;outline:none;color:#1A1A1A;" onfocus="this.style.borderColor='#22905E';this.style.boxShadow='0 0 0 3px rgba(34,144,94,0.12)'" onblur="this.style.borderColor='#D1D5DB';this.style.boxShadow='none'" />
+        </div>
+        <input id="order-address" type="text" placeholder="Адрес за доставка *" required style="width:100%;padding:13px 18px;border:1.5px solid #D1D5DB;border-radius:50px;font-size:14px;font-family:'Inter',sans-serif;outline:none;color:#1A1A1A;margin-bottom:12px;box-sizing:border-box;" onfocus="this.style.borderColor='#22905E';this.style.boxShadow='0 0 0 3px rgba(34,144,94,0.12)'" onblur="this.style.borderColor='#D1D5DB';this.style.boxShadow='none'" />
+        <textarea id="order-note" placeholder="Бележка (по желание)" rows="2" style="width:100%;padding:13px 18px;border:1.5px solid #D1D5DB;border-radius:18px;font-size:14px;font-family:'Inter',sans-serif;outline:none;color:#1A1A1A;resize:none;margin-bottom:16px;box-sizing:border-box;" onfocus="this.style.borderColor='#22905E';this.style.boxShadow='0 0 0 3px rgba(34,144,94,0.12)'" onblur="this.style.borderColor='#D1D5DB';this.style.boxShadow='none'"></textarea>
+
+        <p id="order-error" style="display:none;color:#c0392b;font-size:13px;text-align:center;margin:-8px 0 12px;font-family:'Inter',sans-serif;"></p>
+
+        <button type="submit" style="width:100%;padding:16px;border:none;border-radius:50px;background:#22905E;color:white;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(34,144,94,0.35);transition:background 0.2s,transform 0.2s cubic-bezier(0.34,1.56,0.64,1);" onmouseenter="this.style.background='#30A870';this.style.transform='translateY(-1px)'" onmouseleave="this.style.background='#22905E';this.style.transform='translateY(0)'">Изпрати поръчка</button>
+      </form>
+
+      <div id="order-success" style="display:none;text-align:center;padding:20px 0 10px;">
+        <div style="font-size:56px;margin-bottom:16px;">🌿</div>
+        <h3 style="font-family:'Montserrat',sans-serif;font-size:22px;color:#22905E;margin:0 0 10px;">Благодаря за поръчката!</h3>
+        <p style="font-family:'Inter',sans-serif;font-size:14px;color:#666;line-height:1.7;">Получихме вашата заявка. Ще се свържем с вас на посочения телефон или имейл за потвърждение.</p>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @keyframes cartModalIn {
+      from { opacity:0; transform:scale(0.92) translateY(14px); }
+      to   { opacity:1; transform:scale(1) translateY(0); }
+    }
+    .cart-item-enter { animation: cartItemIn 0.28s cubic-bezier(0.34,1.56,0.64,1); }
+    @keyframes cartItemIn {
+      from { opacity:0; transform:translateY(8px) scale(0.97); }
+      to   { opacity:1; transform:translateY(0) scale(1); }
+    }
+    .btn-added { background:#3ABF82 !important; }
+    #cart-items::-webkit-scrollbar { width:4px; }
+    #cart-items::-webkit-scrollbar-track { background:#F7F3EC; }
+    #cart-items::-webkit-scrollbar-thumb { background:#B0CAAD; border-radius:4px; }
+    #order-modal-overlay { display: none; }
+    #order-modal-overlay.open { display: flex; }
+  </style>
+
+  <script>
+    (function () {
+      const EUR_TO_BGN = 1.9558;
+      const FREE_SHIP  = 25.57;
+
+      /* ── State ── */
+      let cart = [];
+      try { cart = JSON.parse(localStorage.getItem('agros_cart') || '[]'); } catch(e) {}
+
+      function saveCart() {
+        try { localStorage.setItem('agros_cart', JSON.stringify(cart)); } catch(e) {}
+      }
+
+      /* ── Extract product data from a card DOM element ── */
+      function productFromCard(card) {
+        const nameEl  = card.querySelector('h3');
+        const name    = nameEl ? nameEl.textContent.trim() : 'Продукт';
+
+        // EUR price is in the span.text-lg.font-bold (first one, not the strikethrough)
+        const priceEl  = card.querySelector('span.text-lg');
+        const priceRaw = priceEl ? priceEl.textContent.replace(/[^\d.,]/g, '').replace(',', '.') : '0';
+        const price    = parseFloat(priceRaw) || 0;
+
+        const imgEl  = card.querySelector('img.prod-img, img');
+        const img    = imgEl ? (imgEl.getAttribute('src') || '') : '';
+
+        const volEl  = card.querySelector('p.text-gray-400');
+        const volume = volEl ? volEl.textContent.trim() : '';
+
+        const badgeEl = card.querySelector('span[class*="absolute top-3 left-3"]');
+        const brand   = badgeEl ? badgeEl.textContent.trim() : '';
+
+        // Hash the full name+volume string so Cyrillic products get unique IDs
+        let _h = 5381;
+        const _s = name + '|' + volume;
+        for (let i = 0; i < _s.length; i++) _h = ((_h * 33) ^ _s.charCodeAt(i)) >>> 0;
+        const id = _h.toString(36);
+
+        return { id, name, price, img, volume, brand };
+      }
+
+      /* ── Add to cart ── */
+      function addToCart(card, triggerBtn) {
+        const p    = productFromCard(card);
+        const item = cart.find(i => i.id === p.id);
+        if (item) {
+          item.qty++;
+        } else {
+          cart.push({ ...p, qty: 1 });
+        }
+        saveCart();
+        renderCart();
+        openCart();
+        animateBtn(triggerBtn);
+      }
+
+      /* ── Exposed cart actions (called from inline onclick in rendered HTML) ── */
+      window.cartRemove = function(id) {
+        cart = cart.filter(i => i.id !== id);
+        saveCart();
+        renderCart();
+      };
+      window.cartQty = function(id, delta) {
+        const item = cart.find(i => i.id === id);
+        if (!item) return;
+        item.qty = Math.max(1, item.qty + delta);
+        saveCart();
+        renderCart();
+      };
+      window.openCart = function() {
+        document.getElementById('cart-overlay').style.display = 'block';
+        document.getElementById('cart-drawer').style.transform = 'translateX(0)';
+        document.body.style.overflow = 'hidden';
+      };
+      window.closeCart = function() {
+        document.getElementById('cart-overlay').style.display = 'none';
+        document.getElementById('cart-drawer').style.transform = 'translateX(100%)';
+        document.body.style.overflow = '';
+      };
+      window.handleCheckout = function() {
+        if (cart.length === 0) return;
+        renderOrderSummary();
+        document.getElementById('order-modal-overlay').style.display = 'flex';
+        document.getElementById('order-form').style.display = '';
+        document.getElementById('order-success').style.display = 'none';
+        document.getElementById('order-error').style.display = 'none';
+      };
+      window.closeOrderModal = function() {
+        document.getElementById('order-modal-overlay').style.display = 'none';
+      };
+      window.submitOrder = function(e) {
+        e.preventDefault();
+        const name    = document.getElementById('order-name').value.trim();
+        const phone   = document.getElementById('order-phone').value.trim();
+        const address = document.getElementById('order-address').value.trim();
+        const errEl   = document.getElementById('order-error');
+        if (!name)    { showOrderErr('Моля, въведете вашето ime.'); return; }
+        if (!phone)   { showOrderErr('Моля, въведете телефон за връзка.'); return; }
+        if (!address) { showOrderErr('Моля, въведете адрес за доставка.'); return; }
+        errEl.style.display = 'none';
+        // In a real site this would POST to a backend. Here we simulate success.
+        document.getElementById('order-form').style.display = 'none';
+        document.getElementById('order-summary').style.display = 'none';
+        document.getElementById('order-success').style.display = 'block';
+        cart = [];
+        saveCart();
+        renderCart();
+        setTimeout(function() {
+          closeOrderModal();
+          closeCart();
+        }, 4000);
+      };
+
+      function showOrderErr(msg) {
+        const el = document.getElementById('order-error');
+        el.textContent = msg;
+        el.style.display = 'block';
+      }
+
+      /* ── Render order summary inside the order modal ── */
+      function renderOrderSummary() {
+        const total = getTotal();
+        const el = document.getElementById('order-summary');
+        el.style.display = '';
+        el.innerHTML = cart.map(item => `
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <img src="${esc(item.img)}" alt="${esc(item.name)}" style="width:44px;height:44px;border-radius:10px;object-fit:cover;background:#EEF2EB;flex-shrink:0;" onerror="this.style.visibility='hidden'" />
+            <div style="flex:1;min-width:0;">
+              <div style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#124830;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(item.name)} <span style="color:#999;font-weight:400;">${esc(item.volume)}</span></div>
+              <div style="font-size:12px;color:#888;font-family:'Inter',sans-serif;">× ${item.qty}</div>
+            </div>
+            <div style="font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:#124830;flex-shrink:0;">${item.price > 0 ? (item.price * item.qty).toFixed(2) + ' €' : '—'}</div>
+          </div>
+        `).join('') + `<div style="border-top:1px solid #EDE5D5;margin-top:6px;padding-top:10px;display:flex;justify-content:space-between;font-family:'Inter',sans-serif;font-size:15px;font-weight:700;color:#124830;"><span>Общо:</span><span>${total.toFixed(2)}&nbsp;€ &nbsp;<span style="font-size:12px;font-weight:400;color:#999;">(${(total * EUR_TO_BGN).toFixed(2)}&nbsp;лв.)</span></span></div>`;
+      }
+
+      /* ── Render cart drawer ── */
+      function getTotal() {
+        return cart.reduce((s, i) => s + i.price * i.qty, 0);
+      }
+      function getTotalQty() {
+        return cart.reduce((s, i) => s + i.qty, 0);
+      }
+
+      function renderCart() {
+        const qty   = getTotalQty();
+        const total = getTotal();
+
+        /* Nav badge */
+        const badge = document.getElementById('cart-badge');
+        if (badge) {
+          badge.textContent = qty;
+          badge.style.display = qty > 0 ? 'flex' : 'none';
+        }
+
+        /* Drawer badge */
+        const dbadge = document.getElementById('cart-count-drawer');
+        if (dbadge) dbadge.textContent = qty;
+
+        const itemsEl  = document.getElementById('cart-items');
+        const emptyEl  = document.getElementById('cart-empty');
+        const footerEl = document.getElementById('cart-footer');
+
+        if (cart.length === 0) {
+          itemsEl.style.display  = 'none';
+          emptyEl.style.display  = 'flex';
+          footerEl.style.display = 'none';
+          return;
+        }
+
+        emptyEl.style.display  = 'none';
+        itemsEl.style.display  = 'flex';
+        footerEl.style.display = 'block';
+
+        itemsEl.innerHTML = cart.map(item => `
+          <div class="cart-item-enter" style="display:flex;gap:12px;padding:14px;background:white;border-radius:16px;box-shadow:0 1px 8px rgba(0,0,0,0.06);align-items:flex-start;">
+            <div style="width:68px;height:68px;border-radius:12px;overflow:hidden;background:#EEF2EB;flex-shrink:0;">
+              <img src="${esc(item.img)}" alt="${esc(item.name)}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentNode.style.background='#EDE5D5'" />
+            </div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#888;margin-bottom:2px;">${esc(item.brand)}</div>
+              <div style="font-family:'Montserrat',sans-serif;font-size:14px;font-weight:600;color:#124830;line-height:1.3;margin-bottom:2px;">${esc(item.name)}</div>
+              <div style="font-family:'Inter',sans-serif;font-size:11px;color:#bbb;margin-bottom:10px;">${esc(item.volume)}</div>
+              <div style="display:flex;align-items:center;justify-content:space-between;">
+                <div style="display:inline-flex;align-items:center;background:#F7F3EC;border-radius:50px;overflow:hidden;">
+                  <button onclick="cartQty('${esc(item.id)}',-1)" aria-label="Намали" style="width:32px;height:32px;border:none;background:none;cursor:pointer;font-size:18px;line-height:1;color:#3ABF82;display:flex;align-items:center;justify-content:center;transition:background 0.15s;" onmouseenter="this.style.background='rgba(48,168,112,0.12)'" onmouseleave="this.style.background='none'">−</button>
+                  <span style="font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:#1A1A1A;min-width:22px;text-align:center;">${item.qty}</span>
+                  <button onclick="cartQty('${esc(item.id)}',1)" aria-label="Увеличи" style="width:32px;height:32px;border:none;background:none;cursor:pointer;font-size:18px;line-height:1;color:#3ABF82;display:flex;align-items:center;justify-content:center;transition:background 0.15s;" onmouseenter="this.style.background='rgba(48,168,112,0.12)'" onmouseleave="this.style.background='none'">+</button>
+                </div>
+                ${item.price > 0
+                  ? `<div style="font-family:'Inter',sans-serif;font-weight:700;font-size:16px;color:#124830;">${(item.price * item.qty).toFixed(2)}&nbsp;€</div>`
+                  : `<div style="font-family:'Inter',sans-serif;font-size:12px;color:#aaa;">Цена по запитване</div>`}
+              </div>
+            </div>
+            <button onclick="cartRemove('${esc(item.id)}')" aria-label="Премахни" style="background:none;border:none;cursor:pointer;color:#ddd;padding:4px;flex-shrink:0;border-radius:6px;transition:color 0.2s,background 0.15s;" onmouseenter="this.style.color='#e55';this.style.background='rgba(220,53,69,0.08)'" onmouseleave="this.style.color='#ddd';this.style.background='none'">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+            </button>
+          </div>
+        `).join('');
+
+        /* Totals */
+        document.getElementById('cart-total-eur').textContent = total.toFixed(2) + ' €';
+        document.getElementById('cart-total-bgn').textContent = (total * EUR_TO_BGN).toFixed(2) + ' лв.';
+
+        /* Shipping bar */
+        const remaining = Math.max(0, FREE_SHIP - total);
+        const progress  = Math.min(100, (total / FREE_SHIP) * 100);
+        document.getElementById('cart-shipping-progress').style.width = progress + '%';
+        const msgEl = document.getElementById('cart-shipping-msg');
+        if (remaining <= 0) {
+          msgEl.innerHTML = '<span style="color:#3ABF82;font-weight:700;">✓ Имате право на безплатна доставка!</span>';
+        } else {
+          msgEl.innerHTML = `Добавете още <strong style="color:#124830;">${remaining.toFixed(2)}&nbsp;€</strong> за безплатна доставка`;
+        }
+      }
+
+      /* ── Button feedback animation ── */
+      function animateBtn(btn) {
+        if (!btn || btn._cartAnim) return;
+        btn._cartAnim = true;
+
+        if (btn.classList.contains('quick-add')) {
+          // Quick-add: flash green briefly
+          const orig = btn.style.background;
+          btn.style.background = '#3ABF82';
+          btn.style.transform  = 'scale(1.2)';
+          setTimeout(function() {
+            btn.style.background = orig;
+            btn.style.transform  = '';
+            btn._cartAnim = false;
+          }, 900);
+        } else {
+          // "Добави" text button
+          const orig = btn.innerHTML;
+          const origBg = btn.style.background || '';
+          btn.innerHTML = '✓ Добавено';
+          btn.style.background = '#3ABF82';
+          btn.disabled = true;
+          setTimeout(function() {
+            btn.innerHTML = orig;
+            btn.style.background = origBg;
+            btn.disabled = false;
+            btn._cartAnim = false;
+          }, 1400);
+        }
+      }
+
+      /* ── Escape HTML ── */
+      function esc(s) {
+        return String(s).replace(/[&<>"']/g, function(c) {
+          return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+        });
+      }
+
+      /* ── Wire up events on DOMContentLoaded ── */
+      document.addEventListener('DOMContentLoaded', function() {
+        // Nav cart button
+        const cartToggle = document.getElementById('cart-toggle-btn');
+        if (cartToggle) cartToggle.addEventListener('click', openCart);
+
+        // Escape key closes cart and order modal
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            closeCart();
+            closeOrderModal();
+          }
+        });
+
+        // Event delegation: product grid add-to-cart
+        const grid = document.getElementById('products-grid');
+        if (grid) {
+          grid.addEventListener('click', function(e) {
+            const btn = e.target.closest('button.btn, button.quick-add');
+            if (!btn) return;
+            const card = btn.closest('.product-card');
+            if (!card) return;
+            e.preventDefault();
+            addToCart(card, btn);
+          });
+        }
+
+        // Initial render (restores count from localStorage)
+        renderCart();
+      });
+    })();
+  </script>
+
+  <script>
+    (function () {
+      // Tag each product card with its brand from the badge label
+      document.querySelectorAll('.product-card').forEach(function (card) {
+        var badge = card.querySelector('span[class*="absolute top-3 left-3"]');
+        if (badge) {
+          card.dataset.brand = badge.textContent.trim();
+        }
+      });
+
+      var activeFilter = 'all';
+      var activeClass   = ['bg-forest-700', 'text-cream-50'];
+      var inactiveClass = ['bg-cream-200', 'text-gray-700'];
+
+      function applyFilter(filter) {
+        activeFilter = filter;
+        document.querySelectorAll('.product-card').forEach(function (card) {
+          var match = filter === 'all' || card.dataset.brand === filter;
+          card.style.display = match ? '' : 'none';
+        });
+
+        document.querySelectorAll('.filter-btn').forEach(function (btn) {
+          var isActive = btn.dataset.filter === filter;
+          activeClass.forEach(function (c)   { btn.classList.toggle(c, isActive); });
+          inactiveClass.forEach(function (c) { btn.classList.toggle(c, !isActive); });
+        });
+      }
+
+      document.getElementById('brand-filters').addEventListener('click', function (e) {
+        var btn = e.target.closest('.filter-btn');
+        if (btn) applyFilter(btn.dataset.filter);
+      });
+    })();
+  </script>
+
+<script src="/auth.js"></script>
+<script src="nav-dropdown.js"></script>
+
+<!-- ═══════════════ MOBILE UI SCRIPTS ═══════════════ -->
+<script>
+  // ── Mobile nav drawer ──
+  function openMobileNav() {
+    var nav = document.getElementById('mob-nav');
+    nav.style.pointerEvents = 'all';
+    document.getElementById('mob-nav-backdrop').style.opacity = '1';
+    document.getElementById('mob-nav-backdrop').style.pointerEvents = 'all';
+    document.getElementById('mob-nav-panel').style.transform = 'translateX(0)';
+    document.body.classList.add('mob-nav-open');
+  }
+  function closeMobileNav() {
+    document.getElementById('mob-nav-backdrop').style.opacity = '0';
+    document.getElementById('mob-nav-backdrop').style.pointerEvents = 'none';
+    document.getElementById('mob-nav-panel').style.transform = 'translateX(100%)';
+    document.body.classList.remove('mob-nav-open');
+    setTimeout(function() {
+      document.getElementById('mob-nav').style.pointerEvents = 'none';
+    }, 380);
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeMobileNav();
+  });
+
+  // ── Show/hide bottom nav based on viewport ──
+  function syncBottomNav() {
+    var bn = document.getElementById('mob-bottom-nav');
+    if (!bn) return;
+    bn.style.display = window.innerWidth < 768 ? 'block' : 'none';
+  }
+  syncBottomNav();
+  window.addEventListener('resize', syncBottomNav);
+
+  // ── Sync cart badge to bottom nav ──
+  (function() {
+    var topBadge = document.getElementById('cart-badge');
+    var mobBadge = document.getElementById('mob-cart-badge');
+    if (!topBadge || !mobBadge) return;
+    function syncBadge() {
+      var count = topBadge.textContent;
+      var shown = topBadge.style.display !== 'none';
+      mobBadge.textContent = count;
+      mobBadge.style.display = shown ? 'flex' : 'none';
+    }
+    new MutationObserver(syncBadge).observe(topBadge, { childList: true, attributes: true, attributeFilter: ['style'] });
+    syncBadge();
+  })();
+
+  // ── Add swipe hint labels below carousels on mobile ──
+  (function() {
+    if (window.innerWidth >= 768) return;
+    var swipeIds = ['brands-swipe', 'testimonials-swipe', 'sub-plans-swipe', 'blog-swipe'];
+    swipeIds.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var hint = document.createElement('p');
+      hint.className = 'swipe-hint';
+      hint.innerHTML = 'Плъзнете за още';
+      el.parentNode.insertBefore(hint, el.nextSibling);
+    });
+  })();
+</script>
+</body>
+</html>
