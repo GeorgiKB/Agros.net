@@ -717,7 +717,11 @@
           method: 'POST', headers,
           body: JSON.stringify({ amountEur: getTotal(), description: 'Agros поръчка' })
         });
-        if (!res.ok) { initDemoMode(); return; }
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          console.error('Stripe init failed:', res.status, errData);
+          initDemoMode(); return;
+        }
 
         const { clientSecret } = await res.json();
         stripeInstance = Stripe(publicKey);
@@ -731,7 +735,7 @@
         stripeElements.create('payment').mount('#payment-element');
         document.getElementById('payment-loading').style.display         = 'none';
         document.getElementById('stripe-payment-section').style.display  = 'block';
-      } catch(e) { initDemoMode(); }
+      } catch(e) { console.error('Stripe init exception:', e); initDemoMode(); }
     }
 
     function initDemoMode() {
