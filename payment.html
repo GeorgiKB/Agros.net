@@ -318,6 +318,22 @@
     .pay-icons { display: flex; gap: 6px; margin-left: auto; }
 
     /* ── Summary card ───────────────────────────────────────────── */
+    .summary-items { display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; }
+    .summary-item { display: flex; align-items: center; gap: 12px; }
+    .summary-img {
+      width: 52px; height: 52px; border-radius: 10px; object-fit: cover;
+      background: #EEF2EB; flex-shrink: 0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    .summary-item-info { flex: 1; min-width: 0; }
+    .summary-item-name {
+      font-size: 13.5px; font-weight: 500; color: #1A1A1A;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      line-height: 1.3;
+    }
+    .summary-item-meta { font-size: 12px; color: #9CA3AF; margin-top: 2px; }
+    .summary-item-price { font-size: 14px; font-weight: 600; color: #1A1A1A; flex-shrink: 0; }
+
     .summary-title {
       font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700;
       color: #1A1A1A; letter-spacing: -0.01em; margin-bottom: 4px;
@@ -591,17 +607,9 @@
               <label class="field-label" for="d-org">Организация / Фирма <span style="color:#C5BDB3;font-weight:400;text-transform:none;">(незадължително)</span></label>
               <input id="d-org" type="text" autocomplete="organization" class="input-f" placeholder="" />
             </div>
-            <div class="field-grid">
-              <div class="field">
-                <label class="field-label" for="d-country">Държава</label>
-                <select id="d-country" class="input-f">
-                  <option value="BG">България</option>
-                </select>
-              </div>
-              <div class="field">
-                <label class="field-label" for="d-city">Населено място <span class="req">*</span></label>
-                <input id="d-city" type="text" autocomplete="address-level2" class="input-f" placeholder="Варна" required />
-              </div>
+            <div class="field">
+              <label class="field-label" for="d-city">Населено място <span class="req">*</span></label>
+              <input id="d-city" type="text" autocomplete="address-level2" class="input-f" placeholder="Варна" required />
             </div>
             <div class="field">
               <label class="field-label" for="d-postal">Пощенски код <span class="req">*</span></label>
@@ -681,16 +689,6 @@
 
           </div><!-- /delivery-section -->
 
-          <!-- No printed materials -->
-          <label class="no-print-row" for="no-print-cb">
-            <input type="checkbox" id="no-print-cb" class="no-print-cb" />
-            <span class="no-print-label-wrap">
-              <span class="custom-cb">
-                <svg class="check-icon" width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><path d="M2 6l3 3 5-5"/></svg>
-              </span>
-              <span class="no-print-text" style="color:#186060;font-weight:600;">Без хартиени рекламни материали в поръчката</span>
-            </span>
-          </label>
 
         </div>
 
@@ -703,7 +701,6 @@
           <div class="field">
             <select id="invoice-select" class="input-f" onchange="onInvoiceChange()">
               <option value="none">Няма да ми е необходима фактура</option>
-              <option value="personal">Физическо лице</option>
               <option value="company">Фирма / Юридическо лице</option>
             </select>
           </div>
@@ -835,35 +832,15 @@
               <a href="brands.html" class="summary-edit-link">Редактиране</a>
             </div>
 
-            <!-- Product table -->
-            <table class="summary-table">
-              <thead>
-                <tr>
-                  <th style="text-align:left;">Продукти</th>
-                  <th>Брой</th>
-                  <th>Цена</th>
-                </tr>
-              </thead>
-              <tbody id="cart-summary-tbody"></tbody>
-            </table>
+            <!-- Product list -->
+            <div id="cart-summary" class="summary-items"></div>
 
             <div class="summary-divider"></div>
-
-            <!-- Subtotal -->
-            <div class="summary-row">
-              <span class="summary-row-label">Стойност на поръчката</span>
-              <div style="text-align:right;">
-                <div id="subtotal-eur" class="summary-row-value"></div>
-                <div id="subtotal-bgn" style="font-size:11.5px;color:#9CA3AF;"></div>
-              </div>
-            </div>
 
             <!-- Shipping -->
             <div class="summary-row">
               <span class="summary-row-label">Доставка</span>
-              <div style="text-align:right;">
-                <span id="shipping-label" class="summary-row-value">—</span>
-              </div>
+              <span id="shipping-label" class="summary-row-value">—</span>
             </div>
 
             <!-- Total -->
@@ -1077,33 +1054,26 @@
 
     // ── Render summary ────────────────────────────────────────────
     function renderSummary() {
-      const tbody = document.getElementById('cart-summary-tbody');
-      tbody.innerHTML = cart.map(item => `
-        <tr>
-          <td>
-            <div class="summary-sku">${item.sku || ''}</div>
-            <div class="summary-product-name">${item.name}${item.volume ? ' — ' + item.volume : ''}</div>
-          </td>
-          <td style="text-align:center;" class="summary-qty">${item.qty}</td>
-          <td style="text-align:right;">
-            <div class="summary-price">${(item.price * item.qty).toFixed(2)} €</div>
-            <div style="font-size:11px;color:#9CA3AF;">${(item.price * item.qty * EUR_TO_BGN).toFixed(2)} лв</div>
-          </td>
-        </tr>
+      document.getElementById('cart-summary').innerHTML = cart.map(item => `
+        <div class="summary-item">
+          <img src="${item.img || ''}" alt="${item.name}" class="summary-img" onerror="this.style.visibility='hidden'" />
+          <div class="summary-item-info">
+            <div class="summary-item-name">${item.name}</div>
+            <div class="summary-item-meta">${item.volume || ''} × ${item.qty}</div>
+          </div>
+          <div class="summary-item-price">${(item.price * item.qty).toFixed(2)} €</div>
+        </div>
       `).join('');
 
-      const sub  = getSubtotal();
-      const ship = getShipping(sub);
+      const sub   = getSubtotal();
+      const ship  = getShipping(sub);
       const total = sub + ship;
-
-      document.getElementById('subtotal-eur').textContent = `${sub.toFixed(2)} €`;
-      document.getElementById('subtotal-bgn').textContent = `${(sub * EUR_TO_BGN).toFixed(2)} лв`;
 
       const sl = document.getElementById('shipping-label');
       if (sub >= FREE_SHIP_THRESHOLD) {
         sl.innerHTML = '<span style="color:#186060;font-weight:600;">Безплатна</span>';
       } else {
-        sl.innerHTML = `<div>${SHIP_PRICE.toFixed(2)} €</div><div style="font-size:11px;color:#9CA3AF;">${(SHIP_PRICE * EUR_TO_BGN).toFixed(2)} лв</div>`;
+        sl.textContent = `${SHIP_PRICE.toFixed(2)} €`;
       }
 
       document.getElementById('total-eur').textContent = `${total.toFixed(2)} €`;
