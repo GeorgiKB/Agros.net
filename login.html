@@ -166,7 +166,7 @@
         <!-- Error message -->
         <div id="error-msg" class="hidden mb-5 px-4 py-3 rounded-xl text-sm font-body font-medium text-terra-800 bg-terra-100 border border-terra-200"></div>
 
-        <form id="login-form" novalidate>
+        <form id="login-form">
 
           <!-- Email -->
           <div class="mb-5">
@@ -264,7 +264,8 @@
       errorDiv.classList.add('hidden');
 
       try {
-        var res  = await fetch('/api/auth/google', {
+        var apiUrl = (window.AgrosAuth && window.AgrosAuth.api) ? window.AgrosAuth.api : '';
+        var res  = await fetch(apiUrl + '/api/auth/google', {
           method:  'POST',
           headers: { 'Content-Type': 'application/json' },
           body:    JSON.stringify({ credential })
@@ -355,7 +356,8 @@
       btn.textContent = 'Зареждане…';
 
       try {
-        const res  = await fetch('/api/auth/login', {
+        var apiUrl = (window.AgrosAuth && window.AgrosAuth.api) ? window.AgrosAuth.api : '';
+        const res  = await fetch(apiUrl + '/api/auth/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password })

@@ -3,7 +3,7 @@
    Exposes window.AgrosAuth for use by login/register/account pages.
 */
 (function () {
-  const API = '';
+  const API = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? 'http://localhost:3001' : '';
 
   window.AgrosAuth = {
     api: API,

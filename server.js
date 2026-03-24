@@ -308,6 +308,30 @@ app.post('/api/payments/create-intent', requireAuth, async (req, res) => {
   }
 });
 
+// ── CONTACT ROUTES ────────────────────────────────────────────────────────────
+
+app.post('/api/contact', (req, res) => {
+  const { name, email, phone, subject, message } = req.body || {};
+  if (!name || !email || !message) {
+    return res.status(400).json({ error: 'Името, имейлът и съобщението са задължителни.' });
+  }
+
+  const messages = readDB('messages');
+  const newMessage = {
+    id: Date.now(),
+    name,
+    email,
+    phone: phone || '',
+    subject: subject || '',
+    message,
+    createdAt: new Date().toISOString()
+  };
+  messages.push(newMessage);
+  writeDB('messages', messages);
+
+  res.json({ success: true, messageId: newMessage.id });
+});
+
 // ── Start ─────────────────────────────────────────────────────────────────────
 app.listen(PORT, () => {
   console.log(`\n  Agros API → http://localhost:${PORT}\n`);
