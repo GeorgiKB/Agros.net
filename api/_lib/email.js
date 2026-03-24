@@ -1,6 +1,6 @@
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const ADMIN_EMAIL = 'g.berbenkov@agros.net';
-const FROM_EMAIL = 'AGROS Поръчки <orders@agros.net>';
+const FROM_EMAIL = 'Агрос 98 АД <orders@agros.net>';
 
 async function sendOrderNotification(order) {
   if (!RESEND_API_KEY) return; // silently skip if Resend not configured
