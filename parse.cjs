@@ -1,0 +1,9 @@
+const xlsx = require('xlsx');
+const path = require('path');
+
+const filePath = path.join(__dirname, 'products', 'Price List.xlsx');
+const workbook = xlsx.readFile(filePath);
+const sheetName = workbook.SheetNames[0];
+const data = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]);
+
+console.log(JSON.stringify(data, null, 2));

@@ -93,7 +93,7 @@
   "sku": "NT-PRO-RAS-300",
   "offers": {
     "@type": "Offer",
-    "price": "12.71",
+    "price": "19.91",
     "priceCurrency": "BGN",
     "availability": "https://schema.org/InStock",
     "url": "https://agros.net/products/noteo-protein-raspberry-300g.html",
@@ -378,9 +378,9 @@ function fmtEUR(bgn) {
   const eur = (bgn / EUR_RATE).toFixed(2);
   return eur + ' €<span style="font-size:0.78em;opacity:0.55;font-weight:400;margin-left:5px;">(' + bgn.toFixed(2) + ' лв.)</span>';
 }
-const VARIANTS=[{id:'p',name:'Слънчогледов протеин с малина',size:'300 г',price:'12.71',img:'../images/noteo/vegan-protein-raspberry.png',vol:''}];
+const VARIANTS=[{id:'p',name:'Слънчогледов протеин с малина',size:'300 г',price:'19.91',img:'../images/noteo/vegan-protein-raspberry.png',vol:''}];
 let qty={p:0};let purchaseMode='single';let subFreq='4';let selectedId='p';
-function calcTotal(){return qty['p']*parseFloat('12.71');}
+function calcTotal(){return qty['p']*parseFloat('19.91');}
 function updatePurchaseWidget(){
   const total=calcTotal(),sub=total*0.85;
   document.getElementById('price-single').innerHTML=total>0?fmtEUR(total):'—';
@@ -397,7 +397,7 @@ function render(){
         <source srcset="../images/noteo/vegan-protein-raspberry.webp" type="image/webp" />
         <img src="../images/noteo/vegan-protein-raspberry.webp" alt="Слънчогледов протеин с малина" style="width:100%;height:100%;object-fit:contain;padding:3px;" / loading="lazy">
       </picture></div><div style="flex:1;min-width:0;"><div style="font-family:'Montserrat',sans-serif;font-size:.92rem;font-weight:600;color:#083F3B;line-height:1.3;">Слънчогледов протеин с малина</div><div style="font-family:'Inter',sans-serif;font-size:.8rem;color:#9CA3AF;margin-top:1px;">300 г</div>
-        <div style="font-family:'Inter',sans-serif;font-size:0.92rem;font-weight:700;color:#083F3B;margin-top:2px;">${fmtEUR(12.71)}</div></div><div style="display:flex;align-items:center;gap:8px;" onclick="event.stopPropagation()"><button class="qty-btn" onclick="chQty('p',-1)">−</button><span class="qty-val" id="q-p"><span class="qty-val" id="q-p">${q}</span><button class="qty-btn" onclick="chQty('p',1)">+</button></div></div>`;
+        <div style="font-family:'Inter',sans-serif;font-size:0.92rem;font-weight:700;color:#083F3B;margin-top:2px;">${fmtEUR(19.91)}</div></div><div style="display:flex;align-items:center;gap:8px;" onclick="event.stopPropagation()"><button class="qty-btn" onclick="chQty('p',-1)">−</button><span class="qty-val" id="q-p"><span class="qty-val" id="q-p">${q}</span><button class="qty-btn" onclick="chQty('p',1)">+</button></div></div>`;
 }
 function select(id,img){selectedId=id;const el=document.getElementById('main-img');el.style.opacity='0';setTimeout(()=>{el.src=img;el.style.opacity='1';updateStickyBar();},200);render();}
 function chQty(id,d){qty[id]=Math.max(0,qty[id]+d);const el=document.getElementById('q-'+id);if(el)el.textContent=qty[id];updatePurchaseWidget();}
@@ -405,7 +405,7 @@ function switchTab(btn,id){document.querySelectorAll('.tab-btn').forEach(b=>b.cl
 function addToCart(btn){
   if(qty['p']>0&&typeof AgrosCart!=='undefined'){
     const isSub=purchaseMode==='subscribe';
-    const pr=isSub?(parseFloat('12.71')*0.85).toFixed(2):'12.71';
+    const pr=isSub?(parseFloat('19.91')*0.85).toFixed(2):'19.91';
     const nm=isSub?'NOTEO Слънчогледов протеин с малина (Абонамент)':'NOTEO Слънчогледов протеин с малина';
     for(let i=0;i<qty['p'];i++)AgrosCart.addItem(null,nm,'300 г',pr,'../images/noteo/vegan-protein-raspberry.png','NOTEO');
     const orig=btn.innerHTML;btn.innerHTML='✓ Добавено';btn.style.background='#0F6B62';btn.disabled=true;
