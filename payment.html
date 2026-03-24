@@ -666,7 +666,7 @@
                   <span class="delivery-radio-dot"></span>
                   <span class="delivery-option-info">
                     <span class="delivery-option-label">Доставка до адрес с Speedy</span>
-                    <span class="delivery-option-price">3.99 € / 7.81 лв — Безплатно над 25.57 €</span>
+                    <span class="delivery-option-price">4.99 € / 9.76 лв — Безплатно над 25.57 €</span>
                     <span class="delivery-option-detail">
                       Куриерът ще достави поръчката на адреса, посочен в стъпка 1. Доставка на следващ работен ден за поръчки до 15:30ч.
                     </span>
@@ -918,8 +918,9 @@
   <script>
     const API             = '';
     const EUR_TO_BGN      = 1.9558;
-    const FREE_SHIP_THRESHOLD = 25.57;
-    const SHIP_PRICE      = 3.99;
+    const FREE_SHIP_THRESHOLD  = 25.57;
+    const SHIP_PRICE_OFFICE    = 3.99;
+    const SHIP_PRICE_ADDRESS   = 4.99;
 
     // ── Guest / auth detection ────────────────────────────────────
     const isGuest = new URLSearchParams(window.location.search).has('guest');
@@ -1035,7 +1036,14 @@
 
     // ── Totals ────────────────────────────────────────────────────
     function getSubtotal() { return cart.reduce((s, i) => s + i.price * i.qty, 0); }
-    function getShipping(subtotal) { return subtotal >= FREE_SHIP_THRESHOLD ? 0 : SHIP_PRICE; }
+    function getDeliveryType() {
+      const el = document.querySelector('input[name="delivery-type"]:checked');
+      return el ? el.value : 'office';
+    }
+    function getShipPrice() {
+      return getDeliveryType() === 'address' ? SHIP_PRICE_ADDRESS : SHIP_PRICE_OFFICE;
+    }
+    function getShipping(subtotal) { return subtotal >= FREE_SHIP_THRESHOLD ? 0 : getShipPrice(); }
     function getTotal() {
       const sub = getSubtotal(), ship = getShipping(sub);
       return sub + ship;
@@ -1062,7 +1070,7 @@
       if (sub >= FREE_SHIP_THRESHOLD) {
         sl.innerHTML = '<span style="color:#186060;font-weight:600;">Безплатна</span>';
       } else {
-        sl.textContent = `${SHIP_PRICE.toFixed(2)} €`;
+        sl.textContent = `${getShipPrice().toFixed(2)} €`;
       }
 
       document.getElementById('total-eur').textContent = `${total.toFixed(2)} €`;
