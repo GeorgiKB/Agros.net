@@ -1663,11 +1663,11 @@
         if (cart.length === 0) return;
         var user = (typeof window.AgrosAuth !== 'undefined') ? window.AgrosAuth.getUser() : null;
         if (!user) {
-          window.location.href = '/login.html?redirect=/account.html';
+          window.location.href = '/login.html?redirect=/payment.html';
           return;
         }
         window.closeCart();
-        window.location.href = '/account.html';
+        window.location.href = '/payment.html';
       };
       window.closeOrderModal = function() {
         document.getElementById('order-modal-overlay').style.display = 'none';
