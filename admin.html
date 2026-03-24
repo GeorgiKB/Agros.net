@@ -118,6 +118,46 @@
   .badge-доставена { background: #F0F9FF; color: #0369A1; }
   .badge-default { background: #F4F4F5; color: #71717A; }
 
+  /* ── Inline controls ── */
+  .status-inline {
+    padding: 5px 10px;
+    border: 1.5px solid #E5E7EB;
+    border-radius: 8px;
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    color: #1A1A1A;
+    background: white;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .status-inline:focus { border-color: #416241; }
+
+  /* ── Paid toggle ── */
+  .paid-toggle { display: flex; align-items: center; justify-content: center; }
+  .paid-toggle input[type=checkbox] { display: none; }
+  .paid-toggle label {
+    width: 36px; height: 20px;
+    background: #E5E7EB;
+    border-radius: 50px;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .paid-toggle label::after {
+    content: '';
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 14px; height: 14px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .paid-toggle input:checked + label { background: #16A34A; }
+  .paid-toggle input:checked + label::after { transform: translateX(16px); }
+
   /* ── Modal overlay ── */
   .modal-overlay {
     display: none;
@@ -343,7 +383,7 @@
         <div class="stat-sub" id="stat-revenue-bgn"></div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Изпратени</div>
+        <div class="stat-label">Платени</div>
         <div class="stat-value" id="stat-shipped" style="color:#16A34A;">—</div>
       </div>
     </div>
@@ -458,14 +498,14 @@
   }
 
   function renderStats(orders) {
-    const total    = orders.length;
-    const newOrd   = orders.filter(o => o.status === 'нова').length;
-    const shipped  = orders.filter(o => o.status === 'изпратена' || o.status === 'доставена').length;
-    const revenue  = orders.reduce((s, o) => s + (o.total || 0), 0);
+    const total   = orders.length;
+    const newOrd  = orders.filter(o => o.status === 'нова').length;
+    const paid    = orders.filter(o => o.paid).length;
+    const revenue = orders.reduce((s, o) => s + (o.total || 0), 0);
 
     document.getElementById('stat-total').textContent   = total;
     document.getElementById('stat-new').textContent     = newOrd;
-    document.getElementById('stat-shipped').textContent = shipped;
+    document.getElementById('stat-shipped').textContent = paid;
     document.getElementById('stat-revenue').textContent = revenue.toFixed(2) + ' €';
     document.getElementById('stat-revenue-bgn').textContent = '≈ ' + (revenue * 1.9558).toFixed(2) + ' лв.';
   }
@@ -495,10 +535,15 @@
       return;
     }
 
+    const statuses = ['нова','в обработка','изпратена','доставена'];
     const rows = orders.map(o => {
       const c = o.customer || {};
       const itemsSummary = (o.items || []).map(i => `${i.name}${i.size ? ' ' + i.size : ''} ×${i.qty}`).join(', ');
       const id = esc(String(o.id));
+      const statusOpts = statuses.map(s =>
+        `<option value="${s}" ${o.status === s ? 'selected' : ''}>${s}</option>`
+      ).join('');
+      const paidChecked = o.paid ? 'checked' : '';
       return `
         <tr onclick="openOrderById('${id}')">
           <td><span class="order-id">#${o.id}</span></td>
@@ -508,7 +553,15 @@
           </td>
           <td><div class="items-summary">${esc(itemsSummary)}</div></td>
           <td><span class="total">${(o.total || 0).toFixed(2)} €</span></td>
-          <td>${statusBadge(o.status)}</td>
+          <td onclick="event.stopPropagation()">
+            <select class="status-inline" onchange="updateOrderField('${id}','status',this.value)">${statusOpts}</select>
+          </td>
+          <td onclick="event.stopPropagation()">
+            <div class="paid-toggle">
+              <input type="checkbox" id="paid-${id}" ${paidChecked} onchange="updateOrderField('${id}','paid',this.checked)">
+              <label for="paid-${id}" title="${o.paid ? 'Платено' : 'Неплатено'}"></label>
+            </div>
+          </td>
           <td><span class="date-cell">${formatDate(o.createdAt)}</span></td>
           <td onclick="event.stopPropagation()">
             <button class="row-delete" onclick="deleteOrderById('${id}')" title="Изтрий">✕</button>
@@ -525,6 +578,7 @@
             <th>Продукти</th>
             <th>Сума</th>
             <th>Статус</th>
+            <th>Платено</th>
             <th>Дата</th>
             <th></th>
           </tr>
@@ -617,6 +671,24 @@
   function closeModal() {
     document.getElementById('order-modal').classList.remove('open');
     currentOrder = null;
+  }
+
+  async function updateOrderField(id, field, value) {
+    const order = allOrders.find(o => String(o.id) === String(id));
+    if (!order) return;
+    const updates = { [field]: value };
+    try {
+      const res = await fetch(`${API}/api/admin/orders`, {
+        method: 'PATCH',
+        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ order, updates })
+      });
+      if (!res.ok) throw new Error();
+      Object.assign(order, updates);
+      renderStats(allOrders);
+    } catch(e) {
+      alert('Грешка при запазване.');
+    }
   }
 
   async function saveStatus() {

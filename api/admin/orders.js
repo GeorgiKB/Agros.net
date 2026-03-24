@@ -22,9 +22,11 @@ module.exports = async function handler(req, res) {
     }
 
     if (req.method === 'PATCH') {
-      const { order, status } = req.body || {};
-      if (!order || !status) return res.status(400).json({ error: 'Липсват данни' });
-      const updated = await updateOrder(order, { status });
+      const { order, status, updates } = req.body || {};
+      if (!order) return res.status(400).json({ error: 'Липсват данни' });
+      const patch = updates || (status ? { status } : null);
+      if (!patch) return res.status(400).json({ error: 'Липсват данни' });
+      const updated = await updateOrder(order, patch);
       if (!updated) return res.status(404).json({ error: 'Поръчката не е намерена' });
       return res.json({ success: true, order: updated });
     }
