@@ -498,9 +498,9 @@
     const rows = orders.map(o => {
       const c = o.customer || {};
       const itemsSummary = (o.items || []).map(i => `${i.name}${i.size ? ' ' + i.size : ''} ×${i.qty}`).join(', ');
-      const oJson = JSON.stringify(JSON.stringify(o));
+      const id = esc(String(o.id));
       return `
-        <tr onclick="openOrder(${oJson})">
+        <tr onclick="openOrderById('${id}')">
           <td><span class="order-id">#${o.id}</span></td>
           <td>
             <div class="customer-name">${esc(c.name || '—')}</div>
@@ -511,7 +511,7 @@
           <td>${statusBadge(o.status)}</td>
           <td><span class="date-cell">${formatDate(o.createdAt)}</span></td>
           <td onclick="event.stopPropagation()">
-            <button class="row-delete" onclick="deleteOrder(${oJson})" title="Изтрий">✕</button>
+            <button class="row-delete" onclick="deleteOrderById('${id}')" title="Изтрий">✕</button>
           </td>
         </tr>`;
     }).join('');
@@ -548,8 +548,13 @@
   }
 
   // ── Order modal ───────────────────────────────────────────────────────
-  function openOrder(jsonStr) {
-    currentOrder = JSON.parse(jsonStr);
+  function openOrderById(id) {
+    const order = allOrders.find(o => String(o.id) === String(id));
+    if (order) openOrder(order);
+  }
+
+  function openOrder(order) {
+    currentOrder = order;
     const o = currentOrder;
     const c = o.customer || {};
 
@@ -637,8 +642,12 @@
     }
   }
 
-  async function deleteOrder(jsonStr) {
-    const order = typeof jsonStr === 'string' ? JSON.parse(jsonStr) : jsonStr;
+  function deleteOrderById(id) {
+    const order = allOrders.find(o => String(o.id) === String(id));
+    if (order) deleteOrder(order);
+  }
+
+  async function deleteOrder(order) {
     if (!confirm(`Изтриване на поръчка #${order.id}?`)) return;
     try {
       const res = await fetch(`${API}/api/admin/orders`, {
