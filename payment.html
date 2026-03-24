@@ -144,6 +144,56 @@
     }
     .demo-notice svg { flex-shrink: 0; margin-top: 1px; }
 
+    /* ── Payment method tabs ────────────────────────────────────── */
+    .pay-method-tabs {
+      display: flex; gap: 8px; margin-bottom: 20px;
+    }
+    .pay-method-tab {
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 11px 14px; border-radius: 12px;
+      font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 500;
+      border: 1.5px solid #DDD0BC; background: white; color: #6B7280;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    }
+    .pay-method-tab:hover:not(.active) {
+      border-color: #186060; color: #186060;
+    }
+    .pay-method-tab:focus-visible {
+      outline: 2px solid #186060; outline-offset: 2px;
+    }
+    .pay-method-tab:active { opacity: 0.85; }
+    .pay-method-tab.active {
+      border-color: #186060; background: #186060; color: white;
+      box-shadow: 0 2px 10px rgba(24,96,96,0.25);
+    }
+    .pay-method-tab svg { flex-shrink: 0; }
+
+    /* ── COD section ────────────────────────────────────────────── */
+    .cod-info {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 16px; border-radius: 14px;
+      background: #F0F9F7; border: 1.5px solid rgba(24,96,96,0.15);
+    }
+    .cod-icon-wrap {
+      width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+      background: #186060; display: flex; align-items: center; justify-content: center;
+    }
+    .cod-info-body { flex: 1; }
+    .cod-info-title {
+      font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700;
+      color: #1A1A1A; margin-bottom: 4px;
+    }
+    .cod-info-text {
+      font-size: 13px; color: #6B7280; line-height: 1.55;
+    }
+    .cod-fee-note {
+      display: inline-flex; align-items: center; gap: 5px;
+      margin-top: 10px; padding: 5px 11px; border-radius: 9999px;
+      background: rgba(24,96,96,0.08); font-size: 12px; font-weight: 600;
+      color: #186060;
+    }
+
     /* ── Stripe container ───────────────────────────────────────── */
     #stripe-element-container {
       padding: 16px; border: 1.5px solid #DDD0BC; border-radius: 12px;
@@ -467,6 +517,21 @@
             </div>
           </div>
 
+          <!-- Payment method tabs -->
+          <div class="pay-method-tabs">
+            <button class="pay-method-tab active" id="tab-card" onclick="selectPayMethod('card')" type="button">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              Карта
+            </button>
+            <button class="pay-method-tab" id="tab-cod" onclick="selectPayMethod('cod')" type="button">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              Наложен платеж
+            </button>
+          </div>
+
+          <!-- Card section wrapper -->
+          <div id="card-payment-section">
+
           <!-- Loading -->
           <div id="payment-loading" class="loading-row">
             <svg class="spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#186060" stroke-width="2">
@@ -508,6 +573,25 @@
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
               Симулирано плащане — без реално таксуване
             </p>
+          </div>
+
+          </div><!-- /card-payment-section -->
+
+          <!-- COD section -->
+          <div id="cod-payment-section" style="display:none;">
+            <div class="cod-info">
+              <div class="cod-icon-wrap">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              <div class="cod-info-body">
+                <div class="cod-info-title">Плащане при доставка</div>
+                <div class="cod-info-text">Платете в брой или с карта директно на куриера при получаване на пратката. Не е необходимо предварително плащане.</div>
+                <div class="cod-fee-note">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                  Без допълнителна такса
+                </div>
+              </div>
+            </div>
           </div>
 
           <div id="payment-error" class="pay-error"></div>
@@ -649,6 +733,18 @@
     let stripeInstance = null;
     let stripeElements = null;
     let demoMode       = false;
+    let selectedPayMethod = 'card'; // 'card' | 'cod'
+
+    function selectPayMethod(method) {
+      selectedPayMethod = method;
+      document.getElementById('tab-card').classList.toggle('active', method === 'card');
+      document.getElementById('tab-cod').classList.toggle('active', method === 'cod');
+      document.getElementById('card-payment-section').style.display = method === 'card' ? 'block' : 'none';
+      document.getElementById('cod-payment-section').style.display  = method === 'cod'  ? 'block' : 'none';
+      const total = getTotal();
+      document.getElementById('pay-btn-text').textContent =
+        method === 'cod' ? `Поръчай с наложен платеж` : `Плати ${total.toFixed(2)} €`;
+    }
 
     // ── Totals ────────────────────────────────────────────────────
     function getSubtotal() { return cart.reduce((s, i) => s + i.price * i.qty, 0); }
@@ -687,7 +783,8 @@
 
       document.getElementById('total-eur').textContent    = `${total.toFixed(2)} €`;
       document.getElementById('total-bgn').textContent    = `≈ ${(total * EUR_TO_BGN).toFixed(2)} лв.`;
-      document.getElementById('pay-btn-text').textContent = `Плати ${total.toFixed(2)} €`;
+      document.getElementById('pay-btn-text').textContent =
+        selectedPayMethod === 'cod' ? `Поръчай с наложен платеж` : `Плати ${total.toFixed(2)} €`;
     }
 
     // ── Init ──────────────────────────────────────────────────────
@@ -790,15 +887,18 @@
       document.getElementById('pay-btn-text').textContent = 'Обработва се…';
 
       try {
-        if (demoMode) await processDemoPayment(delivery);
-        else          await processStripePayment(delivery);
+        if (selectedPayMethod === 'cod') await processCodPayment(delivery);
+        else if (demoMode)               await processDemoPayment(delivery);
+        else                             await processStripePayment(delivery);
       } catch(err) {
         showError('Грешка: ' + err.message);
         btn.disabled = false;
-        document.getElementById('pay-btn-text').textContent = `Плати ${getTotal().toFixed(2)} €`;
+        document.getElementById('pay-btn-text').textContent =
+          selectedPayMethod === 'cod' ? `Поръчай с наложен платеж` : `Плати ${getTotal().toFixed(2)} €`;
       }
     }
 
+    async function processCodPayment(delivery)   { await createOrder(delivery, null, 'cod'); }
     async function processDemoPayment(delivery)  { await createOrder(delivery, null); }
 
     async function processStripePayment(delivery) {
@@ -814,7 +914,7 @@
       await createOrder(delivery, result.paymentIntent ? result.paymentIntent.id : null);
     }
 
-    async function createOrder(delivery, paymentIntentId) {
+    async function createOrder(delivery, paymentIntentId, paymentMethod) {
       const total    = getTotal();
       const endpoint = token ? `${API}/api/orders` : `${API}/api/orders/guest`;
       const headers  = { 'Content-Type': 'application/json' };
@@ -822,7 +922,7 @@
 
       const res  = await fetch(endpoint, {
         method: 'POST', headers,
-        body: JSON.stringify({ items: cart, total, customer: delivery, paymentIntentId })
+        body: JSON.stringify({ items: cart, total, customer: delivery, paymentIntentId, paymentMethod: paymentMethod || 'card' })
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Грешка при запис на поръчка');
