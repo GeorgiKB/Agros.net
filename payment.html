@@ -6,7 +6,7 @@
   <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32" />
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Плащане — Agros</title>
+  <title>Завършване на поръчка — Agros</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -35,7 +35,6 @@
       display: flex; align-items: center; justify-content: space-between;
     }
     .co-logo img { height: 38px; width: auto; display: block; }
-
     .co-steps { display: flex; align-items: center; gap: 0; }
     .co-step {
       display: flex; align-items: center; gap: 7px;
@@ -53,7 +52,6 @@
     .co-step.done .co-step-num { background: #186060; border-color: #186060; color: white; }
     .co-step.active .co-step-num { background: #1A1A1A; border-color: #1A1A1A; color: white; }
     .co-sep { width: 32px; height: 1.5px; background: #DDD0BC; margin: 0 4px; }
-
     .co-secure {
       display: flex; align-items: center; gap: 6px;
       font-size: 12px; font-weight: 500; color: #6B7280;
@@ -64,7 +62,7 @@
     .checkout-main { max-width: 1080px; margin: 0 auto; padding: 36px 24px 60px; }
     .checkout-grid {
       display: grid;
-      grid-template-columns: 1fr 380px;
+      grid-template-columns: 1fr 360px;
       gap: 24px;
       align-items: start;
     }
@@ -85,7 +83,6 @@
         0 2px 8px rgba(24,96,96,0.06),
         0 8px 32px rgba(24,96,96,0.07);
     }
-
     .c-card-head {
       display: flex; align-items: center; gap: 12px;
       margin-bottom: 24px;
@@ -131,8 +128,12 @@
     }
     .input-f::placeholder { color: #C5BDB3; }
     .input-f.error { border-color: #EF4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.1); }
+    select.input-f { -webkit-appearance: none; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center;
+      padding-right: 36px; cursor: pointer;
+    }
     textarea.input-f { resize: none; }
-
     .form-fields { display: flex; flex-direction: column; gap: 14px; }
 
     /* ── Demo notice ────────────────────────────────────────────── */
@@ -143,6 +144,113 @@
       font-size: 13px; font-weight: 500; color: #92400E; line-height: 1.5;
     }
     .demo-notice svg { flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Delivery method ─────────────────────────────────────────── */
+    .delivery-section { display: flex; flex-direction: column; gap: 12px; }
+    .delivery-group { border: 1.5px solid #DDD0BC; border-radius: 14px; overflow: hidden; }
+    .delivery-group-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 16px; cursor: pointer; background: #FAFAF8;
+      user-select: none;
+      transition: background 0.15s ease;
+    }
+    .delivery-group-head:hover { background: #F5F2EC; }
+    .delivery-group-title {
+      font-size: 13.5px; font-weight: 600; color: #1A1A1A;
+    }
+    .delivery-chevron {
+      transition: transform 0.25s ease;
+      color: #9CA3AF;
+    }
+    .delivery-group.open .delivery-chevron { transform: rotate(180deg); }
+    .delivery-group-body {
+      display: none;
+      padding: 0 16px 12px;
+      border-top: 1px solid #EDE9E1;
+    }
+    .delivery-group.open .delivery-group-body { display: block; }
+
+    /* ── Delivery radio option ──────────────────────────────────── */
+    .delivery-option {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 0; cursor: pointer;
+      border-bottom: 1px solid rgba(221,208,188,0.4);
+    }
+    .delivery-option:last-child { border-bottom: none; }
+    .delivery-radio-input { display: none; }
+    .delivery-radio-dot {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 2px solid #DDD0BC; flex-shrink: 0; margin-top: 2px;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.2s ease;
+    }
+    .delivery-radio-dot::after {
+      content: ''; width: 8px; height: 8px; border-radius: 50%;
+      background: #186060; opacity: 0; transform: scale(0);
+      transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .delivery-radio-input:checked + .delivery-radio-dot {
+      border-color: #186060;
+    }
+    .delivery-radio-input:checked + .delivery-radio-dot::after {
+      opacity: 1; transform: scale(1);
+    }
+    .delivery-option-info { flex: 1; }
+    .delivery-option-label {
+      font-size: 14px; font-weight: 500; color: #1A1A1A;
+    }
+    .delivery-option-price {
+      font-size: 13px; color: #6B7280; margin-top: 2px;
+    }
+    .delivery-option-detail {
+      display: none; margin-top: 10px;
+      padding: 14px; border-radius: 12px;
+      background: #F4FAF8; border: 1.5px solid rgba(24,96,96,0.12);
+      font-size: 13px; color: #374151; line-height: 1.6;
+    }
+    .delivery-radio-input:checked ~ .delivery-option-detail { display: block; }
+    .delivery-option-detail .input-f { margin-top: 10px; }
+    .office-map-link {
+      display: inline-flex; align-items: center; gap: 5px;
+      margin-top: 8px; font-size: 13px; font-weight: 500; color: #186060;
+      text-decoration: none;
+      transition: color 0.2s ease, opacity 0.2s ease;
+    }
+    .office-map-link:hover { opacity: 0.75; }
+
+    /* ── No-print checkbox ──────────────────────────────────────── */
+    .no-print-row {
+      display: flex; align-items: center; gap: 10px;
+      margin-top: 16px; padding: 12px 14px; border-radius: 12px;
+      border: 1.5px solid #DDD0BC; cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .no-print-row:hover { border-color: #186060; background: #F4FAF8; }
+    .custom-cb {
+      width: 18px; height: 18px; border-radius: 5px;
+      border: 2px solid #DDD0BC; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .no-print-cb:checked ~ .no-print-label-wrap .custom-cb {
+      border-color: #186060; background: #186060;
+    }
+    .no-print-cb { display: none; }
+    .no-print-label-wrap {
+      display: flex; align-items: center; gap: 10px; flex: 1;
+    }
+    .no-print-text {
+      font-size: 13.5px; font-weight: 500; color: #374151;
+    }
+    .check-icon { display: none; }
+    .no-print-cb:checked ~ .no-print-label-wrap .custom-cb .check-icon { display: block; }
+
+    /* ── Invoice section ────────────────────────────────────────── */
+    .invoice-info {
+      margin-top: 14px; padding: 14px; border-radius: 12px;
+      background: #F4FAF8; border: 1.5px solid rgba(24,96,96,0.12);
+      font-size: 13px; color: #374151; line-height: 1.65;
+    }
 
     /* ── Payment method tabs ────────────────────────────────────── */
     .pay-method-tabs {
@@ -156,12 +264,8 @@
       cursor: pointer;
       transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
     }
-    .pay-method-tab:hover:not(.active) {
-      border-color: #186060; color: #186060;
-    }
-    .pay-method-tab:focus-visible {
-      outline: 2px solid #186060; outline-offset: 2px;
-    }
+    .pay-method-tab:hover:not(.active) { border-color: #186060; color: #186060; }
+    .pay-method-tab:focus-visible { outline: 2px solid #186060; outline-offset: 2px; }
     .pay-method-tab:active { opacity: 0.85; }
     .pay-method-tab.active {
       border-color: #186060; background: #186060; color: white;
@@ -184,9 +288,7 @@
       font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700;
       color: #1A1A1A; margin-bottom: 4px;
     }
-    .cod-info-text {
-      font-size: 13px; color: #6B7280; line-height: 1.55;
-    }
+    .cod-info-text { font-size: 13px; color: #6B7280; line-height: 1.55; }
     .cod-fee-note {
       display: inline-flex; align-items: center; gap: 5px;
       margin-top: 10px; padding: 5px 11px; border-radius: 9999px;
@@ -214,30 +316,35 @@
 
     /* ── Payment method icons ───────────────────────────────────── */
     .pay-icons { display: flex; gap: 6px; margin-left: auto; }
-    .pay-icon {
-      height: 22px; border-radius: 4px; opacity: 0.75;
-    }
 
     /* ── Summary card ───────────────────────────────────────────── */
     .summary-title {
       font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700;
-      color: #1A1A1A; letter-spacing: -0.01em; margin-bottom: 18px;
+      color: #1A1A1A; letter-spacing: -0.01em; margin-bottom: 4px;
     }
-    .summary-items { display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; }
-    .summary-item { display: flex; align-items: center; gap: 12px; }
-    .summary-img {
-      width: 52px; height: 52px; border-radius: 10px; object-fit: cover;
-      background: #EEF2EB; flex-shrink: 0;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    .summary-edit-link {
+      font-size: 12.5px; font-weight: 500; color: #186060;
+      text-decoration: none; margin-left: auto;
     }
-    .summary-item-info { flex: 1; min-width: 0; }
-    .summary-item-name {
-      font-size: 13.5px; font-weight: 500; color: #1A1A1A;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-      line-height: 1.3;
+    .summary-edit-link:hover { opacity: 0.75; }
+    .summary-header-row {
+      display: flex; align-items: baseline; margin-bottom: 16px;
     }
-    .summary-item-meta { font-size: 12px; color: #9CA3AF; margin-top: 2px; }
-    .summary-item-price { font-size: 14px; font-weight: 600; color: #1A1A1A; flex-shrink: 0; }
+    .summary-table { width: 100%; border-collapse: collapse; margin-bottom: 4px; }
+    .summary-table th {
+      font-size: 11px; font-weight: 600; color: #9CA3AF; text-transform: uppercase;
+      letter-spacing: 0.05em; padding: 0 0 8px; border-bottom: 1px solid #EDE9E1;
+    }
+    .summary-table th:last-child, .summary-table td:last-child { text-align: right; }
+    .summary-table td {
+      padding: 10px 0 0; vertical-align: top; font-size: 13px;
+    }
+    .summary-sku { color: #9CA3AF; font-size: 11.5px; font-weight: 500; }
+    .summary-product-name { font-weight: 500; color: #1A1A1A; line-height: 1.3; }
+    .summary-qty { color: #6B7280; }
+    .summary-price { font-weight: 600; color: #1A1A1A; white-space: nowrap; }
+    .summary-line-total { font-weight: 600; color: #1A1A1A; white-space: nowrap; }
+    .summary-line-total-bgn { font-size: 11px; color: #9CA3AF; }
 
     .summary-divider { height: 1px; background: rgba(221,208,188,0.6); margin: 16px 0; }
 
@@ -247,13 +354,6 @@
     }
     .summary-row-label { color: #6B7280; }
     .summary-row-value { font-weight: 500; color: #1A1A1A; }
-
-    .discount-pill {
-      display: inline-flex; align-items: center; gap: 5px;
-      background: #D7EDD7; color: #186060;
-      font-size: 12px; font-weight: 600;
-      padding: 3px 10px; border-radius: 9999px;
-    }
 
     .total-row {
       display: flex; align-items: flex-end; justify-content: space-between;
@@ -268,6 +368,19 @@
       color: #186060; letter-spacing: -0.03em; line-height: 1;
     }
     .total-bgn { font-size: 12px; color: #9CA3AF; text-align: right; margin-top: 3px; }
+
+    /* ── Delivery address summary ─────────────────────────────── */
+    .delivery-summary-box {
+      margin-top: 16px; padding: 14px; border-radius: 12px;
+      background: #F7F5F1; border: 1px solid #EDE9E1;
+    }
+    .delivery-summary-label {
+      font-size: 11px; font-weight: 600; color: #9CA3AF;
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;
+    }
+    .delivery-summary-line {
+      font-size: 12.5px; color: #374151; line-height: 1.7;
+    }
 
     /* ── Pay button ─────────────────────────────────────────────── */
     .pay-btn {
@@ -286,7 +399,6 @@
     }
     .pay-btn:active:not(:disabled) { transform: translateY(0); opacity: 0.92; }
     .pay-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-    .pay-btn svg { flex-shrink: 0; }
 
     /* ── Trust badges ───────────────────────────────────────────── */
     .trust-row {
@@ -298,13 +410,11 @@
       font-size: 11px; font-weight: 500; color: #9CA3AF;
     }
     .trust-item svg { color: #186060; }
-
     .terms-note {
       font-size: 11.5px; color: #B0A89A; text-align: center; margin-top: 12px; line-height: 1.5;
     }
     .terms-note a { color: #186060; text-decoration: underline; }
     .terms-note a:hover { color: #0f4040; }
-
     .back-link {
       display: flex; align-items: center; justify-content: center; gap: 6px;
       margin-top: 14px; font-size: 13px; font-weight: 500; color: #6B7280;
@@ -327,9 +437,7 @@
     .secure-note svg { color: #186060; }
 
     /* ── Demo banner ────────────────────────────────────────────── */
-    #demo-banner {
-      max-width: 1080px; margin: 16px auto 0; padding: 0 24px;
-    }
+    #demo-banner { max-width: 1080px; margin: 16px auto 0; padding: 0 24px; }
     .demo-banner-inner {
       padding: 12px 16px; border-radius: 12px;
       background: #FFF8E7; border: 1px solid #F0C96A;
@@ -343,7 +451,6 @@
       align-items: center; justify-content: center; padding: 24px;
     }
     #success-overlay.show { display: flex; }
-
     #success-card {
       background: white; border-radius: 28px; padding: 48px 40px;
       max-width: 440px; width: 100%; text-align: center;
@@ -351,7 +458,6 @@
       animation: popIn 0.45s cubic-bezier(0.34,1.56,0.64,1);
     }
     @keyframes popIn { from { opacity:0; transform:scale(0.8) translateY(20px); } to { opacity:1; transform:scale(1) translateY(0); } }
-
     .success-circle {
       width: 72px; height: 72px; border-radius: 50%;
       background: linear-gradient(135deg, #186060, #22907a);
@@ -361,13 +467,11 @@
       animation: scaleIn 0.4s cubic-bezier(0.34,1.56,0.64,1) 0.1s both;
     }
     @keyframes scaleIn { from { transform:scale(0); } to { transform:scale(1); } }
-
     .check-path {
       stroke-dasharray: 60; stroke-dashoffset: 60;
       animation: drawCheck 0.5s ease 0.4s forwards;
     }
     @keyframes drawCheck { to { stroke-dashoffset: 0; } }
-
     .success-title {
       font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 800;
       color: #1A1A1A; letter-spacing: -0.02em; margin-bottom: 10px;
@@ -419,7 +523,6 @@
           <img src="images/agros-logo.png" alt="Agros" />
         </picture>
       </a>
-
       <ol class="co-steps">
         <li class="co-step done">
           <span class="co-step-num">
@@ -438,7 +541,6 @@
           Плащане
         </li>
       </ol>
-
       <div class="co-secure">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         Сигурно плащане
@@ -460,55 +562,189 @@
       <!-- ─── FORM COLUMN ─────────────────────────────────────── -->
       <div class="form-col">
 
-        <!-- 1 · Delivery -->
+        <!-- ① Адрес за доставка -->
         <div class="c-card">
           <div class="c-card-head">
             <div class="c-step-badge">1</div>
-            <h2 class="c-card-title">Данни за доставка</h2>
+            <h2 class="c-card-title">Адрес за доставка</h2>
           </div>
           <form id="delivery-form" novalidate class="form-fields">
             <div class="field-grid">
               <div class="field">
-                <label class="field-label" for="d-name">Три имена <span class="req">*</span></label>
-                <input id="d-name" type="text" autocomplete="name" class="input-f" placeholder="Иван Иванов" required />
+                <label class="field-label" for="d-firstname">Първо име <span class="req">*</span></label>
+                <input id="d-firstname" type="text" autocomplete="given-name" class="input-f" placeholder="Иван" required />
               </div>
               <div class="field">
-                <label class="field-label" for="d-phone">Телефон <span class="req">*</span></label>
-                <input id="d-phone" type="tel" autocomplete="tel" class="input-f" placeholder="+359 88 ..." required />
+                <label class="field-label" for="d-lastname">Фамилия <span class="req">*</span></label>
+                <input id="d-lastname" type="text" autocomplete="family-name" class="input-f" placeholder="Иванов" required />
               </div>
+            </div>
+            <div class="field">
+              <label class="field-label" for="d-phone">Телефон <span class="req">*</span></label>
+              <input id="d-phone" type="tel" autocomplete="tel" class="input-f" placeholder="+359 88 888 8888" required />
             </div>
             <div class="field">
               <label class="field-label" for="d-email">Имейл <span id="email-req-mark"></span></label>
               <input id="d-email" type="email" autocomplete="email" class="input-f" placeholder="вашият@имейл.бг" />
             </div>
+            <div class="field">
+              <label class="field-label" for="d-org">Организация / Фирма <span style="color:#C5BDB3;font-weight:400;text-transform:none;">(незадължително)</span></label>
+              <input id="d-org" type="text" autocomplete="organization" class="input-f" placeholder="" />
+            </div>
             <div class="field-grid">
-              <div class="field col-span-2">
-                <label class="field-label" for="d-address">Адрес <span class="req">*</span></label>
-                <input id="d-address" type="text" autocomplete="street-address" class="input-f" placeholder="ул. Примерна 1" required />
+              <div class="field">
+                <label class="field-label" for="d-country">Държава</label>
+                <select id="d-country" class="input-f">
+                  <option value="BG">България</option>
+                </select>
               </div>
               <div class="field">
-                <label class="field-label" for="d-city">Град <span class="req">*</span></label>
+                <label class="field-label" for="d-city">Населено място <span class="req">*</span></label>
                 <input id="d-city" type="text" autocomplete="address-level2" class="input-f" placeholder="Варна" required />
               </div>
             </div>
             <div class="field">
-              <label class="field-label" for="d-note">Бележка</label>
-              <textarea id="d-note" rows="2" class="input-f" placeholder="Допълнителни инструкции за доставка..."></textarea>
+              <label class="field-label" for="d-postal">Пощенски код <span class="req">*</span></label>
+              <input id="d-postal" type="text" autocomplete="postal-code" class="input-f" placeholder="9000" required />
+            </div>
+            <div class="field">
+              <label class="field-label" for="d-street">Улица / Квартал <span class="req">*</span></label>
+              <input id="d-street" type="text" autocomplete="street-address" class="input-f" placeholder='ул. "Примерна" 1' required />
+            </div>
+            <div class="field-grid">
+              <div class="field">
+                <label class="field-label" for="d-building">Номер / Блок</label>
+                <input id="d-building" type="text" class="input-f" placeholder="ет. 3, ап. 12" />
+              </div>
+              <div class="field">
+                <label class="field-label" for="d-addition">Допълнение към адрес</label>
+                <input id="d-addition" type="text" class="input-f" placeholder="" />
+              </div>
             </div>
           </form>
         </div>
 
-        <!-- 2 · Payment -->
+        <!-- ② Начин на доставка -->
         <div class="c-card">
           <div class="c-card-head">
             <div class="c-step-badge">2</div>
-            <h2 class="c-card-title">Начин на плащане</h2>
+            <h2 class="c-card-title">Изберете начин на доставка</h2>
+          </div>
+
+          <p style="font-size:13px;color:#6B7280;margin-bottom:14px;">Доставка #1</p>
+
+          <div class="delivery-section">
+
+            <!-- Group: до офис -->
+            <div class="delivery-group open" id="group-office">
+              <div class="delivery-group-head" onclick="toggleDeliveryGroup('group-office')">
+                <span class="delivery-group-title">Доставка до офис</span>
+                <svg class="delivery-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
+              </div>
+              <div class="delivery-group-body">
+                <label class="delivery-option" for="radio-office">
+                  <input type="radio" id="radio-office" name="delivery-type" value="office" class="delivery-radio-input" onchange="onDeliveryChange()" />
+                  <span class="delivery-radio-dot"></span>
+                  <span class="delivery-option-info">
+                    <span class="delivery-option-label">Доставка до офис на Speedy</span>
+                    <span class="delivery-option-price">3.99 € / 7.81 лв — Безплатно над 50 €</span>
+                    <span class="delivery-option-detail">
+                      Вземете поръчката в удобно за вас Speedy офис. Получаването е на следващ работен ден за поръчки, приети до 15:30ч.<br/>
+                      <label class="field-label" for="office-name" style="margin-top:10px;display:block;">Офис на Speedy <span class="req">*</span></label>
+                      <input id="office-name" type="text" class="input-f" placeholder="Въведете град и адрес на офис..." />
+                    </span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Group: до адрес -->
+            <div class="delivery-group open" id="group-address">
+              <div class="delivery-group-head" onclick="toggleDeliveryGroup('group-address')">
+                <span class="delivery-group-title">Доставка до адрес</span>
+                <svg class="delivery-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
+              </div>
+              <div class="delivery-group-body">
+                <label class="delivery-option" for="radio-address">
+                  <input type="radio" id="radio-address" name="delivery-type" value="address" class="delivery-radio-input" onchange="onDeliveryChange()" />
+                  <span class="delivery-radio-dot"></span>
+                  <span class="delivery-option-info">
+                    <span class="delivery-option-label">Доставка до адрес с Speedy</span>
+                    <span class="delivery-option-price">3.99 € / 7.81 лв — Безплатно над 50 €</span>
+                    <span class="delivery-option-detail">
+                      Куриерът ще достави поръчката на адреса, посочен в стъпка 1. Доставка на следващ работен ден за поръчки до 15:30ч.
+                    </span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
+          </div><!-- /delivery-section -->
+
+          <!-- No printed materials -->
+          <label class="no-print-row" for="no-print-cb">
+            <input type="checkbox" id="no-print-cb" class="no-print-cb" />
+            <span class="no-print-label-wrap">
+              <span class="custom-cb">
+                <svg class="check-icon" width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="white" stroke-width="2.5"><path d="M2 6l3 3 5-5"/></svg>
+              </span>
+              <span class="no-print-text" style="color:#186060;font-weight:600;">Без хартиени рекламни материали в поръчката</span>
+            </span>
+          </label>
+
+        </div>
+
+        <!-- ③ Данни за фактура -->
+        <div class="c-card">
+          <div class="c-card-head">
+            <div class="c-step-badge">3</div>
+            <h2 class="c-card-title">Данни за фактура</h2>
+          </div>
+          <div class="field">
+            <select id="invoice-select" class="input-f" onchange="onInvoiceChange()">
+              <option value="none">Няма да ми е необходима фактура</option>
+              <option value="personal">Физическо лице</option>
+              <option value="company">Фирма / Юридическо лице</option>
+            </select>
+          </div>
+          <div id="invoice-info-box" class="invoice-info">
+            Поръчката ви ще бъде изпратена с касов бон. Можете да заявите фактура до 3 дни след датата на поръчка на адрес <strong>info@agros.net</strong>
+          </div>
+          <div id="invoice-company-fields" style="display:none;" class="form-fields" style="margin-top:14px;">
+            <div class="field" style="margin-top:14px;">
+              <label class="field-label" for="inv-company">Наименование на фирмата <span class="req">*</span></label>
+              <input id="inv-company" type="text" class="input-f" placeholder="ЕООД / АД" />
+            </div>
+            <div class="field-grid">
+              <div class="field">
+                <label class="field-label" for="inv-eik">ЕИК / Булстат <span class="req">*</span></label>
+                <input id="inv-eik" type="text" class="input-f" placeholder="123456789" />
+              </div>
+              <div class="field">
+                <label class="field-label" for="inv-vat">ДДС номер</label>
+                <input id="inv-vat" type="text" class="input-f" placeholder="BG123456789" />
+              </div>
+            </div>
+            <div class="field">
+              <label class="field-label" for="inv-address">Адрес за фактура <span class="req">*</span></label>
+              <input id="inv-address" type="text" class="input-f" placeholder="гр. София, ул. Примерна 1" />
+            </div>
+            <div class="field">
+              <label class="field-label" for="inv-mol">МОЛ</label>
+              <input id="inv-mol" type="text" class="input-f" placeholder="Иван Иванов" />
+            </div>
+          </div>
+        </div>
+
+        <!-- ④ Информация за плащане -->
+        <div class="c-card">
+          <div class="c-card-head">
+            <div class="c-step-badge">4</div>
+            <h2 class="c-card-title">Информация за плащане</h2>
             <div class="pay-icons">
-              <!-- Visa -->
               <svg height="22" viewBox="0 0 48 16" xmlns="http://www.w3.org/2000/svg" style="opacity:0.55">
                 <text x="0" y="13" font-family="Arial" font-size="14" font-weight="900" fill="#1A1F71">VISA</text>
               </svg>
-              <!-- MC circles -->
               <svg height="22" viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg" style="opacity:0.55">
                 <circle cx="10" cy="10" r="10" fill="#EB001B"/>
                 <circle cx="20" cy="10" r="10" fill="#F79E1B"/>
@@ -521,7 +757,7 @@
           <div class="pay-method-tabs">
             <button class="pay-method-tab active" id="tab-card" onclick="selectPayMethod('card')" type="button">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-              Карта
+              Плащане с карта
             </button>
             <button class="pay-method-tab" id="tab-cod" onclick="selectPayMethod('cod')" type="button">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
@@ -529,53 +765,44 @@
             </button>
           </div>
 
-          <!-- Card section wrapper -->
+          <!-- Card section -->
           <div id="card-payment-section">
-
-          <!-- Loading -->
-          <div id="payment-loading" class="loading-row">
-            <svg class="spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#186060" stroke-width="2">
-              <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
-            </svg>
-            <span style="font-size:14px;color:#9CA3AF;">Инициализиране…</span>
-          </div>
-
-          <!-- Stripe -->
-          <div id="stripe-payment-section" style="display:none;">
-            <div id="stripe-element-container"><div id="payment-element"></div></div>
-            <p class="secure-note">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              Защитено плащане чрез Stripe
-            </p>
-          </div>
-
-          <!-- Demo -->
-          <div id="demo-payment-section" style="display:none;" class="form-fields">
-            <div class="demo-notice">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              Демо режим — въведете произволни данни. Реално плащане не се извършва.
+            <div id="payment-loading" class="loading-row">
+              <svg class="spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#186060" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+              <span style="font-size:14px;color:#9CA3AF;">Инициализиране…</span>
             </div>
-            <div class="field">
-              <label class="field-label">Номер на карта</label>
-              <input id="demo-card" type="text" class="input-f" placeholder="4242 4242 4242 4242" maxlength="19" />
+            <div id="stripe-payment-section" style="display:none;">
+              <div id="stripe-element-container"><div id="payment-element"></div></div>
+              <p class="secure-note">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Защитено плащане чрез Stripe
+              </p>
             </div>
-            <div class="field-grid">
-              <div class="field">
-                <label class="field-label">Валидност</label>
-                <input id="demo-expiry" type="text" class="input-f" placeholder="ММ/ГГ" maxlength="5" />
+            <div id="demo-payment-section" style="display:none;" class="form-fields">
+              <div class="demo-notice">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                Демо режим — въведете произволни данни. Реално плащане не се извършва.
               </div>
               <div class="field">
-                <label class="field-label">CVV</label>
-                <input id="demo-cvv" type="text" class="input-f" placeholder="123" maxlength="4" />
+                <label class="field-label">Номер на карта</label>
+                <input id="demo-card" type="text" class="input-f" placeholder="4242 4242 4242 4242" maxlength="19" />
               </div>
+              <div class="field-grid">
+                <div class="field">
+                  <label class="field-label">Валидност</label>
+                  <input id="demo-expiry" type="text" class="input-f" placeholder="ММ/ГГ" maxlength="5" />
+                </div>
+                <div class="field">
+                  <label class="field-label">CVV</label>
+                  <input id="demo-cvv" type="text" class="input-f" placeholder="123" maxlength="4" />
+                </div>
+              </div>
+              <p class="secure-note">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Симулирано плащане — без реално таксуване
+              </p>
             </div>
-            <p class="secure-note">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              Симулирано плащане — без реално таксуване
-            </p>
           </div>
-
-          </div><!-- /card-payment-section -->
 
           <!-- COD section -->
           <div id="cod-payment-section" style="display:none;">
@@ -597,30 +824,46 @@
           <div id="payment-error" class="pay-error"></div>
         </div>
 
-      </div>
+      </div><!-- /form-col -->
 
       <!-- ─── SUMMARY COLUMN ───────────────────────────────────── -->
       <aside>
         <div class="summary-sticky">
           <div class="c-card">
-            <p class="summary-title">Вашата поръчка</p>
-            <div id="cart-summary" class="summary-items"></div>
+            <div class="summary-header-row">
+              <p class="summary-title">Вашата поръчка</p>
+              <a href="brands.html" class="summary-edit-link">Редактиране</a>
+            </div>
+
+            <!-- Product table -->
+            <table class="summary-table">
+              <thead>
+                <tr>
+                  <th style="text-align:left;">Продукти</th>
+                  <th>Брой</th>
+                  <th>Цена</th>
+                </tr>
+              </thead>
+              <tbody id="cart-summary-tbody"></tbody>
+            </table>
 
             <div class="summary-divider"></div>
 
-            <!-- Discount -->
-            <div id="discount-row" style="display:none;" class="summary-row" style="margin-bottom:8px;">
-              <div id="discount-badge" class="discount-pill">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-                <span id="discount-text">−0%</span>
+            <!-- Subtotal -->
+            <div class="summary-row">
+              <span class="summary-row-label">Стойност на поръчката</span>
+              <div style="text-align:right;">
+                <div id="subtotal-eur" class="summary-row-value"></div>
+                <div id="subtotal-bgn" style="font-size:11.5px;color:#9CA3AF;"></div>
               </div>
-              <span id="discount-amount" style="font-size:13.5px;font-weight:600;color:#186060;"></span>
             </div>
 
             <!-- Shipping -->
             <div class="summary-row">
               <span class="summary-row-label">Доставка</span>
-              <span id="shipping-label" class="summary-row-value">—</span>
+              <div style="text-align:right;">
+                <span id="shipping-label" class="summary-row-value">—</span>
+              </div>
             </div>
 
             <!-- Total -->
@@ -634,7 +877,7 @@
 
             <!-- Pay button -->
             <button id="pay-btn" class="pay-btn" onclick="handlePay()">
-              <span id="pay-btn-text">Плати</span>
+              <span id="pay-btn-text">Завърши поръчката</span>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </button>
 
@@ -659,6 +902,12 @@
             <p class="terms-note">
               Като поръчвате, приемате нашите <a href="terms.html">Общи условия</a>
             </p>
+          </div>
+
+          <!-- Delivery address summary -->
+          <div class="delivery-summary-box" id="delivery-summary-box" style="display:none;">
+            <div class="delivery-summary-label" id="delivery-summary-label">Доставка до:</div>
+            <div class="delivery-summary-line" id="delivery-summary-lines"></div>
           </div>
 
           <a href="brands.html" class="back-link">
@@ -705,7 +954,8 @@
   <script>
     const API             = '';
     const EUR_TO_BGN      = 1.9558;
-    const FREE_SHIP_THRESHOLD = 25.57;
+    const FREE_SHIP_THRESHOLD = 50;
+    const SHIP_PRICE      = 3.99;
 
     // ── Guest / auth detection ────────────────────────────────────
     const isGuest = new URLSearchParams(window.location.search).has('guest');
@@ -716,11 +966,10 @@
       window.location.href = '/login.html?redirect=/payment.html';
     }
 
-    // Mark email as required for guests
     if (isGuest) {
       document.getElementById('email-req-mark').innerHTML = '<span class="req">*</span>';
       document.getElementById('d-email').required = true;
-      document.getElementById('success-primary-btn').href  = 'index.html';
+      document.getElementById('success-primary-btn').href = 'index.html';
       document.getElementById('success-primary-btn').textContent = 'Към началната страница';
     }
 
@@ -730,61 +979,136 @@
     if (!cart.length) { window.location.href = '/brands.html'; }
 
     // ── State ─────────────────────────────────────────────────────
-    let stripeInstance = null;
-    let stripeElements = null;
-    let demoMode       = false;
-    let selectedPayMethod = 'card'; // 'card' | 'cod'
+    let stripeInstance    = null;
+    let stripeElements    = null;
+    let demoMode          = false;
+    let selectedPayMethod = 'card';
 
+    // ── Delivery accordion toggle ─────────────────────────────────
+    function toggleDeliveryGroup(id) {
+      document.getElementById(id).classList.toggle('open');
+    }
+
+    // ── Delivery change ───────────────────────────────────────────
+    function onDeliveryChange() {
+      updateDeliverySummary();
+      renderSummary();
+    }
+
+    // ── Invoice change ────────────────────────────────────────────
+    function onInvoiceChange() {
+      const v = document.getElementById('invoice-select').value;
+      document.getElementById('invoice-info-box').style.display    = v === 'none' ? 'block' : 'none';
+      document.getElementById('invoice-company-fields').style.display = v === 'company' ? 'block' : 'none';
+    }
+
+    // ── Live delivery address summary in sidebar ──────────────────
+    function updateDeliverySummary() {
+      const type = document.querySelector('input[name="delivery-type"]:checked');
+      if (!type) {
+        document.getElementById('delivery-summary-box').style.display = 'none';
+        return;
+      }
+
+      const firstname = document.getElementById('d-firstname').value.trim();
+      const lastname  = document.getElementById('d-lastname').value.trim();
+      const phone     = document.getElementById('d-phone').value.trim();
+      const city      = document.getElementById('d-city').value.trim();
+      const postal    = document.getElementById('d-postal').value.trim();
+      const street    = document.getElementById('d-street').value.trim();
+      const building  = document.getElementById('d-building').value.trim();
+
+      const box   = document.getElementById('delivery-summary-box');
+      const label = document.getElementById('delivery-summary-label');
+      const lines = document.getElementById('delivery-summary-lines');
+
+      box.style.display = 'block';
+
+      if (type.value === 'office') {
+        const officeName = document.getElementById('office-name').value.trim();
+        label.textContent = 'Доставка до офис на Speedy:';
+        const parts = [];
+        if (firstname || lastname) parts.push(firstname + ' ' + lastname);
+        if (phone) parts.push(phone);
+        if (officeName) parts.push('Офис: ' + officeName);
+        lines.innerHTML = parts.map(p => `<div>${p}</div>`).join('');
+      } else {
+        label.textContent = 'Адрес за доставка:';
+        const parts = [];
+        if (firstname || lastname) parts.push(firstname + ' ' + lastname);
+        if (phone) parts.push(phone);
+        if (street) parts.push(street + (building ? ', ' + building : ''));
+        if (street) parts.push((city || '') + ' ' + (postal || '') + ' България');
+        lines.innerHTML = parts.map(p => `<div>${p}</div>`).join('');
+      }
+    }
+
+    // Live update as user types address fields
+    ['d-firstname','d-lastname','d-phone','d-city','d-postal','d-street','d-building','office-name'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('input', updateDeliverySummary);
+    });
+
+    // ── Payment method ────────────────────────────────────────────
     function selectPayMethod(method) {
       selectedPayMethod = method;
       document.getElementById('tab-card').classList.toggle('active', method === 'card');
       document.getElementById('tab-cod').classList.toggle('active', method === 'cod');
       document.getElementById('card-payment-section').style.display = method === 'card' ? 'block' : 'none';
       document.getElementById('cod-payment-section').style.display  = method === 'cod'  ? 'block' : 'none';
+      updatePayBtn();
+    }
+
+    function updatePayBtn() {
       const total = getTotal();
       document.getElementById('pay-btn-text').textContent =
-        method === 'cod' ? `Поръчай с наложен платеж` : `Плати ${total.toFixed(2)} €`;
+        selectedPayMethod === 'cod'
+          ? 'Поръчай с наложен платеж'
+          : `Плати ${total.toFixed(2)} €`;
     }
 
     // ── Totals ────────────────────────────────────────────────────
     function getSubtotal() { return cart.reduce((s, i) => s + i.price * i.qty, 0); }
-    function getDiscount(subtotal) { return 0; }
-    function getShipping(subtotal) {
-      return subtotal >= FREE_SHIP_THRESHOLD ? 0 : 3.99;
-    }
+    function getShipping(subtotal) { return subtotal >= FREE_SHIP_THRESHOLD ? 0 : SHIP_PRICE; }
     function getTotal() {
-      const sub = getSubtotal(), disc = getDiscount(sub), ship = getShipping(sub - disc);
-      return sub - disc + ship;
+      const sub = getSubtotal(), ship = getShipping(sub);
+      return sub + ship;
     }
 
     // ── Render summary ────────────────────────────────────────────
     function renderSummary() {
-      document.getElementById('cart-summary').innerHTML = cart.map(item => `
-        <div class="summary-item">
-          <img src="${item.img || ''}" alt="${item.name}" class="summary-img" onerror="this.style.visibility='hidden'" />
-          <div class="summary-item-info">
-            <div class="summary-item-name">${item.name}</div>
-            <div class="summary-item-meta">${item.volume || ''} × ${item.qty}</div>
-          </div>
-          <div class="summary-item-price">${(item.price * item.qty).toFixed(2)} €</div>
-        </div>
+      const tbody = document.getElementById('cart-summary-tbody');
+      tbody.innerHTML = cart.map(item => `
+        <tr>
+          <td>
+            <div class="summary-sku">${item.sku || ''}</div>
+            <div class="summary-product-name">${item.name}${item.volume ? ' — ' + item.volume : ''}</div>
+          </td>
+          <td style="text-align:center;" class="summary-qty">${item.qty}</td>
+          <td style="text-align:right;">
+            <div class="summary-price">${(item.price * item.qty).toFixed(2)} €</div>
+            <div style="font-size:11px;color:#9CA3AF;">${(item.price * item.qty * EUR_TO_BGN).toFixed(2)} лв</div>
+          </td>
+        </tr>
       `).join('');
 
-      const sub  = getSubtotal(), disc = getDiscount(sub), ship = getShipping(sub - disc), total = sub - disc + ship;
+      const sub  = getSubtotal();
+      const ship = getShipping(sub);
+      const total = sub + ship;
 
-      document.getElementById('discount-row').style.display = 'none';
+      document.getElementById('subtotal-eur').textContent = `${sub.toFixed(2)} €`;
+      document.getElementById('subtotal-bgn').textContent = `${(sub * EUR_TO_BGN).toFixed(2)} лв`;
 
       const sl = document.getElementById('shipping-label');
       if (sub >= FREE_SHIP_THRESHOLD) {
         sl.innerHTML = '<span style="color:#186060;font-weight:600;">Безплатна</span>';
       } else {
-        sl.textContent = '3.99 €';
+        sl.innerHTML = `<div>${SHIP_PRICE.toFixed(2)} €</div><div style="font-size:11px;color:#9CA3AF;">${(SHIP_PRICE * EUR_TO_BGN).toFixed(2)} лв</div>`;
       }
 
-      document.getElementById('total-eur').textContent    = `${total.toFixed(2)} €`;
-      document.getElementById('total-bgn').textContent    = `≈ ${(total * EUR_TO_BGN).toFixed(2)} лв.`;
-      document.getElementById('pay-btn-text').textContent =
-        selectedPayMethod === 'cod' ? `Поръчай с наложен платеж` : `Плати ${total.toFixed(2)} €`;
+      document.getElementById('total-eur').textContent = `${total.toFixed(2)} €`;
+      document.getElementById('total-bgn').textContent = `≈ ${(total * EUR_TO_BGN).toFixed(2)} лв.`;
+      updatePayBtn();
     }
 
     // ── Init ──────────────────────────────────────────────────────
@@ -792,9 +1116,7 @@
       try {
         const cfgRes = await fetch(`${API}/api/config`);
         const cfg    = await cfgRes.json();
-
         renderSummary();
-
         if (cfg.stripeConfigured && cfg.stripePublicKey && !cfg.stripePublicKey.includes('REPLACE')) {
           await initStripe(cfg.stripePublicKey);
         } else {
@@ -809,17 +1131,11 @@
       try {
         const headers = { 'Content-Type': 'application/json' };
         if (token) headers.Authorization = `Bearer ${token}`;
-
         const res = await fetch(`${API}/api/payments/create-intent`, {
           method: 'POST', headers,
           body: JSON.stringify({ amountEur: getTotal(), description: 'Agros поръчка' })
         });
-        if (!res.ok) {
-          const errData = await res.json().catch(() => ({}));
-          console.error('Stripe init failed:', res.status, errData);
-          initDemoMode(); return;
-        }
-
+        if (!res.ok) { initDemoMode(); return; }
         const { clientSecret } = await res.json();
         stripeInstance = Stripe(publicKey);
         stripeElements = stripeInstance.elements({
@@ -830,9 +1146,9 @@
           }
         });
         stripeElements.create('payment').mount('#payment-element');
-        document.getElementById('payment-loading').style.display         = 'none';
-        document.getElementById('stripe-payment-section').style.display  = 'block';
-      } catch(e) { console.error('Stripe init exception:', e); initDemoMode(); }
+        document.getElementById('payment-loading').style.display        = 'none';
+        document.getElementById('stripe-payment-section').style.display = 'block';
+      } catch(e) { initDemoMode(); }
     }
 
     function initDemoMode() {
@@ -840,7 +1156,6 @@
       document.getElementById('demo-banner').style.display         = 'block';
       document.getElementById('payment-loading').style.display      = 'none';
       document.getElementById('demo-payment-section').style.display = 'block';
-
       document.getElementById('demo-card').addEventListener('input', function() {
         let v = this.value.replace(/\D/g,'').slice(0,16);
         this.value = v.replace(/(.{4})/g,'$1 ').trim();
@@ -852,22 +1167,45 @@
       });
     }
 
-    // ── Validate delivery ─────────────────────────────────────────
+    // ── Validate & collect delivery ───────────────────────────────
     function getDelivery() {
-      const name    = document.getElementById('d-name').value.trim();
-      const phone   = document.getElementById('d-phone').value.trim();
-      const email   = document.getElementById('d-email').value.trim();
-      const address = document.getElementById('d-address').value.trim();
-      const city    = document.getElementById('d-city').value.trim();
-      const note    = document.getElementById('d-note').value.trim();
+      const firstname = document.getElementById('d-firstname').value.trim();
+      const lastname  = document.getElementById('d-lastname').value.trim();
+      const phone     = document.getElementById('d-phone').value.trim();
+      const email     = document.getElementById('d-email').value.trim();
+      const city      = document.getElementById('d-city').value.trim();
+      const postal    = document.getElementById('d-postal').value.trim();
+      const street    = document.getElementById('d-street').value.trim();
+      const building  = document.getElementById('d-building').value.trim();
+      const addition  = document.getElementById('d-addition').value.trim();
+      const org       = document.getElementById('d-org').value.trim();
 
-      if (!name)             return { error: 'Моля, въведете вашето име.' };
-      if (!phone)            return { error: 'Моля, въведете телефон за връзка.' };
-      if (isGuest && !email) return { error: 'Моля, въведете имейл адрес.' };
-      if (!address)          return { error: 'Моля, въведете адрес за доставка.' };
-      if (!city)             return { error: 'Моля, въведете град.' };
+      const deliveryTypeEl = document.querySelector('input[name="delivery-type"]:checked');
 
-      return { name, phone, email, address, city, note };
+      if (!firstname)          return { error: 'Моля, въведете вашето първо име.' };
+      if (!lastname)           return { error: 'Моля, въведете вашата фамилия.' };
+      if (!phone)              return { error: 'Моля, въведете телефон за връзка.' };
+      if (isGuest && !email)   return { error: 'Моля, въведете имейл адрес.' };
+      if (!deliveryTypeEl)     return { error: 'Моля, изберете начин на доставка.' };
+
+      const deliveryType = deliveryTypeEl.value;
+      let officeName = '';
+
+      if (deliveryType === 'office') {
+        officeName = document.getElementById('office-name').value.trim();
+        if (!officeName) return { error: 'Моля, въведете офис на Speedy за доставка.' };
+      } else {
+        if (!city)   return { error: 'Моля, въведете населено място.' };
+        if (!postal) return { error: 'Моля, въведете пощенски код.' };
+        if (!street) return { error: 'Моля, въведете улица / квартал.' };
+      }
+
+      const name = firstname + ' ' + lastname;
+      const address = deliveryType === 'office'
+        ? 'Офис Speedy: ' + officeName
+        : street + (building ? ', ' + building : '');
+
+      return { name, firstname, lastname, phone, email, org, city, postal, street, building, addition, address, deliveryType, officeName };
     }
 
     function showError(msg) {
@@ -893,13 +1231,12 @@
       } catch(err) {
         showError('Грешка: ' + err.message);
         btn.disabled = false;
-        document.getElementById('pay-btn-text').textContent =
-          selectedPayMethod === 'cod' ? `Поръчай с наложен платеж` : `Плати ${getTotal().toFixed(2)} €`;
+        updatePayBtn();
       }
     }
 
-    async function processCodPayment(delivery)   { await createOrder(delivery, null, 'cod'); }
-    async function processDemoPayment(delivery)  { await createOrder(delivery, null); }
+    async function processCodPayment(delivery)  { await createOrder(delivery, null, 'cod'); }
+    async function processDemoPayment(delivery) { await createOrder(delivery, null); }
 
     async function processStripePayment(delivery) {
       const result = await stripeInstance.confirmPayment({
@@ -928,7 +1265,6 @@
       if (!res.ok) throw new Error(data.error || 'Грешка при запис на поръчка');
 
       localStorage.removeItem('agros_cart');
-
       const orderId = String(data.orderId).slice(-6).toUpperCase();
       document.getElementById('success-order-id').textContent = `Поръчка #${orderId}`;
       document.getElementById('success-overlay').classList.add('show');
@@ -938,8 +1274,10 @@
     init();
 
     if (user && user.name) {
-      document.getElementById('d-name').value  = user.name;
-      document.getElementById('d-email').value = user.email || '';
+      const parts = (user.name || '').split(' ');
+      document.getElementById('d-firstname').value = parts[0] || '';
+      document.getElementById('d-lastname').value  = parts.slice(1).join(' ') || '';
+      document.getElementById('d-email').value     = user.email || '';
     }
   </script>
   <script src="nav-dropdown.js"></script>
