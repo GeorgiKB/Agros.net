@@ -1661,11 +1661,13 @@
       };
       window.handleCheckout = function() {
         if (cart.length === 0) return;
-        renderOrderSummary();
-        document.getElementById('order-modal-overlay').style.display = 'flex';
-        document.getElementById('order-form').style.display = '';
-        document.getElementById('order-success').style.display = 'none';
-        document.getElementById('order-error').style.display = 'none';
+        var user = (typeof window.AgrosAuth !== 'undefined') ? window.AgrosAuth.getUser() : null;
+        if (!user) {
+          window.location.href = '/login.html?redirect=/account.html';
+          return;
+        }
+        window.closeCart();
+        window.location.href = '/account.html';
       };
       window.closeOrderModal = function() {
         document.getElementById('order-modal-overlay').style.display = 'none';

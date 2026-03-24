@@ -1,5 +1,6 @@
 const { getOrders, addOrder } = require('./_lib/db');
 const { requireAuth, setCors } = require('./_lib/auth');
+const { sendOrderNotification } = require('./_lib/email');
 
 module.exports = async function handler(req, res) {
   setCors(res);
@@ -30,6 +31,7 @@ module.exports = async function handler(req, res) {
         createdAt: new Date().toISOString()
       };
       await addOrder(order);
+      sendOrderNotification(order).catch(() => {});
       return res.json({ success: true, orderId: order.id });
     }
 

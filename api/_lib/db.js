@@ -64,4 +64,46 @@ async function saveSubscription(userId, sub) {
   return sub;
 }
 
-module.exports = { getUser, getUserById, saveUser, getOrders, addOrder, getSubscription, saveSubscription };
+async function scanKeys(pattern) {
+  const url = process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token) return [];
+
+  let cursor = 0;
+  let allKeys = [];
+  do {
+    const res = await fetch(`${url}/scan/${cursor}?match=${encodeURIComponent(pattern)}&count=100`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    const data = await res.json();
+    if (data.error) break;
+    const [nextCursor, keys] = data.result;
+    cursor = nextCursor;
+    allKeys = allKeys.concat(keys || []);
+  } while (cursor !== '0' && cursor !== 0);
+
+  return allKeys;
+}
+
+async function getAllOrders() {
+  const [orderKeys, guestKeys] = await Promise.all([
+    scanKeys('orders:*'),
+    scanKeys('guest-orders:*')
+  ]);
+  const allKeys = [...orderKeys, ...guestKeys];
+  if (allKeys.length === 0) return [];
+  const arrays = await Promise.all(allKeys.map(k => get(k)));
+  return arrays.flat().filter(Boolean);
+}
+
+async function updateOrder(order, updates) {
+  const key = order.userId ? `orders:${order.userId}` : `guest-orders:${order.guestEmail}`;
+  const list = (await get(key)) || [];
+  const idx = list.findIndex(o => String(o.id) === String(order.id));
+  if (idx === -1) return null;
+  list[idx] = { ...list[idx], ...updates };
+  await set(key, list);
+  return list[idx];
+}
+
+module.exports = { getUser, getUserById, saveUser, getOrders, addOrder, getAllOrders, updateOrder, getSubscription, saveSubscription };
