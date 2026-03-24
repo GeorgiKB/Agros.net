@@ -8,7 +8,7 @@ module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
-    const { items, total, customer, paymentIntentId } = req.body || {};
+    const { items, total, customer, paymentIntentId, paymentMethod } = req.body || {};
     if (!items || !Array.isArray(items) || items.length === 0)
       return res.status(400).json({ error: 'Количката е празна' });
     if (!customer || !customer.email)
@@ -23,6 +23,7 @@ module.exports = async function handler(req, res) {
       status: 'нова',
       customer: customer || {},
       paymentIntentId: paymentIntentId || null,
+      paymentMethod: paymentMethod || 'card',
       createdAt: new Date().toISOString()
     };
     await addOrder(order);

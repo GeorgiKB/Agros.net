@@ -16,7 +16,7 @@ module.exports = async function handler(req, res) {
     }
 
     if (req.method === 'POST') {
-      const { items, total, customer, paymentIntentId } = req.body || {};
+      const { items, total, customer, paymentIntentId, paymentMethod } = req.body || {};
       if (!items || !Array.isArray(items) || items.length === 0)
         return res.status(400).json({ error: 'Количката е празна' });
 
@@ -28,6 +28,7 @@ module.exports = async function handler(req, res) {
         status: 'нова',
         customer: customer || {},
         paymentIntentId: paymentIntentId || null,
+        paymentMethod: paymentMethod || 'card',
         createdAt: new Date().toISOString()
       };
       await addOrder(order);
