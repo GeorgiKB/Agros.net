@@ -208,7 +208,7 @@
       background: #F4FAF8; border: 1.5px solid rgba(24,96,96,0.12);
       font-size: 13px; color: #374151; line-height: 1.6;
     }
-    .delivery-radio-input:checked ~ .delivery-option-detail { display: block; }
+    .delivery-option-detail.visible { display: block; }
     .delivery-option-detail .input-f { margin-top: 10px; }
     .office-map-link {
       display: inline-flex; align-items: center; gap: 5px;
@@ -968,6 +968,13 @@
 
     // ── Delivery change ───────────────────────────────────────────
     function onDeliveryChange() {
+      const type = document.querySelector('input[name="delivery-type"]:checked');
+      document.querySelectorAll('.delivery-option-detail').forEach(el => el.classList.remove('visible'));
+      if (type) {
+        const radio = document.getElementById('radio-' + type.value);
+        const detail = radio.closest('.delivery-option').querySelector('.delivery-option-detail');
+        if (detail) detail.classList.add('visible');
+      }
       updateDeliverySummary();
       renderSummary();
     }
