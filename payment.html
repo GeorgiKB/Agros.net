@@ -149,22 +149,14 @@
     .delivery-section { display: flex; flex-direction: column; gap: 12px; }
     .delivery-group { border: 1.5px solid #DDD0BC; border-radius: 14px; overflow: hidden; }
     .delivery-group-head {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 16px; cursor: pointer; background: #FAFAF8;
-      user-select: none;
-      transition: background 0.15s ease;
+      display: flex; align-items: center;
+      padding: 12px 16px; background: #FAFAF8;
     }
-    .delivery-group-head:hover { background: #F5F2EC; }
     .delivery-group-title {
       font-size: 13.5px; font-weight: 600; color: #1A1A1A;
     }
-    .delivery-chevron {
-      transition: transform 0.25s ease;
-      color: #9CA3AF;
-    }
-    .delivery-group.open .delivery-chevron { transform: rotate(180deg); }
     .delivery-group-body {
-      display: none;
+      display: block;
       padding: 0 16px 12px;
       border-top: 1px solid #EDE9E1;
     }
@@ -639,15 +631,12 @@
             <h2 class="c-card-title">Изберете начин на доставка</h2>
           </div>
 
-          <p style="font-size:13px;color:#6B7280;margin-bottom:14px;">Доставка #1</p>
-
           <div class="delivery-section">
 
             <!-- Group: до офис -->
-            <div class="delivery-group open" id="group-office">
-              <div class="delivery-group-head" onclick="toggleDeliveryGroup('group-office')">
+            <div class="delivery-group" id="group-office">
+              <div class="delivery-group-head">
                 <span class="delivery-group-title">Доставка до офис</span>
-                <svg class="delivery-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
               </div>
               <div class="delivery-group-body">
                 <label class="delivery-option" for="radio-office">
@@ -655,7 +644,7 @@
                   <span class="delivery-radio-dot"></span>
                   <span class="delivery-option-info">
                     <span class="delivery-option-label">Доставка до офис на Speedy</span>
-                    <span class="delivery-option-price">3.99 € / 7.81 лв — Безплатно над 50 €</span>
+                    <span class="delivery-option-price">3.99 € / 7.81 лв — Безплатно над 25.57 €</span>
                     <span class="delivery-option-detail">
                       Вземете поръчката в удобно за вас Speedy офис. Получаването е на следващ работен ден за поръчки, приети до 15:30ч.<br/>
                       <label class="field-label" for="office-name" style="margin-top:10px;display:block;">Офис на Speedy <span class="req">*</span></label>
@@ -667,10 +656,9 @@
             </div>
 
             <!-- Group: до адрес -->
-            <div class="delivery-group open" id="group-address">
-              <div class="delivery-group-head" onclick="toggleDeliveryGroup('group-address')">
+            <div class="delivery-group" id="group-address">
+              <div class="delivery-group-head">
                 <span class="delivery-group-title">Доставка до адрес</span>
-                <svg class="delivery-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
               </div>
               <div class="delivery-group-body">
                 <label class="delivery-option" for="radio-address">
@@ -678,7 +666,7 @@
                   <span class="delivery-radio-dot"></span>
                   <span class="delivery-option-info">
                     <span class="delivery-option-label">Доставка до адрес с Speedy</span>
-                    <span class="delivery-option-price">3.99 € / 7.81 лв — Безплатно над 50 €</span>
+                    <span class="delivery-option-price">3.99 € / 7.81 лв — Безплатно над 25.57 €</span>
                     <span class="delivery-option-detail">
                       Куриерът ще достави поръчката на адреса, посочен в стъпка 1. Доставка на следващ работен ден за поръчки до 15:30ч.
                     </span>
@@ -930,7 +918,7 @@
   <script>
     const API             = '';
     const EUR_TO_BGN      = 1.9558;
-    const FREE_SHIP_THRESHOLD = 50;
+    const FREE_SHIP_THRESHOLD = 25.57;
     const SHIP_PRICE      = 3.99;
 
     // ── Guest / auth detection ────────────────────────────────────
@@ -959,11 +947,6 @@
     let stripeElements    = null;
     let demoMode          = false;
     let selectedPayMethod = 'card';
-
-    // ── Delivery accordion toggle ─────────────────────────────────
-    function toggleDeliveryGroup(id) {
-      document.getElementById(id).classList.toggle('open');
-    }
 
     // ── Delivery change ───────────────────────────────────────────
     function onDeliveryChange() {
