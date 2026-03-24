@@ -26,6 +26,7 @@ module.exports = async function handler(req, res) {
     const intent = await stripe.paymentIntents.create({
       amount: Math.round(amountEur * 100),
       currency: 'eur',
+      payment_method_types: ['card'],
       description: description || 'Agros поръчка',
       metadata: { userId: String(authUser.id), ...metadata }
     });

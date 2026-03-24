@@ -296,10 +296,11 @@ app.post('/api/payments/create-intent', requireAuth, async (req, res) => {
 
   try {
     const intent = await stripe.paymentIntents.create({
-      amount:      Math.round(amountEur * 100),
-      currency:    'eur',
-      description: description || 'Agros поръчка',
-      metadata:    { userId: String(req.user.id), ...metadata }
+      amount:               Math.round(amountEur * 100),
+      currency:             'eur',
+      payment_method_types: ['card'],
+      description:          description || 'Agros поръчка',
+      metadata:             { userId: String(req.user.id), ...metadata }
     });
     res.json({ clientSecret: intent.client_secret, intentId: intent.id });
   } catch (err) {
