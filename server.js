@@ -76,42 +76,6 @@ function requireAuth(req, res, next) {
   }
 }
 
-// ── Seed demo orders on first registration ────────────────────────────────────
-function seedDemoOrders(userId) {
-  const orders = readDB('orders');
-  const now    = Date.now();
-  orders.push(
-    {
-      id: now,
-      userId,
-      items: [
-        { name: 'OLLEO Натурално слънчогледово олио', size: '750 мл', qty: 1, price: 8.96 },
-        { name: 'OLLEO Олио от кориандър',            size: '250 мл', qty: 1, price: 7.96 }
-      ],
-      total: 16.92,
-      status: 'доставена',
-      createdAt: new Date(now - 14 * 86400000).toISOString()
-    },
-    {
-      id: now + 1,
-      userId,
-      items: [{ name: 'Dorso Масажен балсам', size: '200 мл', qty: 1, price: 24.95 }],
-      total: 24.95,
-      status: 'доставена',
-      createdAt: new Date(now - 7 * 86400000).toISOString()
-    },
-    {
-      id: now + 2,
-      userId,
-      items: [{ name: 'OLLEO Чесново олио', size: '250 мл', qty: 2, price: 7.96 }],
-      total: 15.92,
-      status: 'в обработка',
-      createdAt: new Date(now - 86400000).toISOString()
-    }
-  );
-  writeDB('orders', orders);
-}
-
 // ── AUTH ROUTES ───────────────────────────────────────────────────────────────
 
 app.post('/api/auth/register', (req, res) => {
@@ -131,7 +95,6 @@ app.post('/api/auth/register', (req, res) => {
   const createdAt    = new Date().toISOString();
   users.push({ id, name, email, passwordHash, createdAt });
   writeDB('users', users);
-  seedDemoOrders(id);
 
   const token = jwt.sign({ id, name, email }, JWT_SECRET, { expiresIn: '7d' });
   res.json({ token, user: { id, name, email, createdAt } });
@@ -193,7 +156,6 @@ app.post('/api/auth/google', async (req, res) => {
       };
       users.push(user);
       writeDB('users', users);
-      seedDemoOrders(user.id);
     }
 
     const token = jwt.sign(
