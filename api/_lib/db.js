@@ -106,4 +106,11 @@ async function updateOrder(order, updates) {
   return list[idx];
 }
 
-module.exports = { getUser, getUserById, saveUser, getOrders, addOrder, getAllOrders, updateOrder, getSubscription, saveSubscription };
+async function deleteOrder(order) {
+  const key = order.userId ? `orders:${order.userId}` : `guest-orders:${order.guestEmail}`;
+  const list = (await get(key)) || [];
+  const filtered = list.filter(o => String(o.id) !== String(order.id));
+  await set(key, filtered);
+}
+
+module.exports = { getUser, getUserById, saveUser, getOrders, addOrder, getAllOrders, updateOrder, deleteOrder, getSubscription, saveSubscription };

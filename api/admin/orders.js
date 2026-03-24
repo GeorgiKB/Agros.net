@@ -1,4 +1,4 @@
-const { getAllOrders, updateOrder } = require('../_lib/db');
+const { getAllOrders, updateOrder, deleteOrder } = require('../_lib/db');
 const { requireAuth, setCors } = require('../_lib/auth');
 
 const ADMIN_EMAIL = 'g.berbenkov@agros.net';
@@ -27,6 +27,13 @@ module.exports = async function handler(req, res) {
       const updated = await updateOrder(order, { status });
       if (!updated) return res.status(404).json({ error: 'Поръчката не е намерена' });
       return res.json({ success: true, order: updated });
+    }
+
+    if (req.method === 'DELETE') {
+      const { order } = req.body || {};
+      if (!order) return res.status(400).json({ error: 'Липсват данни' });
+      await deleteOrder(order);
+      return res.json({ success: true });
     }
 
     return res.status(405).json({ error: 'Method not allowed' });

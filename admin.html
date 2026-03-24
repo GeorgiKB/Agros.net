@@ -210,6 +210,31 @@
     transition: background 0.15s;
   }
   .btn-save:hover { background: #507453; }
+  .btn-delete {
+    padding: 9px 20px;
+    background: none;
+    color: #c0392b;
+    border: 1.5px solid #f5c6c2;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .btn-delete:hover { background: #fff0ef; border-color: #c0392b; }
+  .row-delete {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ddd;
+    padding: 4px 6px;
+    border-radius: 6px;
+    font-size: 16px;
+    line-height: 1;
+    transition: color 0.15s, background 0.15s;
+  }
+  .row-delete:hover { color: #c0392b; background: #fff0ef; }
 
   /* ── Loading / empty ── */
   .loading { text-align: center; padding: 60px 20px; color: #aaa; font-size: 14px; }
@@ -473,8 +498,9 @@
     const rows = orders.map(o => {
       const c = o.customer || {};
       const itemsSummary = (o.items || []).map(i => `${i.name}${i.size ? ' ' + i.size : ''} ×${i.qty}`).join(', ');
+      const oJson = JSON.stringify(JSON.stringify(o));
       return `
-        <tr onclick="openOrder(${JSON.stringify(JSON.stringify(o))})">
+        <tr onclick="openOrder(${oJson})">
           <td><span class="order-id">#${o.id}</span></td>
           <td>
             <div class="customer-name">${esc(c.name || '—')}</div>
@@ -484,6 +510,9 @@
           <td><span class="total">${(o.total || 0).toFixed(2)} €</span></td>
           <td>${statusBadge(o.status)}</td>
           <td><span class="date-cell">${formatDate(o.createdAt)}</span></td>
+          <td onclick="event.stopPropagation()">
+            <button class="row-delete" onclick="deleteOrder(${oJson})" title="Изтрий">✕</button>
+          </td>
         </tr>`;
     }).join('');
 
@@ -497,6 +526,7 @@
             <th>Сума</th>
             <th>Статус</th>
             <th>Дата</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>${rows}</tbody>
@@ -572,6 +602,7 @@
           </select>
           <button class="btn-save" onclick="saveStatus()">Запази</button>
           <span id="status-msg" style="font-size:12px;color:#16A34A;display:none;">✓ Запазено</span>
+          <button class="btn-delete" onclick="deleteOrder(currentOrder)" style="margin-left:auto;">Изтрий поръчката</button>
         </div>
       </div>`;
 
@@ -603,6 +634,25 @@
       setTimeout(() => { msg.style.display = 'none'; }, 2000);
     } catch(e) {
       alert('Грешка при запазване на статуса.');
+    }
+  }
+
+  async function deleteOrder(jsonStr) {
+    const order = typeof jsonStr === 'string' ? JSON.parse(jsonStr) : jsonStr;
+    if (!confirm(`Изтриване на поръчка #${order.id}?`)) return;
+    try {
+      const res = await fetch(`${API}/api/admin/orders`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ order })
+      });
+      if (!res.ok) throw new Error();
+      allOrders = allOrders.filter(o => String(o.id) !== String(order.id));
+      renderStats(allOrders);
+      renderTable(allOrders);
+      closeModal();
+    } catch(e) {
+      alert('Грешка при изтриване.');
     }
   }
 
