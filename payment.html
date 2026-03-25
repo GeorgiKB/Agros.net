@@ -145,70 +145,134 @@
     }
     .demo-notice svg { flex-shrink: 0; margin-top: 1px; }
 
-    /* ── Delivery method ─────────────────────────────────────────── */
-    .delivery-section { display: flex; flex-direction: column; gap: 12px; }
-    .delivery-group { border: 1.5px solid #DDD0BC; border-radius: 14px; overflow: hidden; }
-    .delivery-group-head {
-      display: flex; align-items: center;
-      padding: 12px 16px; background: #FAFAF8;
+    /* ── Delivery cards ──────────────────────────────────────────── */
+    .delivery-cards { display: flex; flex-direction: column; gap: 10px; }
+    .delivery-card {
+      border: 1.5px solid #DDD0BC; border-radius: 16px;
+      cursor: pointer; overflow: hidden; background: white;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
-    .delivery-group-title {
-      font-size: 13.5px; font-weight: 600; color: #1A1A1A;
+    .delivery-card:hover { border-color: #186060; }
+    .delivery-card:focus-visible { outline: 2px solid #186060; outline-offset: 2px; }
+    .delivery-card.selected {
+      border-color: #186060;
+      box-shadow: 0 0 0 3px rgba(24,96,96,0.1);
     }
-    .delivery-group-body {
-      display: block;
-      padding: 0 16px 12px;
-      border-top: 1px solid #EDE9E1;
+    .delivery-card-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 16px;
+      transition: background 0.2s ease;
     }
-    .delivery-group.open .delivery-group-body { display: block; }
-
-    /* ── Delivery radio option ──────────────────────────────────── */
-    .delivery-option {
-      display: flex; align-items: flex-start; gap: 12px;
-      padding: 12px 0; cursor: pointer;
-      border-bottom: 1px solid rgba(221,208,188,0.4);
-    }
-    .delivery-option:last-child { border-bottom: none; }
-    .delivery-radio-input { display: none; }
-    .delivery-radio-dot {
+    .delivery-card.selected .delivery-card-header { background: #F4FAF8; }
+    .delivery-card-radio {
       width: 18px; height: 18px; border-radius: 50%;
-      border: 2px solid #DDD0BC; flex-shrink: 0; margin-top: 2px;
+      border: 2px solid #DDD0BC; flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
       transition: border-color 0.2s ease;
     }
-    .delivery-radio-dot::after {
+    .delivery-card.selected .delivery-card-radio { border-color: #186060; }
+    .delivery-card-radio::after {
       content: ''; width: 8px; height: 8px; border-radius: 50%;
       background: #186060; opacity: 0; transform: scale(0);
       transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
     }
-    .delivery-radio-input:checked + .delivery-radio-dot {
-      border-color: #186060;
+    .delivery-card.selected .delivery-card-radio::after { opacity: 1; transform: scale(1); }
+    .delivery-card-icon {
+      width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; background: #F7F5F1;
     }
-    .delivery-radio-input:checked + .delivery-radio-dot::after {
-      opacity: 1; transform: scale(1);
+    .delivery-card-info { flex: 1; min-width: 0; }
+    .delivery-card-name { font-size: 14px; font-weight: 600; color: #1A1A1A; line-height: 1.3; }
+    .delivery-card-desc { font-size: 12px; color: #9CA3AF; margin-top: 2px; }
+    .delivery-card-price-col { text-align: right; flex-shrink: 0; }
+    .delivery-card-price { font-size: 13.5px; font-weight: 700; color: #186060; line-height: 1.2; }
+    .delivery-card-price-sub { font-size: 11px; color: #9CA3AF; font-weight: 400; margin-top: 2px; }
+
+    /* ── Delivery card body (expanded) ───────────────────────────── */
+    .delivery-card-body {
+      display: none; padding: 14px 16px 16px;
+      background: #F9F8F5; border-top: 1px solid rgba(221,208,188,0.5);
     }
-    .delivery-option-info { flex: 1; }
-    .delivery-option-label {
-      font-size: 14px; font-weight: 500; color: #1A1A1A;
+    .delivery-card.selected .delivery-card-body { display: block; }
+
+    /* ── Pick from map button ─────────────────────────────────────── */
+    .pick-map-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 18px; border-radius: 10px;
+      background: #186060; color: white; border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 600;
+      box-shadow: 0 2px 8px rgba(24,96,96,0.25);
+      transition: transform 0.15s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.15s ease, opacity 0.15s ease;
     }
-    .delivery-option-price {
-      font-size: 13px; color: #6B7280; margin-top: 2px;
+    .pick-map-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(24,96,96,0.35); }
+    .pick-map-btn:active { transform: translateY(0); opacity: 0.9; }
+    .pick-map-btn:focus-visible { outline: 2px solid #186060; outline-offset: 2px; }
+
+    /* ── Selected office chip ─────────────────────────────────────── */
+    .selected-office-box {
+      display: none; align-items: center; gap: 10px;
+      padding: 10px 14px; border-radius: 10px; margin-top: 10px;
+      background: rgba(22,163,74,0.07); border: 1.5px solid rgba(22,163,74,0.2);
     }
-    .delivery-option-detail {
-      display: none; margin-top: 10px;
-      padding: 14px; border-radius: 12px;
-      background: #F4FAF8; border: 1.5px solid rgba(24,96,96,0.12);
+    .selected-office-box.show { display: flex; }
+    .selected-office-check {
+      width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+      background: #16a34a; display: flex; align-items: center; justify-content: center;
+    }
+    .selected-office-name { flex: 1; font-size: 13px; font-weight: 500; color: #1A1A1A; }
+    .selected-office-change {
+      font-size: 12px; font-weight: 600; color: #186060;
+      background: none; border: none; cursor: pointer; padding: 0; flex-shrink: 0;
+      transition: opacity 0.15s ease;
+    }
+    .selected-office-change:hover { opacity: 0.7; }
+    .selected-office-change:focus-visible { outline: 2px solid #186060; outline-offset: 2px; border-radius: 3px; }
+
+    /* ── Address delivery note ────────────────────────────────────── */
+    .address-delivery-note {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 12px 14px; border-radius: 10px;
+      background: #F4FAF8; border: 1px solid rgba(24,96,96,0.12);
       font-size: 13px; color: #374151; line-height: 1.6;
     }
-    .delivery-option-detail.visible { display: block; }
-    .delivery-option-detail .input-f { margin-top: 10px; }
-    .office-map-link {
-      display: inline-flex; align-items: center; gap: 5px;
-      margin-top: 8px; font-size: 13px; font-weight: 500; color: #186060;
-      text-decoration: none;
-      transition: color 0.2s ease, opacity 0.2s ease;
+
+    /* ── Courier selection modal ──────────────────────────────────── */
+    #courier-modal {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.45); backdrop-filter: blur(6px);
+      align-items: center; justify-content: center; padding: 16px;
     }
-    .office-map-link:hover { opacity: 0.75; }
+    #courier-modal.open { display: flex; }
+    .courier-modal-card {
+      background: white; border-radius: 24px;
+      max-width: 480px; width: 100%; max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.25);
+      animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .courier-modal-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 24px 18px; border-bottom: 1px solid #EDE9E1;
+    }
+    .courier-modal-title {
+      font-family: 'Montserrat', sans-serif; font-size: 17px; font-weight: 700;
+      color: #1A1A1A; letter-spacing: -0.01em;
+    }
+    .courier-modal-close {
+      width: 32px; height: 32px; border-radius: 50%; border: none; background: #F7F5F1;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s ease;
+    }
+    .courier-modal-close:hover { background: #EDE9E1; }
+    .courier-modal-close:focus-visible { outline: 2px solid #186060; outline-offset: 2px; }
+    .courier-modal-body { padding: 22px 24px; }
+    .courier-modal-placeholder {
+      min-height: 160px; border-radius: 12px; background: #F7F5F1;
+      border: 1.5px dashed #DDD0BC; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 10px;
+      padding: 24px; text-align: center; margin-bottom: 18px;
+    }
+    .courier-modal-foot { padding: 0 24px 24px; }
 
     /* ── No-print checkbox ──────────────────────────────────────── */
     .no-print-row {
@@ -709,51 +773,125 @@
             <h2 class="c-card-title">Изберете начин на доставка</h2>
           </div>
 
-          <div class="delivery-section">
+          <div class="delivery-cards">
 
-            <!-- Group: до офис -->
-            <div class="delivery-group" id="group-office">
-              <div class="delivery-group-head">
-                <span class="delivery-group-title">Доставка до офис</span>
+            <!-- Box Now -->
+            <div class="delivery-card" id="card-boxnow" tabindex="0" role="radio" aria-checked="false" onclick="selectDeliveryCard('boxnow')" onkeydown="if(event.key===' '||event.key==='Enter'){selectDeliveryCard('boxnow')}">
+              <input type="radio" name="delivery-type" value="boxnow" id="radio-boxnow" style="display:none;" onchange="onDeliveryChange()" />
+              <div class="delivery-card-header">
+                <div class="delivery-card-radio"></div>
+                <div class="delivery-card-icon">📦</div>
+                <div class="delivery-card-info">
+                  <div class="delivery-card-name">Box Now — Локер</div>
+                  <div class="delivery-card-desc">Вземете от автоматичен локер 24/7</div>
+                </div>
+                <div class="delivery-card-price-col">
+                  <div class="delivery-card-price">2.99 €</div>
+                  <div class="delivery-card-price-sub">≈ 5.85 лв</div>
+                </div>
               </div>
-              <div class="delivery-group-body">
-                <label class="delivery-option" for="radio-office">
-                  <input type="radio" id="radio-office" name="delivery-type" value="office" class="delivery-radio-input" onchange="onDeliveryChange()" />
-                  <span class="delivery-radio-dot"></span>
-                  <span class="delivery-option-info">
-                    <span class="delivery-option-label">Доставка до офис на Speedy</span>
-                    <span class="delivery-option-price">3.99 € / 7.81 лв — Безплатно над 25.57 €</span>
-                    <span class="delivery-option-detail">
-                      Вземете поръчката в удобно за вас Speedy офис. Получаването е на следващ работен ден за поръчки, приети до 15:30ч.<br/>
-                      <label class="field-label" for="office-name" style="margin-top:10px;display:block;">Офис на Speedy <span class="req">*</span></label>
-                      <input id="office-name" type="text" class="input-f" placeholder="Въведете град и адрес на офис..." />
-                    </span>
-                  </span>
-                </label>
+              <div class="delivery-card-body">
+                <p style="font-size:13px;color:#374151;margin-bottom:12px;line-height:1.55;">Изберете удобен Box Now локер близо до вас от интерактивната карта.</p>
+                <button type="button" class="pick-map-btn" onclick="event.stopPropagation(); openCourierModal('boxnow')">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  Избери локер от картата
+                </button>
+                <div class="selected-office-box" id="boxnow-selected">
+                  <div class="selected-office-check">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+                  </div>
+                  <span class="selected-office-name" id="boxnow-selected-name"></span>
+                  <button type="button" class="selected-office-change" onclick="event.stopPropagation(); openCourierModal('boxnow')">Промени</button>
+                </div>
               </div>
             </div>
 
-            <!-- Group: до адрес -->
-            <div class="delivery-group" id="group-address">
-              <div class="delivery-group-head">
-                <span class="delivery-group-title">Доставка до адрес</span>
+            <!-- Speedy -->
+            <div class="delivery-card" id="card-speedy" tabindex="0" role="radio" aria-checked="false" onclick="selectDeliveryCard('speedy')" onkeydown="if(event.key===' '||event.key==='Enter'){selectDeliveryCard('speedy')}">
+              <input type="radio" name="delivery-type" value="speedy" id="radio-speedy" style="display:none;" onchange="onDeliveryChange()" />
+              <div class="delivery-card-header">
+                <div class="delivery-card-radio"></div>
+                <div class="delivery-card-icon">🏃</div>
+                <div class="delivery-card-info">
+                  <div class="delivery-card-name">Speedy — Офис / Автомат</div>
+                  <div class="delivery-card-desc">Следващ работен ден за поръчки до 15:30ч</div>
+                </div>
+                <div class="delivery-card-price-col">
+                  <div class="delivery-card-price">4.50 €</div>
+                  <div class="delivery-card-price-sub">≈ 8.80 лв</div>
+                </div>
               </div>
-              <div class="delivery-group-body">
-                <label class="delivery-option" for="radio-address">
-                  <input type="radio" id="radio-address" name="delivery-type" value="address" class="delivery-radio-input" onchange="onDeliveryChange()" />
-                  <span class="delivery-radio-dot"></span>
-                  <span class="delivery-option-info">
-                    <span class="delivery-option-label">Доставка до адрес с Speedy</span>
-                    <span class="delivery-option-price">4.99 € / 9.76 лв — Безплатно над 25.57 €</span>
-                    <span class="delivery-option-detail">
-                      Куриерът ще достави поръчката на адреса, посочен в стъпка 1. Доставка на следващ работен ден за поръчки до 15:30ч.
-                    </span>
-                  </span>
-                </label>
+              <div class="delivery-card-body">
+                <p style="font-size:13px;color:#374151;margin-bottom:12px;line-height:1.55;">Изберете удобен офис или автомат на Speedy от картата.</p>
+                <button type="button" class="pick-map-btn" onclick="event.stopPropagation(); openCourierModal('speedy')">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  Избери от картата
+                </button>
+                <div class="selected-office-box" id="speedy-selected">
+                  <div class="selected-office-check">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+                  </div>
+                  <span class="selected-office-name" id="speedy-selected-name"></span>
+                  <button type="button" class="selected-office-change" onclick="event.stopPropagation(); openCourierModal('speedy')">Промени</button>
+                </div>
               </div>
             </div>
 
-          </div><!-- /delivery-section -->
+            <!-- Еконт -->
+            <div class="delivery-card" id="card-econt" tabindex="0" role="radio" aria-checked="false" onclick="selectDeliveryCard('econt')" onkeydown="if(event.key===' '||event.key==='Enter'){selectDeliveryCard('econt')}">
+              <input type="radio" name="delivery-type" value="econt" id="radio-econt" style="display:none;" onchange="onDeliveryChange()" />
+              <div class="delivery-card-header">
+                <div class="delivery-card-radio"></div>
+                <div class="delivery-card-icon">🦅</div>
+                <div class="delivery-card-info">
+                  <div class="delivery-card-name">Еконт — Офис / Автомат</div>
+                  <div class="delivery-card-desc">Следващ работен ден за поръчки до 15:30ч</div>
+                </div>
+                <div class="delivery-card-price-col">
+                  <div class="delivery-card-price">5.50 €</div>
+                  <div class="delivery-card-price-sub">≈ 10.75 лв</div>
+                </div>
+              </div>
+              <div class="delivery-card-body">
+                <p style="font-size:13px;color:#374151;margin-bottom:12px;line-height:1.55;">Изберете удобен офис или автомат на Еконт от картата.</p>
+                <button type="button" class="pick-map-btn" onclick="event.stopPropagation(); openCourierModal('econt')">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  Избери от картата
+                </button>
+                <div class="selected-office-box" id="econt-selected">
+                  <div class="selected-office-check">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+                  </div>
+                  <span class="selected-office-name" id="econt-selected-name"></span>
+                  <button type="button" class="selected-office-change" onclick="event.stopPropagation(); openCourierModal('econt')">Промени</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- До адрес -->
+            <div class="delivery-card" id="card-address" tabindex="0" role="radio" aria-checked="false" onclick="selectDeliveryCard('address')" onkeydown="if(event.key===' '||event.key==='Enter'){selectDeliveryCard('address')}">
+              <input type="radio" name="delivery-type" value="address" id="radio-address" style="display:none;" onchange="onDeliveryChange()" />
+              <div class="delivery-card-header">
+                <div class="delivery-card-radio"></div>
+                <div class="delivery-card-icon">🏠</div>
+                <div class="delivery-card-info">
+                  <div class="delivery-card-name">Доставка до адрес</div>
+                  <div class="delivery-card-desc">Куриерът доставя директно при вас</div>
+                </div>
+                <div class="delivery-card-price-col">
+                  <div class="delivery-card-price">6.99 €</div>
+                  <div class="delivery-card-price-sub">≈ 13.67 лв</div>
+                </div>
+              </div>
+              <div class="delivery-card-body">
+                <div class="address-delivery-note">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#186060" stroke-width="2" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                  <span>Доставката ще бъде на адреса, въведен в <strong>Стъпка 1</strong>. Уверете се, че сте попълнили населено място, улица и номер.</span>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /delivery-cards -->
 
 
         </div>
@@ -1024,11 +1162,13 @@
 
   <script src="/auth.js"></script>
   <script>
-    const API             = '';
-    const EUR_TO_BGN      = 1.9558;
+    const API                  = '';
+    const EUR_TO_BGN           = 1.9558;
     const FREE_SHIP_THRESHOLD  = 25.57;
-    const SHIP_PRICE_OFFICE    = 3.99;
-    const SHIP_PRICE_ADDRESS   = 4.99;
+    const SHIP_PRICE_BOXNOW    = 2.99;
+    const SHIP_PRICE_SPEEDY    = 4.50;
+    const SHIP_PRICE_ECONT     = 5.50;
+    const SHIP_PRICE_ADDRESS   = 6.99;
 
     // ── Guest / auth detection ────────────────────────────────────
     const isGuest = new URLSearchParams(window.location.search).has('guest');
@@ -1059,15 +1199,77 @@
     let appliedPromo      = null; // { code, type, value, label, discount }
     let stripePublicKey   = null;
 
+    // ── Courier selections ────────────────────────────────────────
+    let courierSelections = { boxnow: null, speedy: null, econt: null };
+    let activeModal       = null; // courier type currently in modal
+
+    const MODAL_CONFIG = {
+      boxnow: { title: 'Избери Box Now локер',        placeholder: 'гр. София, бул. Цариградско шосе 115', inputLabel: 'Адрес на локера' },
+      speedy: { title: 'Избери Speedy офис/автомат',  placeholder: 'гр. Варна, бул. Приморски 44',          inputLabel: 'Офис / автомат на Speedy' },
+      econt:  { title: 'Избери Еконт офис/автомат',   placeholder: 'гр. Пловдив, ул. Каймакчалан 13',       inputLabel: 'Офис / автомат на Еконт' }
+    };
+
+    // ── Delivery card selection ───────────────────────────────────
+    function selectDeliveryCard(type) {
+      document.querySelectorAll('.delivery-card').forEach(c => {
+        c.classList.remove('selected');
+        c.setAttribute('aria-checked', 'false');
+      });
+      const card = document.getElementById('card-' + type);
+      if (card) { card.classList.add('selected'); card.setAttribute('aria-checked', 'true'); }
+      const radio = document.getElementById('radio-' + type);
+      if (radio) radio.checked = true;
+      onDeliveryChange();
+    }
+
+    // ── Courier modal ─────────────────────────────────────────────
+    function openCourierModal(courier) {
+      activeModal = courier;
+      const cfg = MODAL_CONFIG[courier];
+      document.getElementById('modal-title').textContent       = cfg.title;
+      document.getElementById('modal-input-label').textContent = cfg.inputLabel;
+      document.getElementById('modal-office-input').placeholder = cfg.placeholder;
+      const sel = courierSelections[courier];
+      document.getElementById('modal-office-input').value = sel ? sel.name : '';
+      document.getElementById('modal-office-input').classList.remove('error');
+      document.getElementById('courier-modal').classList.add('open');
+      setTimeout(() => document.getElementById('modal-office-input').focus(), 80);
+    }
+
+    function closeCourierModal() {
+      document.getElementById('courier-modal').classList.remove('open');
+      activeModal = null;
+    }
+
+    function confirmCourierSelection() {
+      if (!activeModal) return;
+      const input = document.getElementById('modal-office-input');
+      const value = input.value.trim();
+      if (!value) { input.classList.add('error'); input.focus(); return; }
+      input.classList.remove('error');
+      courierSelections[activeModal] = { id: null, name: value };
+      document.getElementById(activeModal + '-selected').classList.add('show');
+      document.getElementById(activeModal + '-selected-name').textContent = value;
+      closeCourierModal();
+      updateDeliverySummary();
+      renderSummary();
+    }
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && activeModal) closeCourierModal();
+    });
+
+    // Confirm on Enter in modal input
+    document.addEventListener('DOMContentLoaded', function() {
+      const inp = document.getElementById('modal-office-input');
+      if (inp) inp.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') { e.preventDefault(); confirmCourierSelection(); }
+      });
+    });
+
     // ── Delivery change ───────────────────────────────────────────
     function onDeliveryChange() {
-      const type = document.querySelector('input[name="delivery-type"]:checked');
-      document.querySelectorAll('.delivery-option-detail').forEach(el => el.classList.remove('visible'));
-      if (type) {
-        const radio = document.getElementById('radio-' + type.value);
-        const detail = radio.closest('.delivery-option').querySelector('.delivery-option-detail');
-        if (detail) detail.classList.add('visible');
-      }
       updateDeliverySummary();
       renderSummary();
     }
@@ -1081,12 +1283,12 @@
 
     // ── Live delivery address summary in sidebar ──────────────────
     function updateDeliverySummary() {
-      const type = document.querySelector('input[name="delivery-type"]:checked');
-      if (!type) {
+      const typeEl = document.querySelector('input[name="delivery-type"]:checked');
+      if (!typeEl) {
         document.getElementById('delivery-summary-box').style.display = 'none';
         return;
       }
-
+      const type      = typeEl.value;
       const firstname = document.getElementById('d-firstname').value.trim();
       const lastname  = document.getElementById('d-lastname').value.trim();
       const phone     = document.getElementById('d-phone').value.trim();
@@ -1094,34 +1296,32 @@
       const postal    = document.getElementById('d-postal').value.trim();
       const street    = document.getElementById('d-street').value.trim();
       const building  = document.getElementById('d-building').value.trim();
+      const name      = (firstname + ' ' + lastname).trim();
 
       const box   = document.getElementById('delivery-summary-box');
       const label = document.getElementById('delivery-summary-label');
       const lines = document.getElementById('delivery-summary-lines');
-
       box.style.display = 'block';
 
-      if (type.value === 'office') {
-        const officeName = document.getElementById('office-name').value.trim();
-        label.textContent = 'Доставка до офис на Speedy:';
-        const parts = [];
-        if (firstname || lastname) parts.push(firstname + ' ' + lastname);
-        if (phone) parts.push(phone);
-        if (officeName) parts.push('Офис: ' + officeName);
-        lines.innerHTML = parts.map(p => `<div>${p}</div>`).join('');
-      } else {
-        label.textContent = 'Адрес за доставка:';
-        const parts = [];
-        if (firstname || lastname) parts.push(firstname + ' ' + lastname);
-        if (phone) parts.push(phone);
+      const LABELS = { boxnow: 'Box Now Локер:', speedy: 'Speedy Офис/Автомат:', econt: 'Еконт Офис/Автомат:', address: 'Адрес за доставка:' };
+      label.textContent = LABELS[type] || '';
+
+      const parts = [];
+      if (name)  parts.push(name);
+      if (phone) parts.push(phone);
+
+      if (type === 'address') {
         if (street) parts.push(street + (building ? ', ' + building : ''));
-        if (street) parts.push((city || '') + ' ' + (postal || '') + ' България');
-        lines.innerHTML = parts.map(p => `<div>${p}</div>`).join('');
+        if (city)   parts.push(city + (postal ? ' ' + postal : '') + ', България');
+      } else {
+        const sel = courierSelections[type];
+        if (sel) parts.push(sel.name);
       }
+      lines.innerHTML = parts.map(p => `<div>${p}</div>`).join('');
     }
 
-    // Live update as user types address fields
-    ['d-firstname','d-lastname','d-phone','d-city','d-postal','d-street','d-building','office-name'].forEach(id => {
+    // Live update as user types personal/address fields
+    ['d-firstname','d-lastname','d-phone','d-city','d-postal','d-street','d-building'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.addEventListener('input', updateDeliverySummary);
     });
@@ -1148,10 +1348,15 @@
     function getSubtotal() { return cart.reduce((s, i) => s + i.price * i.qty, 0); }
     function getDeliveryType() {
       const el = document.querySelector('input[name="delivery-type"]:checked');
-      return el ? el.value : 'office';
+      return el ? el.value : null;
     }
     function getShipPrice() {
-      return getDeliveryType() === 'address' ? SHIP_PRICE_ADDRESS : SHIP_PRICE_OFFICE;
+      const t = getDeliveryType();
+      if (t === 'boxnow')  return SHIP_PRICE_BOXNOW;
+      if (t === 'speedy')  return SHIP_PRICE_SPEEDY;
+      if (t === 'econt')   return SHIP_PRICE_ECONT;
+      if (t === 'address') return SHIP_PRICE_ADDRESS;
+      return SHIP_PRICE_SPEEDY; // display default before selection
     }
     function getShipping(subtotal) { return subtotal >= FREE_SHIP_THRESHOLD ? 0 : getShipPrice(); }
     function getDiscount() {
@@ -1370,30 +1575,41 @@
 
       const deliveryTypeEl = document.querySelector('input[name="delivery-type"]:checked');
 
-      if (!firstname)          return { error: 'Моля, въведете вашето първо име.' };
-      if (!lastname)           return { error: 'Моля, въведете вашата фамилия.' };
-      if (!phone)              return { error: 'Моля, въведете телефон за връзка.' };
-      if (isGuest && !email)   return { error: 'Моля, въведете имейл адрес.' };
-      if (!deliveryTypeEl)     return { error: 'Моля, изберете начин на доставка.' };
+      if (!firstname)        return { error: 'Моля, въведете вашето първо име.' };
+      if (!lastname)         return { error: 'Моля, въведете вашата фамилия.' };
+      if (!phone)            return { error: 'Моля, въведете телефон за връзка.' };
+      if (isGuest && !email) return { error: 'Моля, въведете имейл адрес.' };
+      if (!deliveryTypeEl)   return { error: 'Моля, изберете начин на доставка.' };
 
       const deliveryType = deliveryTypeEl.value;
+      const name = firstname + ' ' + lastname;
       let officeName = '';
+      let officeId   = '';
+      let address    = '';
 
-      if (deliveryType === 'office') {
-        officeName = document.getElementById('office-name').value.trim();
-        if (!officeName) return { error: 'Моля, въведете офис на Speedy за доставка.' };
-      } else {
+      if (deliveryType === 'boxnow') {
+        const sel = courierSelections.boxnow;
+        if (!sel) return { error: 'Моля, изберете Box Now локер.' };
+        officeName = sel.name; officeId = sel.id || '';
+        address = 'Box Now Локер: ' + officeName;
+      } else if (deliveryType === 'speedy') {
+        const sel = courierSelections.speedy;
+        if (!sel) return { error: 'Моля, изберете Speedy офис или автомат.' };
+        officeName = sel.name; officeId = sel.id || '';
+        address = 'Speedy Офис/Автомат: ' + officeName;
+      } else if (deliveryType === 'econt') {
+        const sel = courierSelections.econt;
+        if (!sel) return { error: 'Моля, изберете Еконт офис или автомат.' };
+        officeName = sel.name; officeId = sel.id || '';
+        address = 'Еконт Офис/Автомат: ' + officeName;
+      } else if (deliveryType === 'address') {
         if (!city)   return { error: 'Моля, въведете населено място.' };
         if (!postal) return { error: 'Моля, въведете пощенски код.' };
         if (!street) return { error: 'Моля, въведете улица / квартал.' };
+        address = street + (building ? ', ' + building : '');
       }
 
-      const name = firstname + ' ' + lastname;
-      const address = deliveryType === 'office'
-        ? 'Офис Speedy: ' + officeName
-        : street + (building ? ', ' + building : '');
-
-      return { name, firstname, lastname, phone, email, org, city, postal, street, building, addition, address, deliveryType, officeName };
+      return { name, firstname, lastname, phone, email, org, city, postal, street, building, addition, address, deliveryType, officeName, officeId };
     }
 
     function showError(msg) {
@@ -1477,5 +1693,39 @@
     }
   </script>
   <script src="nav-dropdown.js"></script>
+
+  <!-- ── Courier Selection Modal ─────────────────────────────── -->
+  <div id="courier-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" onclick="if(event.target===this)closeCourierModal()">
+    <div class="courier-modal-card">
+      <div class="courier-modal-head">
+        <span class="courier-modal-title" id="modal-title"></span>
+        <button class="courier-modal-close" onclick="closeCourierModal()" type="button" aria-label="Затвори">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="courier-modal-body">
+        <!-- Widget placeholder area — swap this div for the real widget script/iframe when API credentials are available -->
+        <div class="courier-modal-placeholder" id="modal-widget-area">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div>
+            <p style="font-size:13.5px;font-weight:600;color:#374151;margin-bottom:4px;">Интерактивна карта</p>
+            <p style="font-size:12px;color:#9CA3AF;line-height:1.5;" id="modal-widget-desc">Widget интеграцията ще бъде активирана с API ключ за тази куриерска служба.</p>
+          </div>
+        </div>
+        <!-- Manual fallback input (always shown until real widget is integrated) -->
+        <div class="field">
+          <label class="field-label" id="modal-input-label">Въведи ръчно</label>
+          <input id="modal-office-input" type="text" class="input-f" placeholder="" autocomplete="off" />
+          <span style="font-size:11.5px;color:#9CA3AF;margin-top:4px;">Пример: гр. София, бул. България 102</span>
+        </div>
+      </div>
+      <div class="courier-modal-foot">
+        <button type="button" class="pick-map-btn" style="width:100%;justify-content:center;" onclick="confirmCourierSelection()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          Потвърди избора
+        </button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
