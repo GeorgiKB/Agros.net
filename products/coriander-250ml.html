@@ -231,7 +231,7 @@
             <div id="variant-list" class="flex flex-col gap-1.5"></div>
             
             <div class="flex flex-col gap-2 mt-4">
-              <div id="card-single" class="purchase-card active" onclick="setPurchaseMode('single')">
+              <div id="card-single" class="purchase-card active">
                 <div class="flex items-center justify-between gap-3">
                   <div class="flex items-center gap-3">
                     <div class="purchase-radio"><div class="purchase-radio-dot"></div></div>
@@ -240,43 +240,7 @@
                   <span id="price-single" class="font-body font-bold text-gray-900 text-sm whitespace-nowrap">—</span>
                 </div>
               </div>
-              <div id="card-sub" class="purchase-card" onclick="setPurchaseMode('subscribe')">
-                <div class="flex items-center justify-between gap-3">
-                  <div class="flex items-center gap-3">
-                    <div class="purchase-radio"><div class="purchase-radio-dot"></div></div>
-                    <span class="font-body font-medium text-gray-800 text-sm">Абонирай се и <strong style="color:#C8922A;">спести 15%</strong></span>
-                  </div>
-                  <div class="text-right">
-                    <div id="price-orig" class="font-body text-xs text-gray-400 line-through" style="min-height:14px;"></div>
-                    <span id="price-sub" class="font-body font-bold text-sm" style="color:#C8922A;">—</span>
-                  </div>
-                </div>
-                <div id="sub-panel" style="display:none;margin-top:12px;" onclick="event.stopPropagation()">
-                  <p class="font-body text-xs text-gray-500 mb-2">Избери честота на доставка</p>
-                  <div class="relative">
-                    <select id="sub-freq" onchange="subFreq=this.value" class="sub-freq-select">
-                      <option value="2">Доставка на всеки 2 седмици</option>
-                      <option value="3">Доставка на всеки 3 седмици</option>
-                      <option value="4" selected>Доставка на всеки 4 седмици (популярно)</option>
-                      <option value="5">Доставка на всеки 5 седмици</option>
-                      <option value="6">Доставка на всеки 6 седмици</option>
-                      <option value="7">Доставка на всеки 7 седмици</option>
-                      <option value="8">Доставка на всеки 8 седмици</option>
-                    </select>
-                    <svg class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
-                  </div>
-                  <div class="flex flex-col gap-2 mt-3">
-                    <div class="flex items-start gap-2">
-                      <svg class="w-4 h-4 flex-shrink-0 mt-0.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>
-                      <span class="font-body text-xs text-gray-500">Можеш да прекратиш абонамента си по всяко време.</span>
-                    </div>
-                    <div class="flex items-start gap-2">
-                      <svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color:#3ABF82;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-                      <span class="font-body text-xs text-gray-500">Можеш да променяш честотата на доставка, количеството и вкуса на продуктите през профила си.</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
             </div>
             <button id="add-btn" onclick="addToCart(this)" class="btn mt-3 w-full flex items-center justify-center gap-2 text-white font-body font-semibold px-6 py-3.5 rounded-full focus-visible:outline-none focus-visible:ring-2" style="background:#C8922A;box-shadow:0 4px 20px rgba(200,146,42,0.40),0 1px 4px rgba(200,146,42,0.20);"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Добави в количка</button>
           </div>
@@ -368,18 +332,13 @@ function fmtEUR(bgn) {
   return eur + ' €<span style="font-size:0.78em;opacity:0.55;font-weight:400;margin-left:5px;">(' + bgn.toFixed(2) + ' лв.)</span>';
 }
 const VARIANTS=[{id:'p',name:'Кориандрово масло',size:'250 мл',price:'21.01',img:'../images/olleo/coriander-oil.png',vol:''}];
-let qty={p:0};let purchaseMode='single';let subFreq='4';let selectedId='p';
+let qty={p:0};let selectedId='p';
 function calcTotal(){return qty['p']*parseFloat('21.01');}
 function updatePurchaseWidget(){
-  const total=calcTotal(),sub=total*0.85;
+  const total=calcTotal();
   document.getElementById('price-single').innerHTML=total>0?fmtEUR(total):'—';
-  document.getElementById('price-orig').innerHTML=total>0?fmtEUR(total):'';
-  document.getElementById('price-sub').innerHTML=total>0?fmtEUR(sub):'—';
-  document.getElementById('card-single').classList.toggle('active',purchaseMode==='single');
-  document.getElementById('card-sub').classList.toggle('active',purchaseMode==='subscribe');
-  document.getElementById('sub-panel').style.display=purchaseMode==='subscribe'?'block':'none';
+  document.getElementById('card-single').classList.add('active');
 }
-function setPurchaseMode(mode){purchaseMode=mode;updatePurchaseWidget();}
 function render(){
   const q=qty['p'];
   document.getElementById('variant-list').innerHTML=`<div class="variant-row selected" onclick="select('p','../images/olleo/coriander-oil.png')"><div style="width:56px;height:66px;background:#EEF2EB;border-radius:8px;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;"><picture>
@@ -392,9 +351,8 @@ function chQty(id,d){qty[id]=Math.max(0,qty[id]+d);const el=document.getElementB
 function switchTab(btn,id){document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));btn.classList.add('active');document.getElementById(id).classList.add('active');}
 function addToCart(btn){
   if(qty['p']>0&&typeof AgrosCart!=='undefined'){
-    const isSub=purchaseMode==='subscribe';
-    const pr=isSub?(parseFloat('21.01')*0.85).toFixed(2):'21.01';
-    const nm=isSub?'OLLEO Кориандрово масло (Абонамент)':'OLLEO Кориандрово масло';
+    const pr='21.01';
+    const nm='OLLEO Кориандрово масло';
     for(let i=0;i<qty['p'];i++)AgrosCart.addItem(null,nm,'250 мл',pr,'../images/olleo/coriander-oil.png','OLLEO');
     const orig=btn.innerHTML;btn.innerHTML='✓ Добавено';btn.style.background='#3ABF82';btn.disabled=true;
     setTimeout(()=>{btn.innerHTML=orig;btn.style.background='#C8922A';btn.disabled=false;},1400);
