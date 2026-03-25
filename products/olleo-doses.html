@@ -395,13 +395,13 @@ function fmtEUR(bgn) {
   return eur + ' €<span class="bgn-price" style="font-size:0.78em;opacity:0.55;font-weight:400;margin-left:5px;">(' + bgn.toFixed(2) + ' лв.)</span>';
 }
 const VARIANTS = [
-  { id:'nat',  name:'Натурално слънчогледово олио', size:'40 × 8 мл', price:'19.60', img:'../images/olleo/box-natural.png' },
-  { id:'lem',  name:'С лимон',                      size:'40 × 8 мл', price:'15.60', img:'../images/olleo/box-lemon.png' },
-  { id:'gar',  name:'С чесън',                      size:'40 × 8 мл', price:'15.60', img:'../images/olleo/box-garlic.png' },
-  { id:'chi',  name:'С чили',                       size:'40 × 8 мл', price:'15.60', img:'../images/olleo/box-chilli.png' },
-  { id:'soy',  name:'Соево',                        size:'40 × 8 мл', price:'15.60', img:'../images/olleo/box-soy.png' },
-  { id:'bal',  name:'Балсамово',                    size:'40 × 8 мл', price:'15.60', img:'../images/olleo/box-balsamic.png' },
-  { id:'pak',  name:'Плик с Дози (микс вкусове)',   size:'10 × 8 мл', price:'4.50',  img:'../images/olleo/doses.png' },
+  { id:'nat',  name:'Натурално слънчогледово олио', size:'40 × 8 мл', price:'19.54', img:'../images/olleo/box-natural.png' },
+  { id:'lem',  name:'С лимон',                      size:'40 × 8 мл', price:'15.63', img:'../images/olleo/box-lemon.png' },
+  { id:'gar',  name:'С чесън',                      size:'40 × 8 мл', price:'15.63', img:'../images/olleo/box-garlic.png' },
+  { id:'chi',  name:'С чили',                       size:'40 × 8 мл', price:'15.63', img:'../images/olleo/box-chilli.png' },
+  { id:'soy',  name:'Соево',                        size:'40 × 8 мл', price:'15.63', img:'../images/olleo/box-soy.png' },
+  { id:'bal',  name:'Балсамово',                    size:'40 × 8 мл', price:'15.63', img:'../images/olleo/box-balsamic.png' },
+  { id:'pak',  name:'Плик с Дози (микс вкусове)',   size:'10 × 8 мл', price:'4.67',  img:'../images/olleo/doses.png' },
 ];
 let qty = {}; let purchaseMode = 'single'; let subFreq = '4'; let selectedId = 'nat';
 VARIANTS.forEach(v => { qty[v.id] = 0; });

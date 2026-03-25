@@ -391,9 +391,9 @@ function fmtEUR(bgn) {
   return eur + ' €<span style="font-size:0.78em;opacity:0.55;font-weight:400;margin-left:5px;">(' + bgn.toFixed(2) + ' лв.)</span>';
 }
 const VARIANTS=[
-  {id:'prot-choc',name:'Шоколадов',size:'300 г',price:'12.71',img:'../images/noteo/vegan-protein-chocolate.png'},
-  {id:'prot-nat', name:'Натурален', size:'300 г',price:'12.71',img:'../images/noteo/vegan-protein-natural.png'},
-  {id:'prot-rasp',name:'Малинов',   size:'300 г',price:'12.71',img:'../images/noteo/vegan-protein-raspberry.png'},
+  {id:'prot-choc',name:'Шоколадов',size:'300 г',price:'19.91',img:'../images/noteo/vegan-protein-chocolate.png'},
+  {id:'prot-nat', name:'Натурален', size:'300 г',price:'15.88',img:'../images/noteo/vegan-protein-natural.png'},
+  {id:'prot-rasp',name:'Малинов',   size:'300 г',price:'19.91',img:'../images/noteo/vegan-protein-raspberry.png'},
 ];
 let qty={};let purchaseMode='single';let subFreq='4';let selectedId='prot-choc';VARIANTS.forEach(v=>{qty[v.id]=0;});
 function calcTotal(){return VARIANTS.reduce((s,v)=>s+qty[v.id]*parseFloat(v.price),0);}
