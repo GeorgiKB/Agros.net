@@ -1155,12 +1155,12 @@
     function getShipping(subtotal) { return subtotal >= FREE_SHIP_THRESHOLD ? 0 : getShipPrice(); }
     function getDiscount() {
       if (!appliedPromo) return 0;
-      // Recalculate in case cart changed (shouldn't, but be safe)
-      const sub = getSubtotal();
+      const sub   = getSubtotal();
+      const total = sub + getShipping(sub);
       if (appliedPromo.type === 'percent') {
-        return Math.min(Math.round(sub * appliedPromo.value / 100 * 100) / 100, sub);
+        return Math.min(Math.round(total * appliedPromo.value / 100 * 100) / 100, total);
       }
-      return Math.min(appliedPromo.value, sub);
+      return Math.min(appliedPromo.value, total);
     }
     function getTotal() {
       const sub = getSubtotal(), ship = getShipping(sub);
@@ -1235,7 +1235,7 @@
         const res  = await fetch(`${API}/api/promo/validate`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ code, subtotal: getSubtotal() })
+          body: JSON.stringify({ code, subtotal: getSubtotal() + getShipping(getSubtotal()) })
         });
         const data = await res.json();
 
