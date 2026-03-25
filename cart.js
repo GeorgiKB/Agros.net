@@ -44,8 +44,8 @@
 <aside id="cart-drawer" role="dialog" aria-modal="true" aria-label="Количка" style="position:fixed;top:0;right:0;height:100dvh;width:min(440px,100vw);z-index:1101;background:#FEFCF8;box-shadow:-8px 0 48px rgba(0,0,0,0.16);transform:translateX(100%);transition:transform 0.38s cubic-bezier(0.34,1.2,0.64,1);display:flex;flex-direction:column;">
   <div style="padding:20px 24px 18px;border-bottom:1px solid #EDE5D5;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
     <div style="display:flex;align-items:center;gap:10px;">
-      <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:22px;font-weight:700;color:#2F412E;margin:0;letter-spacing:-0.02em;">Количка</h2>
-      <span id="cart-count-drawer" style="background:#5F7E5F;color:white;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">0</span>
+      <h2 style="font-family:'Montserrat',sans-serif;font-size:22px;font-weight:700;color:#124830;margin:0;letter-spacing:-0.02em;">Количка</h2>
+      <span id="cart-count-drawer" style="background:#3ABF82;color:white;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">0</span>
     </div>
     <button onclick="closeCart()" aria-label="Затвори количката" style="background:none;border:none;cursor:pointer;color:#aaa;padding:6px;border-radius:50%;transition:color 0.2s,background 0.2s;" onmouseenter="this.style.color='#333';this.style.background='rgba(0,0,0,0.06)'" onmouseleave="this.style.color='#aaa';this.style.background='none'">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -53,19 +53,19 @@
   </div>
   <div id="cart-empty" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 32px;text-align:center;">
     <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#D7E4D4" stroke-width="1.2" style="margin-bottom:20px;"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-    <h3 style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#2F412E;margin:0 0 8px;">Количката е празна</h3>
+    <h3 style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:700;color:#124830;margin:0 0 8px;">Количката е празна</h3>
     <p style="font-family:'Inter',sans-serif;font-size:14px;color:#999;line-height:1.65;margin:0 0 24px;">Добавете продукти от нашата колекция.</p>
-    <button onclick="closeCart()" style="background:#416241;color:white;border:none;border-radius:50px;padding:13px 28px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.2s;" onmouseenter="this.style.background='#507453'" onmouseleave="this.style.background='#416241'">Разгледай продукти</button>
+    <button onclick="closeCart()" style="background:#22905E;color:white;border:none;border-radius:50px;padding:13px 28px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.2s;" onmouseenter="this.style.background='#30A870'" onmouseleave="this.style.background='#22905E'">Разгледай продукти</button>
   </div>
   <div id="cart-items" style="flex:1;overflow-y:auto;padding:16px 20px;display:none;flex-direction:column;gap:12px;scrollbar-width:thin;scrollbar-color:#B0CAAD #F7F3EC;"></div>
   <div id="cart-footer" style="display:none;border-top:1px solid #EDE5D5;padding:18px 24px 22px;flex-shrink:0;">
     <div style="margin-bottom:14px;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
         <span id="cart-shipping-msg" style="font-family:'Inter',sans-serif;font-size:12px;color:#666;line-height:1.4;"></span>
-        <span style="font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:#5F7E5F;flex-shrink:0;margin-left:8px;">25.57&nbsp;€</span>
+        <span style="font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:#3ABF82;flex-shrink:0;margin-left:8px;">25.57&nbsp;€</span>
       </div>
       <div style="height:5px;background:#EDE5D5;border-radius:3px;overflow:hidden;">
-        <div id="cart-shipping-progress" style="height:100%;background:linear-gradient(90deg,#5F7E5F,#82B27F);border-radius:3px;transition:width 0.45s ease;width:0%;"></div>
+        <div id="cart-shipping-progress" style="height:100%;background:linear-gradient(90deg,#3ABF82,#6DD4A8);border-radius:3px;transition:width 0.45s ease;width:0%;"></div>
       </div>
     </div>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;padding:14px 16px;background:white;border-radius:14px;box-shadow:0 1px 6px rgba(0,0,0,0.05);">
@@ -73,9 +73,9 @@
         <div style="font-family:'Inter',sans-serif;font-size:12px;color:#999;margin-bottom:2px;">Обща сума</div>
         <div id="cart-total-bgn" style="font-family:'Inter',sans-serif;font-size:12px;color:#aaa;"></div>
       </div>
-      <div id="cart-total-eur" style="font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:#2F412E;letter-spacing:-0.02em;"></div>
+      <div id="cart-total-eur" style="font-family:'Montserrat',sans-serif;font-size:26px;font-weight:700;color:#124830;letter-spacing:-0.02em;"></div>
     </div>
-    <button onclick="handleCheckout()" style="width:100%;padding:16px;border:none;border-radius:50px;background:#416241;color:white;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 20px rgba(65,98,65,0.35);transition:transform 0.2s cubic-bezier(0.34,1.56,0.64,1),background 0.2s;" onmouseenter="this.style.background='#507453';this.style.transform='translateY(-1px)'" onmouseleave="this.style.background='#416241';this.style.transform='translateY(0)'">
+    <button onclick="handleCheckout()" style="width:100%;padding:16px;border:none;border-radius:50px;background:#22905E;color:white;font-family:'Inter',sans-serif;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 20px rgba(34,144,94,0.35);transition:transform 0.2s cubic-bezier(0.34,1.56,0.64,1),background 0.2s;" onmouseenter="this.style.background='#30A870';this.style.transform='translateY(-1px)'" onmouseleave="this.style.background='#22905E';this.style.transform='translateY(0)'">
       Продължи към поръчка
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </button>
@@ -143,40 +143,50 @@
       footerEl.style.display = 'block';
 
       itemsEl.innerHTML = cart.map(function(item) { return `
-        <div class="cart-item-enter" style="display:flex;gap:12px;padding:14px;background:white;border-radius:16px;box-shadow:0 1px 8px rgba(0,0,0,0.06);align-items:flex-start;">
-          <img src="${esc(item.img)}" alt="${esc(item.name)}" style="width:60px;height:60px;border-radius:10px;object-fit:cover;background:#EEF2EB;flex-shrink:0;" onerror="this.style.visibility='hidden'" />
+        <div data-cart-id="${esc(item.id)}" style="display:flex;gap:12px;padding:14px;background:white;border-radius:16px;box-shadow:0 1px 8px rgba(0,0,0,0.06);align-items:flex-start;">
+          <div style="width:68px;height:68px;border-radius:12px;overflow:hidden;background:#EEF2EB;flex-shrink:0;">
+            <img src="${esc(item.img)}" alt="${esc(item.name)}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentNode.style.background='#EDE5D5'" />
+          </div>
           <div style="flex:1;min-width:0;">
-            <div style="font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#2F412E;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(item.name)}</div>
-            <div style="font-family:'Inter',sans-serif;font-size:11px;color:#999;margin-bottom:8px;">${esc(item.volume || '')}${item.brand ? ' · ' + esc(item.brand) : ''}</div>
-            <div style="display:flex;align-items:center;gap:4px;">
-              <button onclick="cartQty('${esc(item.id)}',-1)" aria-label="Намали" style="width:32px;height:32px;border:none;background:none;cursor:pointer;font-size:18px;line-height:1;color:#5F7E5F;display:flex;align-items:center;justify-content:center;transition:background 0.15s;border-radius:50%;" onmouseenter="this.style.background='rgba(95,126,95,0.12)'" onmouseleave="this.style.background='none'">−</button>
-              <span style="font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:#2F412E;min-width:20px;text-align:center;">${item.qty}</span>
-              <button onclick="cartQty('${esc(item.id)}',1)" aria-label="Увеличи" style="width:32px;height:32px;border:none;background:none;cursor:pointer;font-size:18px;line-height:1;color:#5F7E5F;display:flex;align-items:center;justify-content:center;transition:background 0.15s;border-radius:50%;" onmouseenter="this.style.background='rgba(95,126,95,0.12)'" onmouseleave="this.style.background='none'">+</button>
+            ${item.brand ? `<div style="font-family:'Inter',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:#888;margin-bottom:2px;">${esc(item.brand)}</div>` : ''}
+            <div style="font-family:'Montserrat',sans-serif;font-size:14px;font-weight:600;color:#124830;line-height:1.3;margin-bottom:2px;">${esc(item.name)}</div>
+            <div style="font-family:'Inter',sans-serif;font-size:11px;color:#bbb;margin-bottom:10px;">${esc(item.volume || '')}</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="display:inline-flex;align-items:center;background:#F7F3EC;border-radius:50px;overflow:hidden;">
+                <button onclick="cartQty('${esc(item.id)}',-1)" aria-label="Намали" style="width:32px;height:32px;border:none;background:none;cursor:pointer;font-size:18px;line-height:1;color:#3ABF82;display:flex;align-items:center;justify-content:center;transition:background 0.15s;" onmouseenter="this.style.background='rgba(58,191,130,0.15)'" onmouseleave="this.style.background='none'">−</button>
+                <span data-qty style="font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:#1A1A1A;min-width:22px;text-align:center;">${item.qty}</span>
+                <button onclick="cartQty('${esc(item.id)}',1)" aria-label="Увеличи" style="width:32px;height:32px;border:none;background:none;cursor:pointer;font-size:18px;line-height:1;color:#3ABF82;display:flex;align-items:center;justify-content:center;transition:background 0.15s;" onmouseenter="this.style.background='rgba(58,191,130,0.15)'" onmouseleave="this.style.background='none'">+</button>
+              </div>
+              ${item.price > 0
+                ? `<div data-price style="font-family:'Inter',sans-serif;font-weight:700;font-size:16px;color:#124830;">${(item.price * item.qty).toFixed(2)}&nbsp;€</div>`
+                : `<div data-price style="font-family:'Inter',sans-serif;font-size:12px;color:#aaa;">Цена по запитване</div>`}
             </div>
           </div>
-          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;">
-            <button onclick="cartRemove('${esc(item.id)}')" aria-label="Премахни" style="background:none;border:none;cursor:pointer;color:#ddd;padding:4px;border-radius:6px;transition:color 0.2s,background 0.15s;" onmouseenter="this.style.color='#e55';this.style.background='rgba(220,53,69,0.08)'" onmouseleave="this.style.color='#ddd';this.style.background='none'">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
-            </button>
-            <div style="font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:#2F412E;">${item.price > 0 ? (item.price * item.qty).toFixed(2) + ' €' : '—'}</div>
-          </div>
+          <button onclick="cartRemove('${esc(item.id)}')" aria-label="Премахни" style="background:none;border:none;cursor:pointer;color:#ddd;padding:4px;flex-shrink:0;border-radius:6px;transition:color 0.2s,background 0.15s;" onmouseenter="this.style.color='#e55';this.style.background='rgba(220,53,69,0.08)'" onmouseleave="this.style.color='#ddd';this.style.background='none'">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+          </button>
         </div>`; }).join('');
 
-      const totalEur = document.getElementById('cart-total-eur');
-      const totalBgn = document.getElementById('cart-total-bgn');
-      if (totalEur) totalEur.textContent = total.toFixed(2) + ' €';
-      if (totalBgn) totalBgn.textContent = (total * EUR_TO_BGN).toFixed(2) + ' лв.';
+      updateFooter(total);
+    }
+  }
 
-      const progress = Math.min(100, (total / FREE_SHIP) * 100);
-      const progressBar = document.getElementById('cart-shipping-progress');
-      if (progressBar) progressBar.style.width = progress + '%';
-      const msgEl = document.getElementById('cart-shipping-msg');
-      if (msgEl) {
-        const remaining = FREE_SHIP - total;
-        msgEl.textContent = remaining > 0
-          ? 'Още ' + remaining.toFixed(2) + ' € за безплатна доставка'
-          : '🎉 Безплатна доставка!';
-      }
+  function updateFooter(total) {
+    if (total === undefined) total = getTotal();
+    const totalEur = document.getElementById('cart-total-eur');
+    const totalBgn = document.getElementById('cart-total-bgn');
+    if (totalEur) totalEur.textContent = total.toFixed(2) + ' €';
+    if (totalBgn) totalBgn.textContent = (total * EUR_TO_BGN).toFixed(2) + ' лв.';
+
+    const progress = Math.min(100, (total / FREE_SHIP) * 100);
+    const progressBar = document.getElementById('cart-shipping-progress');
+    if (progressBar) progressBar.style.width = progress + '%';
+    const msgEl = document.getElementById('cart-shipping-msg');
+    if (msgEl) {
+      const remaining = FREE_SHIP - total;
+      msgEl.textContent = remaining > 0
+        ? 'Още ' + remaining.toFixed(2) + ' € за безплатна доставка'
+        : '🎉 Безплатна доставка!';
     }
   }
 
@@ -241,13 +251,43 @@
   /* ── Global functions called from cart drawer HTML ── */
   window.cartRemove = function(id) {
     cart = cart.filter(function(i) { return i.id !== id; });
-    saveCart(); renderCart();
+    saveCart();
+    const el = document.querySelector('[data-cart-id="' + id + '"]');
+    if (el) el.remove();
+    if (cart.length === 0) {
+      const itemsEl  = document.getElementById('cart-items');
+      const emptyEl  = document.getElementById('cart-empty');
+      const footerEl = document.getElementById('cart-footer');
+      if (itemsEl)  itemsEl.style.display  = 'none';
+      if (emptyEl)  emptyEl.style.display  = 'flex';
+      if (footerEl) footerEl.style.display = 'none';
+    } else {
+      updateFooter();
+    }
+    const qty = getTotalQty();
+    const navBtn = document.querySelector('[aria-label="Количка"]');
+    if (navBtn) { const b = navBtn.querySelector('span'); if (b) { b.textContent = qty; b.style.display = qty > 0 ? 'flex' : 'none'; } }
+    const dbadge = document.getElementById('cart-count-drawer');
+    if (dbadge) dbadge.textContent = qty;
   };
   window.cartQty = function(id, delta) {
     const item = cart.find(function(i) { return i.id === id; });
     if (!item) return;
     item.qty = Math.max(1, item.qty + delta);
-    saveCart(); renderCart();
+    saveCart();
+    const el = document.querySelector('[data-cart-id="' + id + '"]');
+    if (el) {
+      const qtyEl   = el.querySelector('[data-qty]');
+      const priceEl = el.querySelector('[data-price]');
+      if (qtyEl)   qtyEl.textContent   = item.qty;
+      if (priceEl) priceEl.textContent = item.price > 0 ? (item.price * item.qty).toFixed(2) + ' €' : '—';
+    }
+    updateFooter();
+    const qty = getTotalQty();
+    const navBtn = document.querySelector('[aria-label="Количка"]');
+    if (navBtn) { const b = navBtn.querySelector('span'); if (b) { b.textContent = qty; b.style.display = qty > 0 ? 'flex' : 'none'; } }
+    const dbadge = document.getElementById('cart-count-drawer');
+    if (dbadge) dbadge.textContent = qty;
   };
   window.openCart = function() {
     var o = document.getElementById('cart-overlay');
