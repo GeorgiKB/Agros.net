@@ -430,6 +430,84 @@
     }
     .back-link:hover { color: #186060; }
 
+    /* ── Promo code ─────────────────────────────────────────────── */
+    .promo-row { margin: 12px 0 8px; }
+    .promo-label {
+      font-size: 11px; font-weight: 600; color: #9CA3AF;
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .promo-label svg { color: #186060; }
+    .promo-input-wrap {
+      display: flex; gap: 8px; align-items: stretch;
+    }
+    .promo-input {
+      flex: 1; padding: 10px 13px;
+      border: 1.5px solid #DDD0BC; border-radius: 10px;
+      font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.05em;
+      background: white; color: #1A1A1A; outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .promo-input:focus {
+      border-color: #186060; box-shadow: 0 0 0 3px rgba(24,96,96,0.1);
+    }
+    .promo-input::placeholder { text-transform: none; letter-spacing: 0; color: #C5BDB3; font-weight: 400; }
+    .promo-input.success { border-color: #16a34a; box-shadow: 0 0 0 3px rgba(22,163,74,0.1); }
+    .promo-input.error { border-color: #EF4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.1); }
+    .promo-apply-btn {
+      padding: 10px 16px; border-radius: 10px;
+      background: #186060; color: white; border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+      white-space: nowrap; flex-shrink: 0;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+    }
+    .promo-apply-btn:hover:not(:disabled) {
+      transform: translateY(-1px); box-shadow: 0 4px 12px rgba(24,96,96,0.3);
+    }
+    .promo-apply-btn:active:not(:disabled) { transform: translateY(0); opacity: 0.9; }
+    .promo-apply-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .promo-remove-btn {
+      padding: 10px 14px; border-radius: 10px;
+      background: transparent; color: #9CA3AF; border: 1.5px solid #DDD0BC; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+      flex-shrink: 0;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .promo-remove-btn:hover { border-color: #EF4444; color: #EF4444; }
+    .promo-msg {
+      display: none; font-size: 12.5px; font-weight: 500; margin-top: 7px;
+      line-height: 1.4;
+    }
+    .promo-msg.success { display: flex; align-items: center; gap: 5px; color: #16a34a; }
+    .promo-msg.error   { display: flex; align-items: center; gap: 5px; color: #DC2626; }
+    .promo-applied-chip {
+      display: none; align-items: center; gap: 8px;
+      padding: 8px 12px; border-radius: 9999px;
+      background: rgba(22,163,74,0.08); border: 1px solid rgba(22,163,74,0.25);
+      margin-top: 8px;
+    }
+    .promo-applied-chip.show { display: flex; }
+    .promo-applied-code {
+      font-size: 12.5px; font-weight: 700; color: #16a34a; letter-spacing: 0.04em; flex: 1;
+    }
+    .promo-applied-value {
+      font-size: 12px; font-weight: 600; color: #16a34a;
+    }
+    .promo-applied-remove {
+      background: none; border: none; cursor: pointer; color: #9CA3AF; padding: 0; line-height: 1;
+      transition: color 0.15s ease;
+    }
+    .promo-applied-remove:hover { color: #EF4444; }
+    /* Discount row in totals */
+    .discount-row {
+      display: none; align-items: center; justify-content: space-between;
+      font-size: 13.5px; margin-bottom: 8px;
+    }
+    .discount-row.show { display: flex; }
+    .discount-row-label { color: #16a34a; font-weight: 500; display: flex; align-items: center; gap: 5px; }
+    .discount-row-value { font-weight: 600; color: #16a34a; }
+
     /* ── Payment error ──────────────────────────────────────────── */
     .pay-error {
       display: none; margin-top: 12px; padding: 12px 14px; border-radius: 10px;
@@ -824,10 +902,40 @@
 
             <div class="summary-divider"></div>
 
+            <!-- Promo code -->
+            <div class="promo-row">
+              <div class="promo-label">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1" fill="currentColor"/></svg>
+                Промо код
+              </div>
+              <div id="promo-input-row" class="promo-input-wrap">
+                <input id="promo-input" type="text" class="promo-input" placeholder="Въведете код" maxlength="32" autocomplete="off" spellcheck="false" />
+                <button id="promo-apply-btn" class="promo-apply-btn" type="button" onclick="applyPromo()">Приложи</button>
+              </div>
+              <div id="promo-msg" class="promo-msg"></div>
+              <div id="promo-applied-chip" class="promo-applied-chip">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                <span id="promo-applied-code" class="promo-applied-code"></span>
+                <span id="promo-applied-value" class="promo-applied-value"></span>
+                <button class="promo-applied-remove" type="button" onclick="removePromo()" title="Премахни">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+              </div>
+            </div>
+
             <!-- Shipping -->
             <div class="summary-row">
               <span class="summary-row-label">Доставка</span>
               <span id="shipping-label" class="summary-row-value">—</span>
+            </div>
+
+            <!-- Discount row (shown when promo applied) -->
+            <div id="discount-row" class="discount-row">
+              <span class="discount-row-label">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                <span id="discount-label-text">Отстъпка</span>
+              </span>
+              <span id="discount-value" class="discount-row-value"></span>
             </div>
 
             <!-- Total -->
@@ -948,6 +1056,7 @@
     let stripeElements    = null;
     let demoMode          = false;
     let selectedPayMethod = 'card';
+    let appliedPromo      = null; // { code, type, value, label, discount }
 
     // ── Delivery change ───────────────────────────────────────────
     function onDeliveryChange() {
@@ -1044,9 +1153,18 @@
       return getDeliveryType() === 'address' ? SHIP_PRICE_ADDRESS : SHIP_PRICE_OFFICE;
     }
     function getShipping(subtotal) { return subtotal >= FREE_SHIP_THRESHOLD ? 0 : getShipPrice(); }
+    function getDiscount() {
+      if (!appliedPromo) return 0;
+      // Recalculate in case cart changed (shouldn't, but be safe)
+      const sub = getSubtotal();
+      if (appliedPromo.type === 'percent') {
+        return Math.min(Math.round(sub * appliedPromo.value / 100 * 100) / 100, sub);
+      }
+      return Math.min(appliedPromo.value, sub);
+    }
     function getTotal() {
       const sub = getSubtotal(), ship = getShipping(sub);
-      return sub + ship;
+      return Math.max(0, sub + ship - getDiscount());
     }
 
     // ── Render summary ────────────────────────────────────────────
@@ -1062,9 +1180,10 @@
         </div>
       `).join('');
 
-      const sub   = getSubtotal();
-      const ship  = getShipping(sub);
-      const total = sub + ship;
+      const sub      = getSubtotal();
+      const ship     = getShipping(sub);
+      const discount = getDiscount();
+      const total    = Math.max(0, sub + ship - discount);
 
       const sl = document.getElementById('shipping-label');
       if (sub >= FREE_SHIP_THRESHOLD) {
@@ -1073,10 +1192,97 @@
         sl.textContent = `${getShipPrice().toFixed(2)} €`;
       }
 
+      const discountRow = document.getElementById('discount-row');
+      if (discount > 0 && appliedPromo) {
+        discountRow.classList.add('show');
+        document.getElementById('discount-label-text').textContent = appliedPromo.label || 'Отстъпка';
+        document.getElementById('discount-value').textContent = `−${discount.toFixed(2)} €`;
+      } else {
+        discountRow.classList.remove('show');
+      }
+
       document.getElementById('total-eur').textContent = `${total.toFixed(2)} €`;
       document.getElementById('total-bgn').textContent = `≈ ${(total * EUR_TO_BGN).toFixed(2)} лв.`;
       updatePayBtn();
     }
+
+    // ── Promo code ────────────────────────────────────────────────
+    function setPromoMsg(type, text) {
+      const el = document.getElementById('promo-msg');
+      el.className = 'promo-msg ' + type;
+      const icon = type === 'success'
+        ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>'
+        : '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+      el.innerHTML = icon + text;
+    }
+    function clearPromoMsg() {
+      const el = document.getElementById('promo-msg');
+      el.className = 'promo-msg'; el.innerHTML = '';
+    }
+
+    async function applyPromo() {
+      const input = document.getElementById('promo-input');
+      const btn   = document.getElementById('promo-apply-btn');
+      const code  = input.value.trim();
+      if (!code) { setPromoMsg('error', 'Моля, въведете промо код.'); input.classList.add('error'); return; }
+
+      input.classList.remove('error', 'success');
+      clearPromoMsg();
+      btn.disabled = true;
+      btn.textContent = '…';
+
+      try {
+        const res  = await fetch(`${API}/api/promo/validate`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code, subtotal: getSubtotal() })
+        });
+        const data = await res.json();
+
+        if (!res.ok || !data.valid) {
+          input.classList.add('error');
+          setPromoMsg('error', data.error || 'Невалиден промо код.');
+          appliedPromo = null;
+          document.getElementById('promo-applied-chip').classList.remove('show');
+        } else {
+          appliedPromo = data;
+          input.classList.add('success');
+          input.disabled = true;
+          btn.style.display = 'none';
+
+          const chip = document.getElementById('promo-applied-chip');
+          document.getElementById('promo-applied-code').textContent = data.code;
+          document.getElementById('promo-applied-value').textContent =
+            data.type === 'percent' ? `−${data.value}%` : `−${data.discount.toFixed(2)} €`;
+          chip.classList.add('show');
+          clearPromoMsg();
+          renderSummary();
+        }
+      } catch(e) {
+        setPromoMsg('error', 'Грешка при проверка на кода. Опитайте отново.');
+        input.classList.add('error');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Приложи';
+      }
+    }
+
+    function removePromo() {
+      appliedPromo = null;
+      const input = document.getElementById('promo-input');
+      const btn   = document.getElementById('promo-apply-btn');
+      input.value = ''; input.disabled = false;
+      input.classList.remove('success', 'error');
+      btn.style.display = '';
+      document.getElementById('promo-applied-chip').classList.remove('show');
+      clearPromoMsg();
+      renderSummary();
+    }
+
+    // Allow pressing Enter in the promo input
+    document.getElementById('promo-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); applyPromo(); }
+    });
 
     // ── Init ──────────────────────────────────────────────────────
     async function init() {
@@ -1220,14 +1426,22 @@
 
     async function createOrder(delivery, paymentIntentId, paymentMethod) {
       const total    = getTotal();
+      const subtotal = getSubtotal();
+      const discount = getDiscount();
       const endpoint = token ? `${API}/api/orders` : `${API}/api/orders/guest`;
       const headers  = { 'Content-Type': 'application/json' };
       if (token) headers.Authorization = `Bearer ${token}`;
 
-      const res  = await fetch(endpoint, {
-        method: 'POST', headers,
-        body: JSON.stringify({ items: cart, total, customer: delivery, paymentIntentId, paymentMethod: paymentMethod || 'card' })
-      });
+      const orderBody = {
+        items: cart, total, subtotal, customer: delivery,
+        paymentIntentId, paymentMethod: paymentMethod || 'card'
+      };
+      if (appliedPromo) {
+        orderBody.promoCode = appliedPromo.code;
+        orderBody.discount  = discount;
+      }
+
+      const res  = await fetch(endpoint, { method: 'POST', headers, body: JSON.stringify(orderBody) });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Грешка при запис на поръчка');
 
