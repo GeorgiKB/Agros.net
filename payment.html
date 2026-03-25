@@ -1057,6 +1057,7 @@
     let demoMode          = false;
     let selectedPayMethod = 'card';
     let appliedPromo      = null; // { code, type, value, label, discount }
+    let stripePublicKey   = null;
 
     // ── Delivery change ───────────────────────────────────────────
     function onDeliveryChange() {
@@ -1257,6 +1258,7 @@
           chip.classList.add('show');
           clearPromoMsg();
           renderSummary();
+          reinitStripe();
         }
       } catch(e) {
         setPromoMsg('error', 'Грешка при проверка на кода. Опитайте отново.');
@@ -1277,6 +1279,7 @@
       document.getElementById('promo-applied-chip').classList.remove('show');
       clearPromoMsg();
       renderSummary();
+      reinitStripe();
     }
 
     // Allow pressing Enter in the promo input
@@ -1291,7 +1294,8 @@
         const cfg    = await cfgRes.json();
         renderSummary();
         if (cfg.stripeConfigured && cfg.stripePublicKey && !cfg.stripePublicKey.includes('REPLACE')) {
-          await initStripe(cfg.stripePublicKey);
+          stripePublicKey = cfg.stripePublicKey;
+          await initStripe(stripePublicKey);
         } else {
           initDemoMode();
         }
@@ -1322,6 +1326,17 @@
         document.getElementById('payment-loading').style.display        = 'none';
         document.getElementById('stripe-payment-section').style.display = 'block';
       } catch(e) { initDemoMode(); }
+    }
+
+    async function reinitStripe() {
+      if (demoMode || !stripePublicKey) return;
+      // Unmount existing element and reset
+      const el = document.getElementById('payment-element');
+      el.innerHTML = '';
+      stripeElements = null;
+      document.getElementById('payment-loading').style.display        = 'block';
+      document.getElementById('stripe-payment-section').style.display = 'none';
+      await initStripe(stripePublicKey);
     }
 
     function initDemoMode() {
