@@ -898,7 +898,10 @@
               <div class="delivery-card-body">
                 <p style="font-size:13px;color:#374151;margin-bottom:10px;line-height:1.55;">Изберете офис, автомат или адрес за доставка директно чрез Еконт:</p>
                 <!-- Econt official delivery iframe -->
-                <div id="econt-iframe-wrap" style="border-radius:12px;overflow:hidden;border:1.5px solid #DDD0BC;background:#F9F8F5;margin-bottom:10px;">
+                <div id="econt-iframe-wrap" style="border-radius:12px;overflow:hidden;border:1.5px solid #DDD0BC;background:#F9F8F5;margin-bottom:10px;position:relative;">
+                  <div id="econt-loading-msg" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:#6B7280;background:#F9F8F5;z-index:2;pointer-events:none;">
+                    Зареждане на Еконт модула…
+                  </div>
                   <iframe id="econt-iframe"
                     src=""
                     width="100%"
@@ -906,7 +909,17 @@
                     frameborder="0"
                     scrolling="yes"
                     style="display:block;border:none;"
-                    title="Еконт — Избери адрес за доставка">
+                    title="Еконт — Избери адрес за доставка"
+                    onload="(function(f){
+                      var msg = document.getElementById('econt-loading-msg');
+                      try {
+                        var loc = f.contentWindow.location.href;
+                        console.log('[Econt iframe] loaded, src:', loc);
+                      } catch(e) {
+                        console.log('[Econt iframe] loaded (cross-origin, cannot read location)');
+                      }
+                      if (msg) msg.style.display = 'none';
+                    })(this)">
                   </iframe>
                 </div>
                 <!-- Confirmed address chip (populated via postMessage) -->
@@ -1226,7 +1239,7 @@
 
     // ── Econt iframe config ───────────────────────────────────────
     const ECONT_SHOP_ID     = 'TEST_SHOP_ID';
-    const ECONT_IFRAME_URL  = 'http://delivery.demo.econt.com/customer_info.php';
+    const ECONT_IFRAME_URL  = 'https://delivery.econt.com/customer_info.php';
 
     // ── Guest / auth detection ────────────────────────────────────
     const isGuest = new URLSearchParams(window.location.search).has('guest');
@@ -1377,7 +1390,10 @@
       if (!iframe) return;
       // Load only once; if already loaded leave it unless src is blank
       if (!iframe.src || iframe.src === window.location.href || iframe.src === 'about:blank') {
+        var msg = document.getElementById('econt-loading-msg');
+        if (msg) msg.style.display = 'flex';
         iframe.src = buildEcontIframeSrc();
+        console.log('[Econt iframe] src set to:', iframe.src);
       }
     }
 
@@ -1391,7 +1407,11 @@
       document.getElementById('econt-customer-info-id').value = '';
       // Reload iframe so user can pick again
       const iframe = document.getElementById('econt-iframe');
-      if (iframe) iframe.src = buildEcontIframeSrc();
+      if (iframe) {
+        var msg = document.getElementById('econt-loading-msg');
+        if (msg) msg.style.display = 'flex';
+        iframe.src = buildEcontIframeSrc();
+      }
       renderSummary();
       updateDeliverySummary();
     }
