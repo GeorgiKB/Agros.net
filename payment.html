@@ -579,6 +579,53 @@
       font-size: 13px; font-weight: 500; color: #DC2626; line-height: 1.5;
     }
 
+    /* ── Speedy Office Locator Modal ─────────────────────────────── */
+    #speedy-modal {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.55); backdrop-filter: blur(6px);
+      align-items: center; justify-content: center; padding: 16px;
+    }
+    #speedy-modal.open { display: flex; }
+    .speedy-modal-card {
+      background: white; border-radius: 24px;
+      max-width: 760px; width: 100%; max-height: 92vh;
+      overflow: hidden; display: flex; flex-direction: column;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.25);
+      animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .speedy-modal-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 22px; border-bottom: 1px solid #EDE9E1; flex-shrink: 0;
+    }
+    .speedy-modal-title {
+      font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700;
+      color: #1A1A1A; letter-spacing: -0.01em;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .speedy-modal-close {
+      width: 32px; height: 32px; border-radius: 50%; border: none; background: #F7F5F1;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s ease;
+    }
+    .speedy-modal-close:hover { background: #EDE9E1; }
+    .speedy-modal-close:focus-visible { outline: 2px solid #186060; outline-offset: 2px; }
+    .speedy-modal-body {
+      flex: 1; position: relative; min-height: 500px;
+    }
+    .speedy-modal-body iframe {
+      width: 100%; height: 100%; border: none; display: block;
+      position: absolute; inset: 0;
+    }
+    #speedy-modal-loading {
+      position: absolute; inset: 0; z-index: 1;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 12px;
+      background: #F9F8F5; pointer-events: none;
+      font-size: 13.5px; color: #9CA3AF;
+    }
+    #speedy-modal-loading.hidden { display: none; }
+    @media (max-width: 600px) { .speedy-modal-body { min-height: 420px; } }
+
     /* ── Secure note ────────────────────────────────────────────── */
     .secure-note {
       display: flex; align-items: center; gap: 6px; margin-top: 12px;
@@ -792,7 +839,7 @@
               </div>
               <div class="delivery-card-body">
                 <p style="font-size:13px;color:#374151;margin-bottom:12px;line-height:1.55;">Изберете удобен Box Now локер близо до вас от интерактивната карта.</p>
-                <button type="button" class="pick-map-btn" onclick="event.stopPropagation(); openCourierModal('boxnow')">
+                <button type="button" class="pick-map-btn boxnow-map-widget-button" id="boxnow-trigger-btn" onclick="event.stopPropagation()">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                   Избери локер от картата
                 </button>
@@ -801,8 +848,10 @@
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
                   </div>
                   <span class="selected-office-name" id="boxnow-selected-name"></span>
-                  <button type="button" class="selected-office-change" onclick="event.stopPropagation(); openCourierModal('boxnow')">Промени</button>
+                  <button type="button" class="selected-office-change boxnow-map-widget-button" onclick="event.stopPropagation()">Промени</button>
                 </div>
+                <!-- Hidden field — boxnowLockerId passed to server on order submit -->
+                <input type="hidden" id="boxnow-locker-id" name="boxnow_locker_id" value="" />
               </div>
             </div>
 
@@ -822,18 +871,20 @@
                 </div>
               </div>
               <div class="delivery-card-body">
-                <p style="font-size:13px;color:#374151;margin-bottom:12px;line-height:1.55;">Изберете удобен офис или автомат на Speedy от картата.</p>
-                <button type="button" class="pick-map-btn" onclick="event.stopPropagation(); openCourierModal('speedy')">
+                <p style="font-size:13px;color:#374151;margin-bottom:12px;line-height:1.55;">Изберете удобен офис или автомат на Speedy от интерактивната карта.</p>
+                <button type="button" class="pick-map-btn" id="speedy-trigger-btn" onclick="event.stopPropagation(); openSpeedyModal()">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                  Избери от картата
+                  Избери офис на Speedy
                 </button>
                 <div class="selected-office-box" id="speedy-selected">
                   <div class="selected-office-check">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
                   </div>
                   <span class="selected-office-name" id="speedy-selected-name"></span>
-                  <button type="button" class="selected-office-change" onclick="event.stopPropagation(); openCourierModal('speedy')">Промени</button>
+                  <button type="button" class="selected-office-change" onclick="event.stopPropagation(); openSpeedyModal()">Промени</button>
                 </div>
+                <!-- Hidden field — speedyOfficeId passed to server on order submit -->
+                <input type="hidden" id="speedy-office-id" name="speedy_office_id" value="" />
               </div>
             </div>
 
@@ -844,27 +895,38 @@
                 <div class="delivery-card-radio"></div>
                 <div class="delivery-card-icon">🦅</div>
                 <div class="delivery-card-info">
-                  <div class="delivery-card-name">Еконт — Офис / Автомат</div>
-                  <div class="delivery-card-desc">Следващ работен ден за поръчки до 15:30ч</div>
+                  <div class="delivery-card-name">Еконт — Офиси / Автомати и До адрес</div>
+                  <div class="delivery-card-desc">Изчислява се от Еконт спрямо вашия адрес</div>
                 </div>
                 <div class="delivery-card-price-col">
-                  <div class="delivery-card-price">5.50 €</div>
-                  <div class="delivery-card-price-sub">≈ 10.75 лв</div>
+                  <div class="delivery-card-price" id="econt-card-price">от 5.50 €</div>
+                  <div class="delivery-card-price-sub" id="econt-card-price-sub">след избор</div>
                 </div>
               </div>
               <div class="delivery-card-body">
-                <p style="font-size:13px;color:#374151;margin-bottom:12px;line-height:1.55;">Изберете удобен офис или автомат на Еконт от картата.</p>
-                <button type="button" class="pick-map-btn" onclick="event.stopPropagation(); openCourierModal('econt')">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                  Избери от картата
-                </button>
+                <p style="font-size:13px;color:#374151;margin-bottom:10px;line-height:1.55;">Изберете офис, автомат или адрес за доставка директно чрез Еконт:</p>
+                <!-- Econt official delivery iframe -->
+                <div id="econt-iframe-wrap" style="border-radius:12px;overflow:hidden;border:1.5px solid #DDD0BC;background:#F9F8F5;margin-bottom:10px;">
+                  <iframe id="econt-iframe"
+                    src=""
+                    width="100%"
+                    height="430"
+                    frameborder="0"
+                    scrolling="yes"
+                    style="display:block;border:none;"
+                    title="Еконт — Избери адрес за доставка">
+                  </iframe>
+                </div>
+                <!-- Confirmed address chip (populated via postMessage) -->
                 <div class="selected-office-box" id="econt-selected">
                   <div class="selected-office-check">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
                   </div>
                   <span class="selected-office-name" id="econt-selected-name"></span>
-                  <button type="button" class="selected-office-change" onclick="event.stopPropagation(); openCourierModal('econt')">Промени</button>
+                  <button type="button" class="selected-office-change" onclick="event.stopPropagation(); resetEcontSelection()">Промени</button>
                 </div>
+                <!-- Hidden field for Econt address ID, sent with order -->
+                <input type="hidden" id="econt-customer-info-id" name="customerInfo[id]" value="" />
               </div>
             </div>
 
@@ -1170,6 +1232,10 @@
     const SHIP_PRICE_ECONT     = 5.50;
     const SHIP_PRICE_ADDRESS   = 6.99;
 
+    // ── Econt iframe config ───────────────────────────────────────
+    const ECONT_SHOP_ID     = 'TEST_SHOP_ID';
+    const ECONT_IFRAME_URL  = 'http://delivery.demo.econt.com/customer_info.php';
+
     // ── Guest / auth detection ────────────────────────────────────
     const isGuest = new URLSearchParams(window.location.search).has('guest');
     const token   = window.AgrosAuth ? window.AgrosAuth.getToken() : null;
@@ -1203,6 +1269,17 @@
     let courierSelections = { boxnow: null, speedy: null, econt: null };
     let activeModal       = null; // courier type currently in modal
 
+    // ── Speedy widget state ───────────────────────────────────────
+    let speedyOfficeId   = null;  // officeId returned by Speedy postMessage
+    let speedyOfficeData = null;  // full data object from Speedy postMessage
+    let speedyShipPrice  = SHIP_PRICE_SPEEDY; // overridden if widget returns price
+    const SPEEDY_WIDGET_URL = 'https://services.speedy.bg/office_locator_widget_v3/';
+
+    // ── Econt iframe state ────────────────────────────────────────
+    let econtAddressId   = null;  // unique id returned via postMessage
+    let econtAddressData = null;  // full data object from postMessage
+    let econtShipPrice   = SHIP_PRICE_ECONT; // overridden by postMessage price
+
     const MODAL_CONFIG = {
       boxnow: { title: 'Избери Box Now локер',        placeholder: 'гр. София, бул. Цариградско шосе 115', inputLabel: 'Адрес на локера' },
       speedy: { title: 'Избери Speedy офис/автомат',  placeholder: 'гр. Варна, бул. Приморски 44',          inputLabel: 'Офис / автомат на Speedy' },
@@ -1219,6 +1296,7 @@
       if (card) { card.classList.add('selected'); card.setAttribute('aria-checked', 'true'); }
       const radio = document.getElementById('radio-' + type);
       if (radio) radio.checked = true;
+      if (type === 'econt') initEcontIframe();
       onDeliveryChange();
     }
 
@@ -1241,6 +1319,159 @@
       activeModal = null;
     }
 
+    // ── Speedy Office Locator Widget ──────────────────────────────
+    function openSpeedyModal() {
+      const iframe  = document.getElementById('speedy-iframe');
+      const loading = document.getElementById('speedy-modal-loading');
+      const url     = SPEEDY_WIDGET_URL + '?language=BG';
+      // Load the iframe only once (or if src changed)
+      if (iframe.getAttribute('data-loaded') !== url) {
+        loading.classList.remove('hidden');
+        iframe.src = url;
+        iframe.setAttribute('data-loaded', url);
+      }
+      document.getElementById('speedy-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSpeedyModal() {
+      document.getElementById('speedy-modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleSpeedyOfficeSelected(office) {
+      speedyOfficeId   = office.id;
+      speedyOfficeData = office;
+
+      // Build a human-readable label from available fields
+      var label = '';
+      if (office.name)                              label = office.name;
+      else if (office.address && office.address.fullAddressString) label = office.address.fullAddressString;
+      else if (office.address && office.address.siteName)          label = office.address.siteName;
+      if (!label) label = 'Speedy офис #' + office.id;
+
+      // Persist in hidden input (sent with the order to the backend)
+      document.getElementById('speedy-office-id').value = speedyOfficeId;
+
+      // Keep JS state in sync
+      courierSelections.speedy = { id: speedyOfficeId, name: label };
+
+      // Show the green confirmation chip
+      document.getElementById('speedy-selected-name').textContent = label;
+      document.getElementById('speedy-selected').classList.add('show');
+
+      // Use dynamic price from widget if provided (widget returns BGN)
+      if (office.shipmentPrice && !isNaN(parseFloat(office.shipmentPrice))) {
+        speedyShipPrice = parseFloat(office.shipmentPrice) / EUR_TO_BGN;
+      }
+
+      // Close modal and refresh totals
+      closeSpeedyModal();
+      renderSummary();
+      updateDeliverySummary();
+    }
+
+    // ── Econt iframe helpers ──────────────────────────────────────
+    function buildEcontIframeSrc() {
+      const subtotalBGN = getSubtotal() * EUR_TO_BGN;
+      // Sum weight from cart items if available, otherwise fallback to 1 kg
+      const weight = cart.reduce(function(s, i) { return s + ((i.weight || 0) * i.qty); }, 0) || 1;
+      const params = new URLSearchParams({
+        id_shop:        ECONT_SHOP_ID,
+        order_total:    subtotalBGN.toFixed(2),
+        order_currency: 'BGN',
+        order_weight:   weight.toFixed(2)
+      });
+      return ECONT_IFRAME_URL + '?' + params.toString();
+    }
+
+    function initEcontIframe() {
+      const iframe = document.getElementById('econt-iframe');
+      if (!iframe) return;
+      // Load only once; if already loaded leave it unless src is blank
+      if (!iframe.src || iframe.src === window.location.href || iframe.src === 'about:blank') {
+        iframe.src = buildEcontIframeSrc();
+      }
+    }
+
+    function resetEcontSelection() {
+      econtAddressId   = null;
+      econtAddressData = null;
+      econtShipPrice   = SHIP_PRICE_ECONT;
+      courierSelections.econt = null;
+      document.getElementById('econt-selected').classList.remove('show');
+      document.getElementById('econt-selected-name').textContent = '';
+      document.getElementById('econt-customer-info-id').value = '';
+      // Reload iframe so user can pick again
+      const iframe = document.getElementById('econt-iframe');
+      if (iframe) iframe.src = buildEcontIframeSrc();
+      renderSummary();
+      updateDeliverySummary();
+    }
+
+    // ── postMessage listener (Speedy + Econt) ────────────────────
+    window.addEventListener('message', function(event) {
+      var data = event.data;
+      if (!data || typeof data !== 'object') return;
+
+      // ── Speedy Office Locator Widget v3 ──────────────────────────
+      // The widget emits { office: { id, name, address, shipmentPrice } }
+      // Some builds wrap it as { type:'officeSelected', office:{...} }
+      var officePayload = null;
+      if (data.office && data.office.id !== undefined)             officePayload = data.office;
+      else if (data.type === 'officeSelected' && data.office)      officePayload = data.office;
+      else if (data.officeId !== undefined)                         officePayload = { id: data.officeId, name: data.officeName || data.officeAddress || '', address: { fullAddressString: data.officeAddress || '' } };
+      if (officePayload) {
+        handleSpeedyOfficeSelected(officePayload);
+        return;
+      }
+
+      // ── Econt delivery widget ─────────────────────────────────────
+      // Only handle messages that carry Econt delivery data
+      if (data.shipping_price === undefined && data.shipment_error === undefined) return;
+
+      if (data.shipment_error && data.shipment_error !== '') {
+        console.warn('Econt shipping error:', data.shipment_error);
+        return;
+      }
+
+      // Determine price with or without COD surcharge
+      var isCod     = (selectedPayMethod === 'cod');
+      var rawPrice  = parseFloat(isCod ? data.shipping_price_cod : data.shipping_price) || 0;
+      var currency  = data.shipping_price_currency || 'BGN';
+      // Convert to EUR for consistent totals
+      econtShipPrice   = currency === 'BGN' ? rawPrice / EUR_TO_BGN : rawPrice;
+      econtAddressId   = data['id'];
+      econtAddressData = data;
+
+      // Persist address id in the hidden form field
+      document.getElementById('econt-customer-info-id').value = econtAddressId || '';
+
+      // Build a human-readable label for the chip
+      var parts = [];
+      if (data.city_name) parts.push(data.city_name);
+      if (data.office_code) parts.push('Офис ' + data.office_code);
+      else if (data.address) parts.push(data.address);
+      var label = parts.join(', ') || data.name || 'Избран адрес';
+
+      document.getElementById('econt-selected').classList.add('show');
+      document.getElementById('econt-selected-name').textContent = label;
+
+      // Keep courierSelections in sync so existing delivery summary works
+      courierSelections.econt = { id: econtAddressId, name: label };
+
+      // Update price shown on the Econt card header
+      var priceEurDisplay = econtShipPrice.toFixed(2) + ' €';
+      var priceBgnDisplay = '≈ ' + (econtShipPrice * EUR_TO_BGN).toFixed(2) + ' лв';
+      var cardPriceEl    = document.getElementById('econt-card-price');
+      var cardPriceSubEl = document.getElementById('econt-card-price-sub');
+      if (cardPriceEl)    cardPriceEl.textContent    = priceEurDisplay;
+      if (cardPriceSubEl) cardPriceSubEl.textContent = priceBgnDisplay;
+
+      renderSummary();
+      updateDeliverySummary();
+    }, false);
+
     function confirmCourierSelection() {
       if (!activeModal) return;
       const input = document.getElementById('modal-office-input');
@@ -1257,7 +1488,9 @@
 
     // Close modal on Escape key
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && activeModal) closeCourierModal();
+      if (e.key !== 'Escape') return;
+      if (document.getElementById('speedy-modal').classList.contains('open')) closeSpeedyModal();
+      else if (activeModal) closeCourierModal();
     });
 
     // Confirm on Enter in modal input
@@ -1303,7 +1536,7 @@
       const lines = document.getElementById('delivery-summary-lines');
       box.style.display = 'block';
 
-      const LABELS = { boxnow: 'Box Now Локер:', speedy: 'Speedy Офис/Автомат:', econt: 'Еконт Офис/Автомат:', address: 'Адрес за доставка:' };
+      const LABELS = { boxnow: 'Box Now Локер:', speedy: 'Speedy Офис/Автомат:', econt: 'Еконт:', address: 'Адрес за доставка:' };
       label.textContent = LABELS[type] || '';
 
       const parts = [];
@@ -1353,8 +1586,8 @@
     function getShipPrice() {
       const t = getDeliveryType();
       if (t === 'boxnow')  return SHIP_PRICE_BOXNOW;
-      if (t === 'speedy')  return SHIP_PRICE_SPEEDY;
-      if (t === 'econt')   return SHIP_PRICE_ECONT;
+      if (t === 'speedy')  return speedyShipPrice; // updated live if widget returns price
+      if (t === 'econt')   return econtShipPrice;  // updated live via Econt postMessage
       if (t === 'address') return SHIP_PRICE_ADDRESS;
       return SHIP_PRICE_SPEEDY; // display default before selection
     }
@@ -1589,19 +1822,22 @@
 
       if (deliveryType === 'boxnow') {
         const sel = courierSelections.boxnow;
-        if (!sel) return { error: 'Моля, изберете Box Now локер.' };
-        officeName = sel.name; officeId = sel.id || '';
+        if (!sel) return { error: 'Моля, изберете Box Now локер от картата.' };
+        const lockerId = document.getElementById('boxnow-locker-id').value;
+        if (!lockerId) return { error: 'Моля, изберете Box Now локер от картата.' };
+        officeName = sel.name; officeId = lockerId;
         address = 'Box Now Локер: ' + officeName;
       } else if (deliveryType === 'speedy') {
+        if (!speedyOfficeId) return { error: 'Моля, изберете офис или автомат на Speedy от картата, преди да продължите.' };
         const sel = courierSelections.speedy;
-        if (!sel) return { error: 'Моля, изберете Speedy офис или автомат.' };
-        officeName = sel.name; officeId = sel.id || '';
-        address = 'Speedy Офис/Автомат: ' + officeName;
+        officeName = sel ? sel.name : ('Офис #' + speedyOfficeId);
+        officeId   = String(speedyOfficeId);
+        address    = 'Speedy Офис/Автомат: ' + officeName;
       } else if (deliveryType === 'econt') {
+        if (!econtAddressId) return { error: 'Моля, изберете адрес или офис на Еконт от формата по-долу.' };
         const sel = courierSelections.econt;
-        if (!sel) return { error: 'Моля, изберете Еконт офис или автомат.' };
-        officeName = sel.name; officeId = sel.id || '';
-        address = 'Еконт Офис/Автомат: ' + officeName;
+        officeName = sel ? sel.name : ''; officeId = econtAddressId;
+        address = 'Еконт: ' + officeName;
       } else if (deliveryType === 'address') {
         if (!city)   return { error: 'Моля, въведете населено място.' };
         if (!postal) return { error: 'Моля, въведете пощенски код.' };
@@ -1609,7 +1845,8 @@
         address = street + (building ? ', ' + building : '');
       }
 
-      return { name, firstname, lastname, phone, email, org, city, postal, street, building, addition, address, deliveryType, officeName, officeId };
+      const boxnowLockerId = deliveryType === 'boxnow' ? (document.getElementById('boxnow-locker-id').value || '') : '';
+      return { name, firstname, lastname, phone, email, org, city, postal, street, building, addition, address, deliveryType, officeName, officeId, boxnowLockerId };
     }
 
     function showError(msg) {
@@ -1665,7 +1902,9 @@
 
       const orderBody = {
         items: cart, total, subtotal, customer: delivery,
-        paymentIntentId, paymentMethod: paymentMethod || 'card'
+        paymentIntentId, paymentMethod: paymentMethod || 'card',
+        ...(delivery.boxnowLockerId ? { boxnowLockerId: delivery.boxnowLockerId } : {}),
+        ...(delivery.deliveryType === 'speedy' && speedyOfficeId ? { speedyOfficeId: speedyOfficeId } : {})
       };
       if (appliedPromo) {
         orderBody.promoCode = appliedPromo.code;
@@ -1693,6 +1932,91 @@
     }
   </script>
   <script src="nav-dropdown.js"></script>
+
+  <!-- ══ BOX NOW MAP WIDGET ════════════════════════════════════════ -->
+  <!--
+    _bn_map_widget_config must be declared BEFORE the widget script loads.
+    Replace "TEST_PARTNER_ID" with your production partnerId when you receive
+    your BOX NOW API credentials.
+  -->
+  <script>
+    var _bn_map_widget_config = {
+      partnerId: "TEST_PARTNER_ID",
+      type: "popup",
+      autoclose: true,
+
+      afterSelect: function(locker) {
+        var lockerId   = locker.boxnowLockerId        || '';
+        var address    = locker.boxnowLockerAddressLine1 || '';
+        var postal     = locker.boxnowLockerPostalCode || '';
+        var displayName = address + (postal ? ', ' + postal : '');
+
+        // 1. Persist the locker ID in the hidden input (sent with the order)
+        document.getElementById('boxnow-locker-id').value = lockerId;
+
+        // 2. Update JS state so getDelivery() and updateDeliverySummary() work
+        courierSelections.boxnow = { id: lockerId, name: displayName };
+
+        // 3. Show the green "selected" chip
+        document.getElementById('boxnow-selected-name').textContent = displayName;
+        document.getElementById('boxnow-selected').classList.add('show');
+
+        // 4. Refresh totals + sidebar delivery summary
+        renderSummary();
+        updateDeliverySummary();
+      }
+    };
+  </script>
+
+  <!-- BOX NOW Widget JS — loaded asynchronously -->
+  <script>
+    (function(d) {
+      var e = d.createElement('script');
+      e.src   = 'https://widget-cdn.boxnow.bg/map-widget/client/v5.js';
+      e.async = true;
+      e.defer = true;
+      d.getElementsByTagName('head')[0].appendChild(e);
+    })(document);
+  </script>
+
+  <!-- ══ SPEEDY OFFICE LOCATOR MODAL ══════════════════════════════ -->
+  <!--
+    Embeds the official Speedy Office Locator Widget v3 inside a full-screen modal.
+    When the user selects an office/locker the widget fires a postMessage which is
+    caught by the window 'message' listener and handled by handleSpeedyOfficeSelected().
+    Replace the SPEEDY_WIDGET_URL constant above if Speedy publishes a new widget version.
+  -->
+  <div id="speedy-modal" role="dialog" aria-modal="true" aria-labelledby="speedy-modal-title-text"
+       onclick="if(event.target===this)closeSpeedyModal()">
+    <div class="speedy-modal-card">
+      <div class="speedy-modal-head">
+        <div class="speedy-modal-title">
+          <img src="images/speedy-logo.png" alt="Speedy" height="22"
+               onerror="this.style.display='none'" style="border-radius:4px;" />
+          <span id="speedy-modal-title-text">Избери офис или автомат на Speedy</span>
+        </div>
+        <button class="speedy-modal-close" onclick="closeSpeedyModal()" type="button" aria-label="Затвори">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B7280" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="speedy-modal-body">
+        <!-- Loading spinner — hidden once iframe fires onload -->
+        <div id="speedy-modal-loading">
+          <svg class="spin" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#186060" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+          <span>Зареждане на картата…</span>
+        </div>
+        <iframe
+          id="speedy-iframe"
+          src=""
+          frameborder="0"
+          scrolling="yes"
+          allow="geolocation"
+          title="Speedy — Избери офис или автомат"
+          onload="document.getElementById('speedy-modal-loading').classList.add('hidden')">
+        </iframe>
+      </div>
+    </div>
+  </div>
 
   <!-- ── Courier Selection Modal ─────────────────────────────── -->
   <div id="courier-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" onclick="if(event.target===this)closeCourierModal()">
