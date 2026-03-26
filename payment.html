@@ -1399,7 +1399,11 @@
     // ── postMessage listener (Speedy + Econt) ────────────────────
     window.addEventListener('message', function(e) {
       var data = e.data;
-      if (!data || typeof data !== 'object') return;
+      if (!data) return;
+      if (typeof data === 'string') {
+        try { data = JSON.parse(data); } catch(ex) { return; }
+      }
+      if (typeof data !== 'object') return;
 
       // ── Speedy Office Locator Widget v3 ──────────────────────────
       // The widget posts e.data directly as the office object (has an `id` field).
