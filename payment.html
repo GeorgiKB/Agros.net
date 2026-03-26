@@ -610,21 +610,13 @@
     .speedy-modal-close:hover { background: #EDE9E1; }
     .speedy-modal-close:focus-visible { outline: 2px solid #186060; outline-offset: 2px; }
     .speedy-modal-body {
-      flex: 1; position: relative; min-height: 500px;
+      flex: 1; position: relative;
     }
     .speedy-modal-body iframe {
-      width: 100%; height: 100%; border: none; display: block;
-      position: absolute; inset: 0;
+      width: 100%; height: 500px; border: none; display: block;
+      position: relative;
     }
-    #speedy-modal-loading {
-      position: absolute; inset: 0; z-index: 1;
-      display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 12px;
-      background: #F9F8F5; pointer-events: none;
-      font-size: 13.5px; color: #9CA3AF;
-    }
-    #speedy-modal-loading.hidden { display: none; }
-    @media (max-width: 600px) { .speedy-modal-body { min-height: 420px; } }
+    @media (max-width: 600px) { .speedy-modal-body iframe { height: 420px; } }
 
     /* ── Secure note ────────────────────────────────────────────── */
     .secure-note {
@@ -1320,6 +1312,10 @@
     }
 
     // ── Speedy Office Locator Widget ──────────────────────────────
+    document.getElementById('frameOfficeLocator').addEventListener('load', function() {
+      console.log('[Speedy] iframe load event fired');
+    });
+
     function openSpeedyModal() {
       document.getElementById('speedy-modal').classList.add('open');
       document.body.style.overflow = 'hidden';
@@ -1987,12 +1983,7 @@
         </button>
       </div>
       <div class="speedy-modal-body">
-        <!-- Loading spinner — hidden once iframe fires onload -->
-        <div id="speedy-modal-loading">
-          <svg class="spin" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#186060" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
-          <span>Зареждане на картата…</span>
-        </div>
-        <iframe id="frameOfficeLocator" name="frameOfficeLocator" src="https://services.speedy.bg/office_locator_widget_v3/office_locator.php?lang=bg&showOfficesList=1&dropOff=0&pickUp=1&officeType=ALL" width="100%" height="500px"></iframe>
+        <iframe id="frameOfficeLocator" name="frameOfficeLocator" src="https://services.speedy.bg/office_locator_widget_v3/office_locator.php?lang=bg&showOfficesList=1&dropOff=0&pickUp=1&officeType=ALL" width="100%"></iframe>
       </div>
     </div>
   </div>
