@@ -1321,15 +1321,6 @@
 
     // ── Speedy Office Locator Widget ──────────────────────────────
     function openSpeedyModal() {
-      const iframe  = document.getElementById('speedy-iframe');
-      const loading = document.getElementById('speedy-modal-loading');
-      const url     = SPEEDY_WIDGET_URL + '?language=BG';
-      // Load the iframe only once (or if src changed)
-      if (iframe.getAttribute('data-loaded') !== url) {
-        loading.classList.remove('hidden');
-        iframe.src = url;
-        iframe.setAttribute('data-loaded', url);
-      }
       document.getElementById('speedy-modal').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
@@ -1410,19 +1401,15 @@
     }
 
     // ── postMessage listener (Speedy + Econt) ────────────────────
-    window.addEventListener('message', function(event) {
-      var data = event.data;
+    window.addEventListener('message', function(e) {
+      var data = e.data;
       if (!data || typeof data !== 'object') return;
 
       // ── Speedy Office Locator Widget v3 ──────────────────────────
-      // The widget emits { office: { id, name, address, shipmentPrice } }
-      // Some builds wrap it as { type:'officeSelected', office:{...} }
-      var officePayload = null;
-      if (data.office && data.office.id !== undefined)             officePayload = data.office;
-      else if (data.type === 'officeSelected' && data.office)      officePayload = data.office;
-      else if (data.officeId !== undefined)                         officePayload = { id: data.officeId, name: data.officeName || data.officeAddress || '', address: { fullAddressString: data.officeAddress || '' } };
-      if (officePayload) {
-        handleSpeedyOfficeSelected(officePayload);
+      // The widget posts e.data directly as the office object (has an `id` field).
+      // Guard against Econt messages by checking for Econt-specific keys first.
+      if (data.id !== undefined && data.shipping_price === undefined && data.shipment_error === undefined) {
+        handleSpeedyOfficeSelected(data);
         return;
       }
 
@@ -2005,15 +1992,7 @@
           <svg class="spin" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#186060" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
           <span>Зареждане на картата…</span>
         </div>
-        <iframe
-          id="speedy-iframe"
-          src=""
-          frameborder="0"
-          scrolling="yes"
-          allow="geolocation"
-          title="Speedy — Избери офис или автомат"
-          onload="document.getElementById('speedy-modal-loading').classList.add('hidden')">
-        </iframe>
+        <iframe id="frameOfficeLocator" name="frameOfficeLocator" src="https://services.speedy.bg/office_locator_widget_v3/office_locator.php?lang=bg&showOfficesList=1&dropOff=0&pickUp=1&officeType=ALL" width="100%" height="500px"></iframe>
       </div>
     </div>
   </div>
