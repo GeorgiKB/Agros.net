@@ -449,16 +449,17 @@ function fmtEUR(bgn) {
   return eur + ' €<span class="bgn-price" style="font-size:0.78em;opacity:0.55;font-weight:400;margin-left:5px;">(' + bgn.toFixed(2) + ' лв.)</span>';
 }
 // Prices are per pack of 6 bottles; unitPrice used for Mix mode (per individual bottle)
+// mixUnitEUR = per-bottle EUR price for mix mode (Excel box price / 6)
 const VARIANTS = [
-  { id:'nat750', name:'Натурално слънчогледово олио', size:'6 × 750 мл', unitPrice:8.98,  price:'53.88', img:'../images/olleo/natural.png',       type:'sunflower' },
-  { id:'lem250', name:'С лимон',                      size:'6 × 250 мл', unitPrice:4.87,  price:'29.22', img:'../images/olleo/lemon.png',         type:'sunflower' },
-  { id:'gar250', name:'С чесън',                      size:'6 × 250 мл', unitPrice:4.87,  price:'29.22', img:'../images/olleo/garlic.png',        type:'sunflower' },
-  { id:'chi250', name:'С чили',                       size:'6 × 250 мл', unitPrice:4.87,  price:'29.22', img:'../images/olleo/chilli.png',        type:'sunflower' },
-  { id:'tru250', name:'С трюфел',                     size:'6 × 250 мл', unitPrice:9.76,  price:'58.56', img:'../images/olleo/trufel.png',        type:'sunflower' },
-  { id:'oli250', name:'Extra Virgin Mix',              size:'6 × 250 мл', unitPrice:6.24,  price:'37.44', img:'../images/olleo/olive-oil.png',    type:'sunflower' },
-  { id:'ome250', name:'Omega Mix',                     size:'6 × 250 мл', unitPrice:7.02,  price:'42.12', img:'../images/olleo/omega-mix.png',     type:'sunflower' },
-  { id:'fla250', name:'Ленено',                        size:'6 × 250 мл', unitPrice:5.81,  price:'34.86', img:'../images/olleo/flax-oil.png',      type:'flax' },
-  { id:'cor250', name:'С кориандър',                   size:'6 × 250 мл', unitPrice:21.01, price:'126.06',img:'../images/olleo/coriander-oil.png', type:'coriander' },
+  { id:'nat750', name:'Натурално слънчогледово олио', size:'6 × 750 мл', unitPrice:8.98,  price:'53.88', mixUnitEUR:0,      img:'../images/olleo/natural.png',       type:'sunflower' },
+  { id:'lem250', name:'С лимон',                      size:'6 × 250 мл', unitPrice:4.87,  price:'29.22', mixUnitEUR:0.415,  img:'../images/olleo/lemon.png',         type:'sunflower' },
+  { id:'gar250', name:'С чесън',                      size:'6 × 250 мл', unitPrice:4.87,  price:'29.22', mixUnitEUR:0.415,  img:'../images/olleo/garlic.png',        type:'sunflower' },
+  { id:'chi250', name:'С чили',                       size:'6 × 250 мл', unitPrice:4.87,  price:'29.22', mixUnitEUR:0.415,  img:'../images/olleo/chilli.png',        type:'sunflower' },
+  { id:'tru250', name:'С трюфел',                     size:'6 × 250 мл', unitPrice:9.76,  price:'58.56', mixUnitEUR:0.832,  img:'../images/olleo/trufel.png',        type:'sunflower' },
+  { id:'oli250', name:'Extra Virgin Mix',              size:'6 × 250 мл', unitPrice:6.24,  price:'37.44', mixUnitEUR:0.532,  img:'../images/olleo/olive-oil.png',    type:'sunflower' },
+  { id:'ome250', name:'Omega Mix',                     size:'6 × 250 мл', unitPrice:7.02,  price:'42.12', mixUnitEUR:0.598,  img:'../images/olleo/omega-mix.png',     type:'sunflower' },
+  { id:'fla250', name:'Ленено',                        size:'6 × 250 мл', unitPrice:5.81,  price:'34.86', mixUnitEUR:0.495,  img:'../images/olleo/flax-oil.png',      type:'flax' },
+  { id:'cor250', name:'С кориандър',                   size:'6 × 250 мл', unitPrice:21.01, price:'126.06',mixUnitEUR:1.790,  img:'../images/olleo/coriander-oil.png', type:'coriander' },
 ];
 const MIX_UNIT = 6;
 // Only 250ml variants can be mixed (same bottle size)
@@ -518,6 +519,7 @@ VARIANTS.forEach(v => { qty[v.id] = 0; });
 
 function mixTotal(){ return MIX_VARIANTS.reduce((s,v)=>s+mixQty[v.id],0); }
 function mixPrice(){ return MIX_VARIANTS.reduce((s,v)=>s+mixQty[v.id]*v.unitPrice,0); }
+function mixPriceEUR(){ return MIX_VARIANTS.reduce((s,v)=>s+mixQty[v.id]*v.mixUnitEUR,0); }
 function isMixValid(){ const t=mixTotal(); return t>0 && t%MIX_UNIT===0; }
 function calcTotal(){
   if(isMixMode) return mixPrice();
@@ -529,7 +531,7 @@ function updateMixPanel(){
   document.getElementById('mix-progress-fill').style.width=Math.min(100,(total/mixTarget)*100)+'%';
   document.getElementById('mix-counter-label').textContent=total+' / '+mixTarget+' бутилки';
   const priceEl=document.getElementById('mix-price-label');
-  priceEl.innerHTML=total>0?fmtEUR(mixPrice()):'';
+  priceEl.innerHTML=total>0?mixPriceEUR().toFixed(2)+' €':'';
   const hint=document.getElementById('mix-hint');
   if(total===0){ hint.style.display='none'; }
   else if(total%MIX_UNIT!==0){
@@ -564,7 +566,7 @@ function renderMixFlavors(){
       </div>
       <div style="flex:1;min-width:0;">
         <div style="font-family:'Montserrat',sans-serif;font-size:.75rem;font-weight:600;color:#124830;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${v.name}</div>
-        <div style="font-family:'Inter',sans-serif;font-size:.68rem;color:#9CA3AF;">250 мл · ${v.unitPrice.toFixed(2)} лв. / бутилка</div>
+        <div style="font-family:'Inter',sans-serif;font-size:.68rem;color:#9CA3AF;">250 мл · ${v.mixUnitEUR.toFixed(2)} € / бутилка</div>
       </div>
       <div style="display:flex;align-items:center;gap:5px;">
         <button class="qty-btn" onclick="chMixQty('${v.id}',-1)" ${mixQty[v.id]===0?'style="opacity:0.4;cursor:not-allowed;"':''}>−</button>
@@ -575,8 +577,10 @@ function renderMixFlavors(){
 }
 
 function updatePurchaseWidget(){
-  const total=calcTotal();
-  document.getElementById('price-single').innerHTML=total>0?fmtEUR(total):'—';
+  let priceHtml;
+  if(isMixMode){ const eur=mixPriceEUR(); priceHtml=eur>0?eur.toFixed(2)+' €':'—'; }
+  else { const total=calcTotal(); priceHtml=total>0?fmtEUR(total):'—'; }
+  document.getElementById('price-single').innerHTML=priceHtml;
   document.getElementById('card-single').classList.add('active');
   const btn=document.getElementById('add-btn');
   if(isMixMode&&!isMixValid()){ btn.disabled=true;btn.style.opacity='0.5';btn.style.cursor='not-allowed'; }
