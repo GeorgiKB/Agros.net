@@ -1415,18 +1415,21 @@
 
       // ── Speedy Office Locator Widget v3 ──────────────────────────
       // Widget posts the office object directly (origin: services.speedy.bg).
-      // Has top-level `id` (number), no shipping_price / shipment_error keys.
+      console.log('[Speedy dbg] origin:', e.origin, '| id type:', typeof data.id, '| id:', data.id, '| shipping_price:', data.shipping_price, '| shipment_error:', data.shipment_error);
       if (e.origin === 'https://services.speedy.bg' &&
-          typeof data.id === 'number' &&
+          (typeof data.id === 'number' || typeof data.id === 'string') &&
           data.shipping_price === undefined &&
           data.shipment_error === undefined) {
+        console.log('[Speedy dbg] condition passed — calling handleSpeedyOfficeSelected');
         try {
           handleSpeedyOfficeSelected(data);
+          console.log('[Speedy dbg] handleSpeedyOfficeSelected returned OK');
         } catch(err) {
           console.error('[Speedy] handleSpeedyOfficeSelected error:', err);
         }
         return;
       }
+      console.log('[Speedy dbg] condition FAILED — not calling handler');
 
       // ── Econt delivery widget ─────────────────────────────────────
       // Only handle messages that carry Econt delivery data
