@@ -426,7 +426,7 @@ function renderMixFlavors(){
       </div>
       <div style="flex:1;min-width:0;">
         <div style="font-family:'Montserrat',sans-serif;font-size:.75rem;font-weight:600;color:#083F3B;line-height:1.3;">${v.name}</div>
-        <div style="font-family:'Inter',sans-serif;font-size:.68rem;color:#9CA3AF;">65 г · ${v.unitPrice.toFixed(2)} лв. / бр.</div>
+        <div style="font-family:'Inter',sans-serif;font-size:.68rem;color:#9CA3AF;">65 г · ${(v.unitPrice/EUR_RATE).toFixed(2)} € / бр.</div>
       </div>
       <div style="display:flex;align-items:center;gap:5px;">
         <button class="qty-btn" onclick="chMixQty('${v.id}',-1)" ${mixQty[v.id]===0?'style="opacity:0.4;cursor:not-allowed;"':''}>−</button>
