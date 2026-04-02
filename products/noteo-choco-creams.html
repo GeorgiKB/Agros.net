@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="icon"             type="image/x-icon" href="../favicon.ico" />
+  <link rel="icon" type="image/png" href="../flavicon.png" />
   <link rel="icon"             type="image/png"    href="../images/favicon-32x32.png" sizes="32x32" />
   <link rel="icon"             type="image/png"    href="../images/favicon-192x192.png" sizes="192x192" />
   <link rel="apple-touch-icon"                     href="../images/apple-touch-icon.png" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -201,7 +202,9 @@
             </div>
           </div>
           <div>
-            <div id="tab-ing" class="tab-content active"><p class="font-body text-gray-600 text-sm" style="line-height:1.75;">Слънчогледово олио, захар, какао на прах. При ароматизираните: натурален аромат на мента или портокал. Без консерванти.</p></div>
+            <div id="tab-ing" class="tab-content active">
+              <p id="ing-text" class="font-body text-gray-600 text-sm" style="line-height:1.75;">Шоколадов крем без захар със слънчогледов тахан; подсладители (еритритол и стевия); какаова маса; какао; нерафинирано слънчогледово масло; оризов протеин; грахов протеин; слънчогледов лецитин; токофероли (витамин Е)</p>
+            </div>
             <div id="tab-use" class="tab-content"><p class="font-body text-gray-600 text-sm" style="line-height:1.75;">Намажете директно върху хляб или използвайте като крем за десерти. Съхранявайте на хладно и сухо място.</p></div>
           </div>
           <div>
@@ -369,9 +372,12 @@ function fmtEUR(bgn) {
   return eur + ' €<span style="font-size:0.78em;opacity:0.55;font-weight:400;margin-left:5px;">(' + bgn.toFixed(2) + ' лв.)</span>';
 }
 const VARIANTS=[
-  {id:'cc-cocoa', name:'Какао',    size:'12 × 65 г', unitPrice:4.49, price:'53.86', img:'../images/noteo/vegan-choco-cream-noteo-65g.png'},
-  {id:'cc-mint',  name:'Мента',    size:'12 × 65 г', unitPrice:4.49, price:'53.86', img:'../images/noteo/vegan-choco-cream-noteo-mint-65g.png'},
-  {id:'cc-orange',name:'Портокал', size:'12 × 65 г', unitPrice:4.49, price:'53.86', img:'../images/noteo/vegan-choco-cream-noteo-orange-65g.png'},
+  {id:'cc-cocoa', name:'Какао',    size:'12 × 65 г', unitPrice:4.49, price:'53.86', img:'../images/noteo/vegan-choco-cream-noteo-65g.png',
+   ingredients:'Шоколадов крем без захар със слънчогледов тахан; подсладители (еритритол и стевия); какаова маса; какао; нерафинирано слънчогледово масло; оризов протеин; грахов протеин; слънчогледов лецитин; токофероли (витамин Е)'},
+  {id:'cc-mint',  name:'Мента',    size:'12 × 65 г', unitPrice:4.49, price:'53.86', img:'../images/noteo/vegan-choco-cream-noteo-mint-65g.png',
+   ingredients:'Слънчогледов тахан; подсладители (еритритол и стевия); какаова маса; какао; нерафинирано слънчогледово масло; оризов протеин; грахов протеин; слънчогледов лецитин; ментово масло 0,2%; ароматизант мента; токофероли (витамин Е)'},
+  {id:'cc-orange',name:'Портокал', size:'12 × 65 г', unitPrice:4.49, price:'53.86', img:'../images/noteo/vegan-choco-cream-noteo-orange-65g.png',
+   ingredients:'Слънчогледов тахан; подсладители (еритритол и стевия); какаова маса; какао; нерафинирано слънчогледово масло; оризов протеин; грахов протеин; слънчогледов лецитин; портокалово масло 0,2%; ароматизант портокал; токофероли (витамин Е)'},
 ];
 const MIX_TARGET = 12;
 let mixQty = {};
@@ -482,6 +488,8 @@ function select(id,img){
   deselectMix();
   const el=document.getElementById('main-img');el.style.opacity='0';
   setTimeout(()=>{el.src=img;el.style.mixBlendMode='normal';el.style.opacity='1';updateStickyBar();},200);
+  const v=VARIANTS.find(v=>v.id===id);
+  if(v){const ingEl=document.getElementById('ing-text');if(ingEl)ingEl.textContent=v.ingredients;}
   render();
   updatePurchaseWidget();
 }
