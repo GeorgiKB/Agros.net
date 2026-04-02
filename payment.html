@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/png" href="flavicon.png" />
   <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32" />
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -815,8 +816,7 @@
           <div class="delivery-cards">
 
             <!-- Box Now -->
-            <div class="delivery-card" id="card-boxnow" tabindex="0" role="radio" aria-checked="false" onclick="selectDeliveryCard('boxnow')" onkeydown="if(event.key===' '||event.key==='Enter'){selectDeliveryCard('boxnow')}">
-              <input type="radio" name="delivery-type" value="boxnow" id="radio-boxnow" style="display:none;" onchange="onDeliveryChange()" />
+            <div class="delivery-card" id="card-boxnow" style="opacity:0.55;cursor:not-allowed;pointer-events:none;">
               <div class="delivery-card-header">
                 <div class="delivery-card-radio"></div>
                 <div class="delivery-card-icon">📦</div>
@@ -825,25 +825,11 @@
                   <div class="delivery-card-desc">Вземете от автоматичен локер 24/7</div>
                 </div>
                 <div class="delivery-card-price-col">
-                  <div class="delivery-card-price">2.99 €</div>
-                  <div class="delivery-card-price-sub">≈ 5.85 лв</div>
-                </div>
-              </div>
-              <div class="delivery-card-body">
-                <p style="font-size:13px;color:#374151;margin-bottom:12px;line-height:1.55;">Изберете удобен Box Now локер близо до вас от интерактивната карта.</p>
-                <button type="button" class="pick-map-btn boxnow-map-widget-button" id="boxnow-trigger-btn" onclick="event.stopPropagation()">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                  Избери локер от картата
-                </button>
-                <div class="selected-office-box" id="boxnow-selected">
-                  <div class="selected-office-check">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+                  <div style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:9999px;background:#FEF3C7;border:1px solid #FCD34D;font-size:11px;font-weight:600;color:#92400E;white-space:nowrap;">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    Временно недостъпна
                   </div>
-                  <span class="selected-office-name" id="boxnow-selected-name"></span>
-                  <button type="button" class="selected-office-change boxnow-map-widget-button" onclick="event.stopPropagation()">Промени</button>
                 </div>
-                <!-- Hidden field — boxnowLockerId passed to server on order submit -->
-                <input type="hidden" id="boxnow-locker-id" name="boxnow_locker_id" value="" />
               </div>
             </div>
 
@@ -1344,21 +1330,23 @@
       speedyOfficeData = office;
 
       // Build a human-readable label from available fields
-      var label = '';
-      if (office.name)                              label = office.name;
-      else if (office.address && office.address.fullAddressString) label = office.address.fullAddressString;
-      else if (office.address && office.address.siteName)          label = office.address.siteName;
-      if (!label) label = 'Speedy офис #' + office.id;
+      var label = office.name ||
+                  (office.address && office.address.fullAddressString) ||
+                  (office.address && office.address.siteName) ||
+                  ('Speedy офис #' + office.id);
 
       // Persist in hidden input (sent with the order to the backend)
-      document.getElementById('speedy-office-id').value = speedyOfficeId;
+      var hiddenInput = document.getElementById('speedy-office-id');
+      if (hiddenInput) hiddenInput.value = speedyOfficeId;
 
       // Keep JS state in sync
       courierSelections.speedy = { id: speedyOfficeId, name: label };
 
       // Show the green confirmation chip
-      document.getElementById('speedy-selected-name').textContent = label;
-      document.getElementById('speedy-selected').classList.add('show');
+      var nameEl = document.getElementById('speedy-selected-name');
+      var chipEl = document.getElementById('speedy-selected');
+      if (nameEl) nameEl.textContent = label;
+      if (chipEl) chipEl.classList.add('show');
 
       // Use dynamic price from widget if provided (widget returns BGN)
       if (office.shipmentPrice && !isNaN(parseFloat(office.shipmentPrice))) {
@@ -1426,10 +1414,17 @@
       if (typeof data !== 'object') return;
 
       // ── Speedy Office Locator Widget v3 ──────────────────────────
-      // The widget posts e.data directly as the office object (has an `id` field).
-      // Guard against Econt messages by checking for Econt-specific keys first.
-      if (data.id !== undefined && data.shipping_price === undefined && data.shipment_error === undefined) {
-        handleSpeedyOfficeSelected(data);
+      // Widget posts the office object directly (origin: services.speedy.bg).
+      // Has top-level `id` (number), no shipping_price / shipment_error keys.
+      if (e.origin === 'https://services.speedy.bg' &&
+          typeof data.id === 'number' &&
+          data.shipping_price === undefined &&
+          data.shipment_error === undefined) {
+        try {
+          handleSpeedyOfficeSelected(data);
+        } catch(err) {
+          console.error('[Speedy] handleSpeedyOfficeSelected error:', err);
+        }
         return;
       }
 
