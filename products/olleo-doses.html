@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="icon"             type="image/x-icon" href="../favicon.ico" />
+  <link rel="icon" type="image/png" href="../flavicon.png" />
   <link rel="icon"             type="image/png"    href="../images/favicon-32x32.png" sizes="32x32" />
   <link rel="icon"             type="image/png"    href="../images/favicon-192x192.png" sizes="192x192" />
   <link rel="apple-touch-icon"                     href="../images/apple-touch-icon.png" />
@@ -187,13 +188,13 @@
       </div>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto px-5 sm:px-8 lg:px-10" style="padding-top:16px; padding-bottom:48px;">
         <div id="main-img-wrap" class="rounded-2xl overflow-hidden flex items-center justify-center lg:sticky lg:top-20 lg:aspect-square" style="background:#EEF2EB;min-height:420px;box-shadow:0 4px 30px rgba(34,144,94,.10),0 1px 6px rgba(0,0,0,.05);">
-                  <img id="main-img" src="../images/olleo/box-natural.webp" alt="OLLEO Порционни дози студено пресовано масло 40×8 мл" class="w-full h-full object-contain p-10" style="max-height:500px;transition:opacity .22s ease;" />
+                  <img id="main-img" src="../images/olleo/box-natural.webp" alt="OLLEO Порционни дози студено пресовано масло" class="w-full h-full object-contain p-10" style="max-height:500px;transition:opacity .22s ease;" />
         </div>
         <div class="flex flex-col gap-5">
           <span class="inline-flex w-fit items-center text-white text-[11px] font-body font-bold tracking-widest uppercase px-3 py-1.5 rounded-full" style="background:#9B6200;">OLLEO</span>
           <div>
             <h1 class="font-display font-bold text-forest-900 leading-tight mb-3" style="font-size:clamp(1.5rem,2.5vw,2rem);letter-spacing:-.025em;">Натурални масла в дози</h1>
-            <p class="font-body text-gray-500 text-sm" style="line-height:1.7;">Кутии по 40 дози × 8 мл — перфектни за ресторанти, хотели и на път. Студено пресовано олио, без консерванти, без добавки.</p>
+            <p class="font-body text-gray-500 text-sm" style="line-height:1.7;">Кутии с дози — перфектни за ресторанти, хотели и на път. Студено пресовано олио, без консерванти, без добавки.</p>
           </div>
           <div class="grid grid-cols-2 gap-x-4 gap-y-2">
             <div class="flex items-center gap-2"><svg class="w-4 h-4 flex-shrink-0" viewBox="0 0 20 20" fill="#3ABF82"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg><span class="font-body text-sm text-gray-600">Студено пресовано</span></div>
@@ -359,7 +360,7 @@ function fmtEUR(bgn) {
   return eur + ' €<span class="bgn-price" style="font-size:0.78em;opacity:0.55;font-weight:400;margin-left:5px;">(' + bgn.toFixed(2) + ' лв.)</span>';
 }
 const VARIANTS = [
-  { id:'nat',  name:'Натурално слънчогледово олио', size:'40 × 8 мл', price:'19.54', img:'../images/olleo/box-natural.png' },
+  { id:'nat',  name:'Натурално слънчогледово олио', size:'30 × 14 мл', price:'19.54', img:'../images/olleo/box-natural.png' },
   { id:'lem',  name:'С лимон',                      size:'40 × 8 мл', price:'15.63', img:'../images/olleo/box-lemon.png' },
   { id:'gar',  name:'С чесън',                      size:'40 × 8 мл', price:'15.63', img:'../images/olleo/box-garlic.png' },
   { id:'chi',  name:'С чили',                       size:'40 × 8 мл', price:'15.63', img:'../images/olleo/box-chilli.png' },

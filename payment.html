@@ -815,24 +815,6 @@
 
           <div class="delivery-cards">
 
-            <!-- Box Now -->
-            <div class="delivery-card" id="card-boxnow" style="opacity:0.55;cursor:not-allowed;pointer-events:none;">
-              <div class="delivery-card-header">
-                <div class="delivery-card-radio"></div>
-                <div class="delivery-card-icon">📦</div>
-                <div class="delivery-card-info">
-                  <div class="delivery-card-name">Box Now — Локер</div>
-                  <div class="delivery-card-desc">Вземете от автоматичен локер 24/7</div>
-                </div>
-                <div class="delivery-card-price-col">
-                  <div style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:9999px;background:#FEF3C7;border:1px solid #FCD34D;font-size:11px;font-weight:600;color:#92400E;white-space:nowrap;">
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                    Временно недостъпна
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <!-- Speedy -->
             <div class="delivery-card" id="card-speedy" tabindex="0" role="radio" aria-checked="false" onclick="selectDeliveryCard('speedy')" onkeydown="if(event.key===' '||event.key==='Enter'){selectDeliveryCard('speedy')}">
               <input type="radio" name="delivery-type" value="speedy" id="radio-speedy" style="display:none;" onchange="onDeliveryChange()" />
@@ -863,62 +845,6 @@
                 </div>
                 <!-- Hidden field — speedyOfficeId passed to server on order submit -->
                 <input type="hidden" id="speedy-office-id" name="speedy_office_id" value="" />
-              </div>
-            </div>
-
-            <!-- Еконт -->
-            <div class="delivery-card" id="card-econt" style="opacity:0.55;cursor:not-allowed;pointer-events:none;">
-              <div class="delivery-card-header">
-                <div class="delivery-card-radio"></div>
-                <div class="delivery-card-icon">🦅</div>
-                <div class="delivery-card-info">
-                  <div class="delivery-card-name">Еконт — Офиси / Автомати и До адрес</div>
-                  <div class="delivery-card-desc">Изчислява се от Еконт спрямо вашия адрес</div>
-                </div>
-                <div class="delivery-card-price-col">
-                  <div style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:9999px;background:#FEF3C7;border:1px solid #FCD34D;font-size:11px;font-weight:600;color:#92400E;white-space:nowrap;">
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                    Временно недостъпна
-                  </div>
-                </div>
-              </div>
-              <div class="delivery-card-body">
-                <p style="font-size:13px;color:#374151;margin-bottom:10px;line-height:1.55;">Изберете офис, автомат или адрес за доставка директно чрез Еконт:</p>
-                <!-- Econt official delivery iframe -->
-                <div id="econt-iframe-wrap" style="border-radius:12px;overflow:hidden;border:1.5px solid #DDD0BC;background:#F9F8F5;margin-bottom:10px;position:relative;">
-                  <div id="econt-loading-msg" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:#6B7280;background:#F9F8F5;z-index:2;pointer-events:none;">
-                    Зареждане на Еконт модула…
-                  </div>
-                  <iframe id="econt-iframe"
-                    src=""
-                    width="100%"
-                    height="430"
-                    frameborder="0"
-                    scrolling="yes"
-                    style="display:block;border:none;"
-                    title="Еконт — Избери адрес за доставка"
-                    onload="(function(f){
-                      var msg = document.getElementById('econt-loading-msg');
-                      try {
-                        var loc = f.contentWindow.location.href;
-                        console.log('[Econt iframe] loaded, src:', loc);
-                      } catch(e) {
-                        console.log('[Econt iframe] loaded (cross-origin, cannot read location)');
-                      }
-                      if (msg) msg.style.display = 'none';
-                    })(this)">
-                  </iframe>
-                </div>
-                <!-- Confirmed address chip (populated via postMessage) -->
-                <div class="selected-office-box" id="econt-selected">
-                  <div class="selected-office-check">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
-                  </div>
-                  <span class="selected-office-name" id="econt-selected-name"></span>
-                  <button type="button" class="selected-office-change" onclick="event.stopPropagation(); resetEcontSelection()">Промени</button>
-                </div>
-                <!-- Hidden field for Econt address ID, sent with order -->
-                <input type="hidden" id="econt-customer-info-id" name="customerInfo[id]" value="" />
               </div>
             </div>
 
@@ -1932,52 +1858,6 @@
     }
   </script>
   <script src="nav-dropdown.js"></script>
-
-  <!-- ══ BOX NOW MAP WIDGET ════════════════════════════════════════ -->
-  <!--
-    _bn_map_widget_config must be declared BEFORE the widget script loads.
-    Replace "TEST_PARTNER_ID" with your production partnerId when you receive
-    your BOX NOW API credentials.
-  -->
-  <script>
-    var _bn_map_widget_config = {
-      partnerId: "TEST_PARTNER_ID",
-      type: "popup",
-      autoclose: true,
-
-      afterSelect: function(locker) {
-        var lockerId   = locker.boxnowLockerId        || '';
-        var address    = locker.boxnowLockerAddressLine1 || '';
-        var postal     = locker.boxnowLockerPostalCode || '';
-        var displayName = address + (postal ? ', ' + postal : '');
-
-        // 1. Persist the locker ID in the hidden input (sent with the order)
-        document.getElementById('boxnow-locker-id').value = lockerId;
-
-        // 2. Update JS state so getDelivery() and updateDeliverySummary() work
-        courierSelections.boxnow = { id: lockerId, name: displayName };
-
-        // 3. Show the green "selected" chip
-        document.getElementById('boxnow-selected-name').textContent = displayName;
-        document.getElementById('boxnow-selected').classList.add('show');
-
-        // 4. Refresh totals + sidebar delivery summary
-        renderSummary();
-        updateDeliverySummary();
-      }
-    };
-  </script>
-
-  <!-- BOX NOW Widget JS — loaded asynchronously -->
-  <script>
-    (function(d) {
-      var e = d.createElement('script');
-      e.src   = 'https://widget-cdn.boxnow.bg/map-widget/client/v5.js';
-      e.async = true;
-      e.defer = true;
-      d.getElementsByTagName('head')[0].appendChild(e);
-    })(document);
-  </script>
 
   <!-- ══ SPEEDY OFFICE LOCATOR MODAL ══════════════════════════════ -->
   <!--
