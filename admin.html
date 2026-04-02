@@ -2,6 +2,7 @@
 <html lang="bg">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" type="image/png" href="flavicon.png" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AGROS Admin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -623,17 +624,37 @@
       </tr>`).join('');
 
     // Build delivery section
-    const deliveryTypeLabel = c.deliveryType === 'office'
-      ? '📦 Доставка до офис на Speedy'
-      : c.deliveryType === 'address'
-        ? '🚚 Доставка до адрес с Speedy'
-        : '—';
+    const deliveryTypeLabel =
+      c.deliveryType === 'speedy'  ? '📦 Speedy — Офис/Автомат' :
+      c.deliveryType === 'boxnow'  ? '📦 Box Now Локер' :
+      c.deliveryType === 'econt'   ? '🚚 Еконт' :
+      c.deliveryType === 'address' ? '🏠 Адрес за доставка' : '—';
+
+    const isOfficeDelivery = c.deliveryType === 'speedy' || c.deliveryType === 'boxnow' || c.deliveryType === 'econt';
 
     const payMethodLabel = o.paymentMethod === 'cod'
       ? '💵 Наложен платеж'
       : o.paymentMethod === 'card'
         ? '💳 Карта'
         : (o.paymentIntentId ? '💳 Карта' : '—');
+
+    // Speedy shipment section (only for Speedy orders)
+    const speedySection = c.deliveryType === 'speedy' ? `
+      <div class="modal-section">
+        <div class="modal-section-title">Speedy Товарителница</div>
+        ${o.speedyShipment && o.speedyShipment.parcelId ? `
+          <div class="detail-row"><span class="detail-label">Номер</span><span class="detail-value" style="font-family:monospace;font-weight:700;">${esc(String(o.speedyShipment.parcelId))}</span></div>
+          ${o.speedyShipment.pickupDate ? `<div class="detail-row"><span class="detail-label">Вземане</span><span class="detail-value">${esc(o.speedyShipment.pickupDate)}</span></div>` : ''}
+          ${o.speedyShipment.deliveryDeadline ? `<div class="detail-row"><span class="detail-label">Срок доставка</span><span class="detail-value">${esc(o.speedyShipment.deliveryDeadline)}</span></div>` : ''}
+          <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn-save" onclick="downloadSpeedyLabel('${o.id}')">Изтегли товарителница (PDF)</button>
+            <a href="https://www.speedy.bg/bg/track-shipment/#shipment=${esc(String(o.speedyShipment.parcelId))}" target="_blank" rel="noopener" class="btn-save" style="text-decoration:none;background:#1a4fa3;">Проследи пратката</a>
+          </div>` : `
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+            <button class="btn-save" id="btn-create-shipment" onclick="createSpeedyShipment('${o.id}')">Създай товарителница</button>
+            <span id="speedy-ship-msg" style="font-size:12px;color:#dc2626;display:none;"></span>
+          </div>`}
+      </div>` : '';
 
     document.getElementById('modal-body').innerHTML = `
       <div class="modal-section">
@@ -647,8 +668,8 @@
       <div class="modal-section">
         <div class="modal-section-title">Доставка</div>
         <div class="detail-row"><span class="detail-label">Начин</span><span class="detail-value">${deliveryTypeLabel}</span></div>
-        ${c.deliveryType === 'office'
-          ? `<div class="detail-row"><span class="detail-label">Офис</span><span class="detail-value">${esc(c.officeName || '—')}</span></div>`
+        ${isOfficeDelivery
+          ? `<div class="detail-row"><span class="detail-label">Офис/Локер</span><span class="detail-value">${esc(c.officeName || c.address || '—')}</span></div>`
           : `
         <div class="detail-row"><span class="detail-label">Улица</span><span class="detail-value">${esc(c.street || c.address || '—')}</span></div>
         ${c.building ? `<div class="detail-row"><span class="detail-label">Номер / Блок</span><span class="detail-value">${esc(c.building)}</span></div>` : ''}
@@ -657,6 +678,8 @@
         }
         ${c.note ? `<div class="detail-row"><span class="detail-label">Бележка</span><span class="detail-value">${esc(c.note)}</span></div>` : ''}
       </div>
+
+      ${speedySection}
 
       <div class="modal-section">
         <div class="modal-section-title">Продукти</div>
@@ -723,7 +746,7 @@
       const res = await fetch(`${API}/api/admin/orders`, {
         method: 'PATCH',
         headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ order: currentOrder, status: newStatus })
+        body: JSON.stringify({ order: currentOrder, updates: { status: newStatus } })
       });
       if (!res.ok) throw new Error();
       // Update local data
@@ -759,6 +782,57 @@
       closeModal();
     } catch(e) {
       alert('Грешка при изтриване.');
+    }
+  }
+
+  // ── Speedy ────────────────────────────────────────────────────────────
+  async function createSpeedyShipment(orderId) {
+    const btn = document.getElementById('btn-create-shipment');
+    const msg = document.getElementById('speedy-ship-msg');
+    if (btn) { btn.disabled = true; btn.textContent = 'Изпраща се…'; }
+    if (msg) { msg.style.display = 'none'; }
+    try {
+      const res  = await fetch(`${API}/api/admin/orders/${orderId}/speedy-shipment`, {
+        method:  'POST',
+        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Грешка от Speedy API');
+      // Refresh order data and re-open modal
+      const idx = allOrders.findIndex(o => String(o.id) === String(orderId));
+      if (idx !== -1) {
+        allOrders[idx].speedyShipment = data.shipment;
+        allOrders[idx].status = 'в обработка';
+        openOrder(allOrders[idx]);
+        renderStats(allOrders);
+        renderTable(allOrders);
+      }
+    } catch (err) {
+      if (btn) { btn.disabled = false; btn.textContent = 'Създай товарителница'; }
+      if (msg) { msg.textContent = err.message; msg.style.display = 'block'; }
+    }
+  }
+
+  async function downloadSpeedyLabel(orderId) {
+    try {
+      const res = await fetch(`${API}/api/admin/orders/${orderId}/speedy-label`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        alert('Грешка: ' + (data.error || 'Неизвестна грешка'));
+        return;
+      }
+      const blob = await res.blob();
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href     = url;
+      a.download = `speedy-label-${orderId}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => { URL.revokeObjectURL(url); document.body.removeChild(a); }, 1000);
+    } catch (err) {
+      alert('Грешка при изтегляне: ' + err.message);
     }
   }
 

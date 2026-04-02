@@ -22,6 +22,15 @@ const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || 'sk_test_REPLACE_WITH
 // Expose to frontend via /api/config (publishable key only)
 const STRIPE_PUBLIC_KEY = process.env.STRIPE_PUBLIC_KEY || 'pk_test_REPLACE_WITH_YOUR_STRIPE_PUBLIC_KEY';
 
+// ── Speedy ────────────────────────────────────────────────────────────────────
+// Test credentials provided by Speedy (linked to a dummy client — no real charges)
+const SPEEDY_USERNAME     = process.env.SPEEDY_USERNAME || '1996417';
+const SPEEDY_PASSWORD     = process.env.SPEEDY_PASSWORD || '6982921852';
+const SPEEDY_CLIENT_ID    = 1996417;          // Speedy account number
+const SPEEDY_SENDER_PHONE = '0879127112';     // Agros contact phone
+const SPEEDY_API          = 'https://api.speedy.bg/v1';
+const ADMIN_EMAIL         = 'g.berbenkov@agros.net';
+
 let stripe = null;
 try {
   if (!STRIPE_SECRET_KEY.includes('REPLACE')) {
@@ -71,6 +80,19 @@ function requireAuth(req, res, next) {
   if (!token) return res.status(401).json({ error: 'Необходима е автентикация' });
   try {
     req.user = jwt.verify(token, JWT_SECRET);
+    next();
+  } catch {
+    res.status(401).json({ error: 'Невалиден токен' });
+  }
+}
+
+function requireAdmin(req, res, next) {
+  const token = (req.headers.authorization || '').split(' ')[1];
+  if (!token) return res.status(401).json({ error: 'Необходима е автентикация' });
+  try {
+    const user = jwt.verify(token, JWT_SECRET);
+    if (user.email !== ADMIN_EMAIL) return res.status(403).json({ error: 'Нямате администраторски достъп' });
+    req.user = user;
     next();
   } catch {
     res.status(401).json({ error: 'Невалиден токен' });
@@ -175,7 +197,7 @@ app.post('/api/auth/google', async (req, res) => {
 
 // Guest order (no account required)
 app.post('/api/orders/guest', (req, res) => {
-  const { items, total, customer, paymentIntentId } = req.body || {};
+  const { items, total, customer, paymentIntentId, paymentMethod, speedyOfficeId, promoCode, discount } = req.body || {};
   if (!items || !Array.isArray(items) || items.length === 0)
     return res.status(400).json({ error: 'Количката е празна' });
   if (!customer || !customer.email)
@@ -191,6 +213,10 @@ app.post('/api/orders/guest', (req, res) => {
     status: 'нова',
     customer: customer || {},
     paymentIntentId: paymentIntentId || null,
+    paymentMethod: paymentMethod || 'card',
+    speedyOfficeId: speedyOfficeId || null,
+    promoCode: promoCode || null,
+    discount: discount || 0,
     createdAt: new Date().toISOString()
   };
   orders.push(order);
@@ -206,7 +232,7 @@ app.get('/api/orders', requireAuth, (req, res) => {
 });
 
 app.post('/api/orders', requireAuth, (req, res) => {
-  const { items, total, customer, paymentIntentId } = req.body || {};
+  const { items, total, customer, paymentIntentId, paymentMethod, speedyOfficeId, promoCode, discount } = req.body || {};
 
   if (!items || !Array.isArray(items) || items.length === 0)
     return res.status(400).json({ error: 'Количката е празна' });
@@ -220,6 +246,10 @@ app.post('/api/orders', requireAuth, (req, res) => {
     status: 'нова',
     customer: customer || {},
     paymentIntentId: paymentIntentId || null,
+    paymentMethod: paymentMethod || 'card',
+    speedyOfficeId: speedyOfficeId || null,
+    promoCode: promoCode || null,
+    discount: discount || 0,
     createdAt: new Date().toISOString()
   };
   orders.push(order);
@@ -330,6 +360,147 @@ app.post('/api/contact', (req, res) => {
   writeDB('messages', messages);
 
   res.json({ success: true, messageId: newMessage.id });
+});
+
+// ── ADMIN ROUTES ──────────────────────────────────────────────────────────────
+
+app.get('/api/admin/orders', requireAdmin, (req, res) => {
+  const orders = readDB('orders').sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  res.json(orders);
+});
+
+app.patch('/api/admin/orders', requireAdmin, (req, res) => {
+  const { order, updates } = req.body || {};
+  if (!order || !order.id) return res.status(400).json({ error: 'Липсва поръчка' });
+  const orders = readDB('orders');
+  const idx = orders.findIndex(o => String(o.id) === String(order.id));
+  if (idx === -1) return res.status(404).json({ error: 'Поръчката не е намерена' });
+  Object.assign(orders[idx], updates || {});
+  writeDB('orders', orders);
+  res.json({ success: true });
+});
+
+app.delete('/api/admin/orders', requireAdmin, (req, res) => {
+  const { order } = req.body || {};
+  if (!order || !order.id) return res.status(400).json({ error: 'Липсва поръчка' });
+  let orders = readDB('orders');
+  orders = orders.filter(o => String(o.id) !== String(order.id));
+  writeDB('orders', orders);
+  res.json({ success: true });
+});
+
+// ── SPEEDY ROUTES ─────────────────────────────────────────────────────────────
+
+// Create a Speedy shipment for an order
+app.post('/api/admin/orders/:id/speedy-shipment', requireAdmin, async (req, res) => {
+  const orders = readDB('orders');
+  const order  = orders.find(o => String(o.id) === req.params.id);
+  if (!order) return res.status(404).json({ error: 'Поръчката не е намерена' });
+
+  const officeId = order.speedyOfficeId || (order.customer && order.customer.officeId);
+  if (!officeId) return res.status(400).json({ error: 'Няма избран офис на Speedy за тази поръчка' });
+
+  const c     = order.customer || {};
+  const phone = (c.phone || '').replace(/\s+/g, '').replace(/^\+359/, '0') || SPEEDY_SENDER_PHONE;
+
+  const shipmentBody = {
+    userName: SPEEDY_USERNAME,
+    password: SPEEDY_PASSWORD,
+    language: 'BG',
+    sender: {
+      phone:    { number: SPEEDY_SENDER_PHONE },
+      clientId: SPEEDY_CLIENT_ID
+    },
+    recipient: {
+      phone:      { number: phone },
+      clientName: c.name || 'Клиент',
+      address:    { officeId: parseInt(officeId, 10) }
+    },
+    service: {
+      serviceId:            505,
+      autoAdjustPickupDate: true,
+      saturdays:            false,
+      sundays:              false,
+      holidays:             false
+    },
+    content: {
+      parcelsCount: 1,
+      contents:     'Натурални продукти',
+      package:      'BOX',
+      totalWeight:  1
+    },
+    payment: {
+      courierServicePayer: 'SENDER'
+    },
+    ref1: String(order.id).slice(-8)
+  };
+
+  try {
+    const speedyRes = await fetch(`${SPEEDY_API}/shipment/`, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(shipmentBody)
+    });
+    const data = await speedyRes.json();
+
+    if (!speedyRes.ok || data.error) {
+      const msg = data.error
+        ? (typeof data.error === 'string' ? data.error : (data.error.message || JSON.stringify(data.error)))
+        : 'Грешка от Speedy API';
+      return res.status(400).json({ error: msg, details: data });
+    }
+
+    const parcelId = data.id || (data.parcels && data.parcels[0] && data.parcels[0].id) || '';
+    const idx = orders.findIndex(o => String(o.id) === req.params.id);
+    orders[idx].speedyShipment = {
+      parcelId,
+      createdAt:        new Date().toISOString(),
+      pickupDate:       data.pickupDate || null,
+      deliveryDeadline: data.deliveryDeadline || null,
+      price:            data.price || null
+    };
+    orders[idx].status = 'в обработка';
+    writeDB('orders', orders);
+
+    res.json({ success: true, parcelId, shipment: orders[idx].speedyShipment });
+  } catch (err) {
+    res.status(500).json({ error: 'Грешка при свързване с Speedy: ' + err.message });
+  }
+});
+
+// Download Speedy waybill PDF
+app.get('/api/admin/orders/:id/speedy-label', requireAdmin, async (req, res) => {
+  const orders = readDB('orders');
+  const order  = orders.find(o => String(o.id) === req.params.id);
+  if (!order || !order.speedyShipment || !order.speedyShipment.parcelId)
+    return res.status(404).json({ error: 'Няма товарителница за тази поръчка' });
+
+  try {
+    const printBody = {
+      userName:  SPEEDY_USERNAME,
+      password:  SPEEDY_PASSWORD,
+      language:  'BG',
+      parcels:   [{ id: order.speedyShipment.parcelId }],
+      paperSize: 'A4'
+    };
+    const speedyRes = await fetch(`${SPEEDY_API}/print/`, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(printBody)
+    });
+
+    if (!speedyRes.ok) {
+      const errData = await speedyRes.json().catch(() => ({}));
+      return res.status(400).json({ error: 'Грешка при изтегляне на товарителница', details: errData });
+    }
+
+    const buffer = await speedyRes.arrayBuffer();
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename="speedy-${order.speedyShipment.parcelId}.pdf"`);
+    res.send(Buffer.from(buffer));
+  } catch (err) {
+    res.status(500).json({ error: 'Грешка: ' + err.message });
+  }
 });
 
 // ── Start ─────────────────────────────────────────────────────────────────────
