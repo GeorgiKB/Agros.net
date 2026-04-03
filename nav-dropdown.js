@@ -266,7 +266,7 @@
       clearTimeout(openTimer);
       scheduleClose(200);
     });
-    btn.addEventListener('click', function () { isOpen ? close() : open(); });
+    btn.addEventListener('click', function () { clearTimeout(openTimer); clearTimeout(closeTimer); isOpen ? close() : open(); });
 
     panel.addEventListener('mouseenter', function () { clearTimeout(closeTimer); });
     panel.addEventListener('mouseleave', function () { scheduleClose(160); });
