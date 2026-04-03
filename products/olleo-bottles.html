@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <link rel="icon"             type="image/x-icon" href="../favicon.ico" />
+  <link rel="icon" type="image/png" href="../flavicon.png" />
   <link rel="icon"             type="image/png"    href="../images/favicon-32x32.png" sizes="32x32" />
   <link rel="icon"             type="image/png"    href="../images/favicon-192x192.png" sizes="192x192" />
   <link rel="apple-touch-icon"                     href="../images/apple-touch-icon.png" />
@@ -353,19 +354,15 @@
             Натурални продукти за здраве и красота. Произведено от Agros&nbsp;98, Варна, България.
           </p>
           <div class="flex items-center gap-2.5">
-            <a href="javascript:void(0)" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/12 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400"
+            <a href="https://www.facebook.com/noteo.net" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/12 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400"
                style="background:rgba(255,255,255,0.07);" aria-label="Facebook">
               <svg class="w-4 h-4 text-forest-300" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
               </svg>
             </a>
-            <a href="javascript:void(0)" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/12 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400"
-               style="background:rgba(255,255,255,0.07);" aria-label="YouTube">
-              <svg class="w-4 h-4 text-forest-300" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/>
-              </svg>
-            </a>
-            <a href="javascript:void(0)" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/12 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400"
+            <a href="https://www.linkedin.com/company/agros-98/" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/12 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400"
+               style="background:rgba(255,255,255,0.07);" aria-label="LinkedIn"><svg class="w-4 h-4 text-forest-300" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+            <a href="https://www.instagram.com/noteo_net/" class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-white/12 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-400"
                style="background:rgba(255,255,255,0.07);" aria-label="Instagram">
               <svg class="w-4 h-4 text-forest-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <rect x="2" y="2" width="20" height="20" rx="5"/>
@@ -449,17 +446,17 @@ function fmtEUR(bgn) {
   return eur + ' €<span class="bgn-price" style="font-size:0.78em;opacity:0.55;font-weight:400;margin-left:5px;">(' + bgn.toFixed(2) + ' лв.)</span>';
 }
 // Prices are per pack of 6 bottles; unitPrice used for Mix mode (per individual bottle)
-// mixUnitEUR = per-bottle EUR price for mix mode (Excel box price / 6)
+// mixUnitEUR = per-bottle EUR price for mix mode (from Excel price list)
 const VARIANTS = [
   { id:'nat750', name:'Натурално слънчогледово олио', size:'6 × 750 мл', unitPrice:8.98,  price:'53.88', mixUnitEUR:0,      img:'../images/olleo/natural.png',       type:'sunflower' },
-  { id:'lem250', name:'С лимон',                      size:'6 × 250 мл', unitPrice:4.87,  price:'29.22', mixUnitEUR:0.415,  img:'../images/olleo/lemon.png',         type:'sunflower' },
-  { id:'gar250', name:'С чесън',                      size:'6 × 250 мл', unitPrice:4.87,  price:'29.22', mixUnitEUR:0.415,  img:'../images/olleo/garlic.png',        type:'sunflower' },
-  { id:'chi250', name:'С чили',                       size:'6 × 250 мл', unitPrice:4.87,  price:'29.22', mixUnitEUR:0.415,  img:'../images/olleo/chilli.png',        type:'sunflower' },
-  { id:'tru250', name:'С трюфел',                     size:'6 × 250 мл', unitPrice:9.76,  price:'58.56', mixUnitEUR:0.832,  img:'../images/olleo/trufel.png',        type:'sunflower' },
-  { id:'oli250', name:'Extra Virgin Mix',              size:'6 × 250 мл', unitPrice:6.24,  price:'37.44', mixUnitEUR:0.532,  img:'../images/olleo/olive-oil.png',    type:'sunflower' },
-  { id:'ome250', name:'Omega Mix',                     size:'6 × 250 мл', unitPrice:7.02,  price:'42.12', mixUnitEUR:0.598,  img:'../images/olleo/omega-mix.png',     type:'sunflower' },
-  { id:'fla250', name:'Ленено',                        size:'6 × 250 мл', unitPrice:5.81,  price:'34.86', mixUnitEUR:0.495,  img:'../images/olleo/flax-oil.png',      type:'flax' },
-  { id:'cor250', name:'С кориандър',                   size:'6 × 250 мл', unitPrice:21.01, price:'126.06',mixUnitEUR:1.790,  img:'../images/olleo/coriander-oil.png', type:'coriander' },
+  { id:'lem250', name:'С лимон',                      size:'6 × 250 мл', unitPrice:4.87,  price:'29.22', mixUnitEUR:2.49,   img:'../images/olleo/lemon.png',         type:'sunflower' },
+  { id:'gar250', name:'С чесън',                      size:'6 × 250 мл', unitPrice:4.87,  price:'29.22', mixUnitEUR:2.49,   img:'../images/olleo/garlic.png',        type:'sunflower' },
+  { id:'chi250', name:'С чили',                       size:'6 × 250 мл', unitPrice:4.87,  price:'29.22', mixUnitEUR:2.49,   img:'../images/olleo/chilli.png',        type:'sunflower' },
+  { id:'tru250', name:'С трюфел',                     size:'6 × 250 мл', unitPrice:9.76,  price:'58.56', mixUnitEUR:4.99,   img:'../images/olleo/trufel.png',        type:'sunflower' },
+  { id:'oli250', name:'Extra Virgin Mix',              size:'6 × 250 мл', unitPrice:6.24,  price:'37.44', mixUnitEUR:3.19,   img:'../images/olleo/olive-oil.png',    type:'sunflower' },
+  { id:'ome250', name:'Omega Mix',                     size:'6 × 250 мл', unitPrice:7.02,  price:'42.12', mixUnitEUR:3.59,   img:'../images/olleo/omega-mix.png',     type:'sunflower' },
+  { id:'fla250', name:'Ленено',                        size:'6 × 250 мл', unitPrice:5.81,  price:'34.86', mixUnitEUR:2.97,   img:'../images/olleo/flax-oil.png',      type:'flax' },
+  { id:'cor250', name:'С кориандър',                   size:'6 × 250 мл', unitPrice:21.01, price:'126.06',mixUnitEUR:10.74,  img:'../images/olleo/coriander-oil.png', type:'coriander' },
 ];
 const MIX_UNIT = 6;
 // Only 250ml variants can be mixed (same bottle size)
