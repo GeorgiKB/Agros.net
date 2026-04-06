@@ -4,8 +4,11 @@
   "outputDirectory": ".",
   "framework": null,
   "redirects": [
-    { "source": "/sr-index-index-0.html", "destination": "/", "permanent": true },
-    { "source": "/sr-:path*", "destination": "/", "permanent": true }
+    { "source": "/sr-:path*",      "destination": "/", "permanent": true },
+    { "source": "/bg-:path*",      "destination": "/", "permanent": true },
+    { "source": "/faq.html",       "destination": "/contact", "permanent": true },
+    { "source": "/plugins/:path*", "destination": "/", "permanent": true },
+    { "source": "/:slug.html",     "destination": "/", "permanent": true }
   ],
   "rewrites": [
     { "source": "/api/subscriptions/plans", "destination": "/api/subscriptions?route=plans" },
