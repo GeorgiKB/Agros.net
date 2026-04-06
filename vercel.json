@@ -3,6 +3,10 @@
   "trailingSlash": false,
   "outputDirectory": ".",
   "framework": null,
+  "redirects": [
+    { "source": "/sr-index-index-0.html", "destination": "/", "permanent": true },
+    { "source": "/sr-:path*", "destination": "/", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/api/subscriptions/plans", "destination": "/api/subscriptions?route=plans" },
     { "source": "/api/subscriptions/me",    "destination": "/api/subscriptions?route=me" }
