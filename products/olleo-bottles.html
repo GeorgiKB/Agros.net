@@ -269,13 +269,11 @@
 
           <!-- Variant selector -->
           <div>
-            <div class="flex items-center justify-between mb-3">
-              <h3 class="font-display font-semibold text-forest-900 text-sm">Избери Вкус</h3>
-              <div class="flex gap-1">
-                <button onclick="setFilter('sunflower')" id="f-sunflower" class="text-[11px] font-body font-semibold px-2.5 py-1 rounded-full border" style="background:#EEF2EB;color:#186060;border-color:#B0CAAD;">Слънчогледово масло</button>
-                <button onclick="setFilter('flax')" id="f-flax" class="text-[11px] font-body font-semibold px-2.5 py-1 rounded-full border" style="background:white;color:#6B7280;border-color:#D7E4D4;">Ленено масло</button>
-                <button onclick="setFilter('coriander')" id="f-coriander" class="text-[11px] font-body font-semibold px-2.5 py-1 rounded-full border" style="background:white;color:#6B7280;border-color:#D7E4D4;">Кориандрово масло</button>
-              </div>
+            <div class="flex flex-wrap gap-2 mb-3">
+              <button onclick="setFilter('sunflower')" id="f-sunflower" class="font-body font-semibold rounded-xl border-2 transition-colors duration-150" style="font-size:0.82rem;padding:8px 16px;background:#EEF2EB;color:#124830;border-color:#3ABF82;">Слънчогледово масло</button>
+              <button onclick="setFilter('flax')" id="f-flax" class="font-body font-semibold rounded-xl border-2 transition-colors duration-150" style="font-size:0.82rem;padding:8px 16px;background:white;color:#6B7280;border-color:#D7E4D4;">Ленено масло</button>
+              <button onclick="setFilter('coriander')" id="f-coriander" class="font-body font-semibold rounded-xl border-2 transition-colors duration-150" style="font-size:0.82rem;padding:8px 16px;background:white;color:#6B7280;border-color:#D7E4D4;">Кориандрово масло</button>
+              <button onclick="setFilter('pistachio')" id="f-pistachio" class="font-body font-semibold rounded-xl border-2 transition-colors duration-150" style="font-size:0.82rem;padding:8px 16px;background:white;color:#6B7280;border-color:#D7E4D4;">Масло от Шам Фъстък</button>
             </div>
             <div id="variant-list" class="flex flex-col gap-1.5"></div>
             <!-- Mix panel -->
@@ -457,6 +455,7 @@ const VARIANTS = [
   { id:'ome250', name:'Omega Mix',                     size:'6 × 250 мл', unitPrice:7.02,  price:'42.12', mixUnitEUR:3.59,   img:'../images/olleo/omega-mix.png',     type:'sunflower' },
   { id:'fla250', name:'Ленено',                        size:'6 × 250 мл', unitPrice:5.81,  price:'34.86', mixUnitEUR:2.97,   img:'../images/olleo/flax-oil.png',      type:'flax' },
   { id:'cor250', name:'С кориандър',                   size:'6 × 250 мл', unitPrice:21.01, price:'126.06',mixUnitEUR:10.74,  img:'../images/olleo/coriander-oil.png', type:'coriander' },
+  { id:'pis250', name:'Шам Фъстък',                    size:'6 × 250 мл', unitPrice:12.13, price:'72.76', mixUnitEUR:6.20,   img:'../images/olleo/pistachio.png',     type:'pistachio' },
 ];
 const MIX_UNIT = 6;
 // Only 250ml variants can be mixed (same bottle size)
@@ -489,6 +488,14 @@ const CONTENT = {
     checks: ['Студено пресовано','Без консерванти','Богато на антиоксиданти','100% Натурално','Произведено в България','Без ГМО'],
     ing:   'Студено пресовани 100% <strong>български кориандрови семена</strong>. Без консерванти, без добавки, без рафиниране.',
     use:   'Подходящо за салати, маринати, хляб и сладкиши. Придава неповторим вкус и аромат на ястията. Не е подходящо за пържене при висока температура.',
+  },
+  pistachio: {
+    img:   '../images/olleo/pistachio.png',
+    title: 'Студено пресовано масло от шам фъстък',
+    desc:  'Произведено от висококачествени шам фъстъци. Богато на мononенаситени мастни киселини, витамин Е и антиоксиданти. Студено пресовано без топлинна обработка — запазва естествения вкус и хранителните ценности. Без консерванти, без рафиниране.',
+    checks: ['Студено пресовано','Без консерванти','Богато на витамин Е','100% Натурално','Без ГМО','Богато на антиоксиданти'],
+    ing:   'Студено пресовани 100% <strong>шам фъстъци</strong>. Без консерванти, без добавки, без рафиниране.',
+    use:   'Идеално за салати, сосове, десерти и студени ястия. Придава изискан, леко ядков аромат. Отлично за поливане върху хумус, паста или сладолед. Не е подходящо за пържене при висока температура.',
   },
 };
 function updateContent(type) {
@@ -648,9 +655,9 @@ function setFilter(f) {
   if(isMixMode) deselectMix();
   activeFilter = f;
   isMixMode = false;
-  ['sunflower','flax','coriander'].forEach(k => {
+  ['sunflower','flax','coriander','pistachio'].forEach(k => {
     const b = document.getElementById('f-' + k);
-    if (k === f) { b.style.background = '#EEF2EB'; b.style.color = '#186060'; b.style.borderColor = '#B0CAAD'; }
+    if (k === f) { b.style.background = '#EEF2EB'; b.style.color = '#124830'; b.style.borderColor = '#3ABF82'; }
     else         { b.style.background = 'white';   b.style.color = '#6B7280'; b.style.borderColor = '#D7E4D4'; }
   });
   updateContent(f);
