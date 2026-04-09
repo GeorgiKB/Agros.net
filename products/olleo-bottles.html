@@ -269,11 +269,12 @@
 
           <!-- Variant selector -->
           <div>
-            <div class="flex flex-wrap gap-2 mb-3">
-              <button onclick="setFilter('sunflower')" id="f-sunflower" class="font-body font-semibold rounded-xl border-2 transition-colors duration-150" style="font-size:0.82rem;padding:8px 16px;background:#EEF2EB;color:#124830;border-color:#3ABF82;">Слънчогледово масло</button>
-              <button onclick="setFilter('flax')" id="f-flax" class="font-body font-semibold rounded-xl border-2 transition-colors duration-150" style="font-size:0.82rem;padding:8px 16px;background:white;color:#6B7280;border-color:#D7E4D4;">Ленено масло</button>
-              <button onclick="setFilter('coriander')" id="f-coriander" class="font-body font-semibold rounded-xl border-2 transition-colors duration-150" style="font-size:0.82rem;padding:8px 16px;background:white;color:#6B7280;border-color:#D7E4D4;">Кориандрово масло</button>
-              <button onclick="setFilter('pistachio')" id="f-pistachio" class="font-body font-semibold rounded-xl border-2 transition-colors duration-150" style="font-size:0.82rem;padding:8px 16px;background:white;color:#6B7280;border-color:#D7E4D4;">Масло от Шам Фъстък</button>
+            <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:8px;scrollbar-width:none;-ms-overflow-style:none;">
+              <style>#filter-row::-webkit-scrollbar{display:none;}</style>
+              <button onclick="setFilter('sunflower')" id="f-sunflower" class="font-body font-semibold rounded-xl border-2" style="font-size:0.82rem;padding:8px 16px;white-space:nowrap;flex-shrink:0;background:#EEF2EB;color:#124830;border-color:#3ABF82;">Слънчогледово масло</button>
+              <button onclick="setFilter('flax')" id="f-flax" class="font-body font-semibold rounded-xl border-2" style="font-size:0.82rem;padding:8px 16px;white-space:nowrap;flex-shrink:0;background:white;color:#6B7280;border-color:#D7E4D4;">Ленено масло</button>
+              <button onclick="setFilter('coriander')" id="f-coriander" class="font-body font-semibold rounded-xl border-2" style="font-size:0.82rem;padding:8px 16px;white-space:nowrap;flex-shrink:0;background:white;color:#6B7280;border-color:#D7E4D4;">Кориандрово масло</button>
+              <button onclick="setFilter('pistachio')" id="f-pistachio" class="font-body font-semibold rounded-xl border-2" style="font-size:0.82rem;padding:8px 16px;white-space:nowrap;flex-shrink:0;background:white;color:#6B7280;border-color:#D7E4D4;">Масло от Шам Фъстък</button>
             </div>
             <div id="variant-list" class="flex flex-col gap-1.5"></div>
             <!-- Mix panel -->
