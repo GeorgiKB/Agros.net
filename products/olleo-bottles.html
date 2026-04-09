@@ -269,20 +269,30 @@
 
           <!-- Variant selector -->
           <div>
-            <div id="filter-wrap" style="position:relative;margin-bottom:8px;">
-              <div id="filter-row" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none;-ms-overflow-style:none;" onscroll="updateFilterFade()">
-                <style>#filter-row::-webkit-scrollbar{display:none;}</style>
+            <!-- desktop: wrap; mobile: horizontal scroll -->
+            <style>
+              #filter-wrap { position:relative; margin-bottom:8px; }
+              #filter-row  { display:flex; gap:8px; flex-wrap:wrap; }
+              #filter-fade, #filter-pill-wrap { display:none; }
+              @media (max-width:640px) {
+                #filter-row       { flex-wrap:nowrap; overflow-x:auto; padding-bottom:6px; scrollbar-width:none; -ms-overflow-style:none; }
+                #filter-row::-webkit-scrollbar { display:none; }
+                #filter-fade      { display:block; }
+                #filter-pill-wrap { display:block; }
+              }
+            </style>
+            <div id="filter-wrap">
+              <div id="filter-row" onscroll="updateFilterFade()">
                 <button onclick="setFilter('sunflower')" id="f-sunflower" class="font-body font-semibold rounded-xl border-2" style="font-size:0.82rem;padding:8px 16px;white-space:nowrap;flex-shrink:0;background:#EEF2EB;color:#124830;border-color:#3ABF82;">Слънчогледово масло</button>
                 <button onclick="setFilter('flax')" id="f-flax" class="font-body font-semibold rounded-xl border-2" style="font-size:0.82rem;padding:8px 16px;white-space:nowrap;flex-shrink:0;background:white;color:#6B7280;border-color:#D7E4D4;">Ленено масло</button>
                 <button onclick="setFilter('coriander')" id="f-coriander" class="font-body font-semibold rounded-xl border-2" style="font-size:0.82rem;padding:8px 16px;white-space:nowrap;flex-shrink:0;background:white;color:#6B7280;border-color:#D7E4D4;">Кориандрово масло</button>
                 <button onclick="setFilter('pistachio')" id="f-pistachio" class="font-body font-semibold rounded-xl border-2" style="font-size:0.82rem;padding:8px 16px;white-space:nowrap;flex-shrink:0;background:white;color:#6B7280;border-color:#D7E4D4;">Масло от Шам Фъстък</button>
               </div>
-              <!-- right fade hint -->
               <div id="filter-fade" style="pointer-events:none;position:absolute;top:0;right:0;width:48px;height:calc(100% - 6px);background:linear-gradient(to right,transparent,#F7F3EC 85%);transition:opacity 0.2s ease;"></div>
             </div>
-            <!-- scroll progress pill -->
-            <div style="height:3px;background:#E5E7EB;border-radius:99px;margin-bottom:12px;overflow:hidden;">
-              <div id="filter-scroll-pill" style="height:100%;background:#3ABF82;border-radius:99px;width:25%;transition:width 0.15s ease,transform 0.15s ease;transform-origin:left;"></div>
+            <!-- scroll progress pill — mobile only -->
+            <div id="filter-pill-wrap" style="height:3px;background:#E5E7EB;border-radius:99px;margin-bottom:12px;overflow:hidden;">
+              <div id="filter-scroll-pill" style="height:100%;background:#3ABF82;border-radius:99px;width:25%;transition:width 0.15s ease,transform 0.15s ease;"></div>
             </div>
             <div id="variant-list" class="flex flex-col gap-1.5"></div>
             <!-- Mix panel -->
