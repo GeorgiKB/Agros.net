@@ -280,6 +280,10 @@
               <!-- right fade hint -->
               <div id="filter-fade" style="pointer-events:none;position:absolute;top:0;right:0;width:48px;height:calc(100% - 6px);background:linear-gradient(to right,transparent,#F7F3EC 85%);transition:opacity 0.2s ease;"></div>
             </div>
+            <!-- scroll progress pill -->
+            <div style="height:3px;background:#E5E7EB;border-radius:99px;margin-bottom:12px;overflow:hidden;">
+              <div id="filter-scroll-pill" style="height:100%;background:#3ABF82;border-radius:99px;width:25%;transition:width 0.15s ease,transform 0.15s ease;transform-origin:left;"></div>
+            </div>
             <div id="variant-list" class="flex flex-col gap-1.5"></div>
             <!-- Mix panel -->
             <div id="mix-panel" style="display:none;margin-top:6px;border-radius:14px;border:1.5px solid rgba(34,144,94,0.2);background:rgba(34,144,94,0.04);padding:14px 14px 12px;">
@@ -672,9 +676,14 @@ function setFilter(f) {
 function updateFilterFade() {
   const row = document.getElementById('filter-row');
   const fade = document.getElementById('filter-fade');
-  if (!row || !fade) return;
-  const atEnd = row.scrollLeft + row.clientWidth >= row.scrollWidth - 4;
-  fade.style.opacity = atEnd ? '0' : '1';
+  const pill = document.getElementById('filter-scroll-pill');
+  if (!row) return;
+  const maxScroll = row.scrollWidth - row.clientWidth;
+  const progress = maxScroll > 0 ? row.scrollLeft / maxScroll : 0;
+  const pillWidth = row.clientWidth / row.scrollWidth * 100;
+  const pillOffset = progress * (100 - pillWidth);
+  if (pill) { pill.style.width = pillWidth + '%'; pill.style.transform = 'translateX(' + (pillOffset / pillWidth * 100) + '%)'; }
+  if (fade) fade.style.opacity = (row.scrollLeft + row.clientWidth >= row.scrollWidth - 4) ? '0' : '1';
 }
 
 function switchTab(btn, id) {
@@ -714,6 +723,7 @@ function addToCart(btn){
 updateContent(activeFilter);
 render();
 updatePurchaseWidget();
+setTimeout(updateFilterFade, 50);
 
 // Sticky mini product bar
 function updateStickyBar() {
