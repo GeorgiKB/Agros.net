@@ -1,9 +1,13 @@
 {
+  "scripts": {
+    "minify": "terser auth.js -o auth.min.js -c -m && terser cart.js -o cart.min.js -c -m && terser nav-dropdown.js -o nav-dropdown.min.js -c -m"
+  },
   "devDependencies": {
     "@tailwindcss/cli": "^4.2.2",
     "jimp": "^1.6.0",
     "puppeteer-core": "^24.39.0",
-    "tailwindcss": "^4.2.2"
+    "tailwindcss": "^4.2.2",
+    "terser": "^5.46.1"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

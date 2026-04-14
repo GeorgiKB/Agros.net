@@ -251,7 +251,7 @@
     </div>
   </footer>
 
-  <script src="/auth.js"></script>
+  <script src="/auth.min.js"></script>
   <script>
     // ── Google Sign-In ────────────────────────────────────────────────────────
     var GOOGLE_CLIENT_ID = '382209451424-b262nhilchmdaq10oi37r7lq7a12i3qn.apps.googleusercontent.com';
@@ -321,7 +321,9 @@
       if (!isSubscription) {
         var guestOption = document.getElementById('guest-option');
         var guestLink   = document.getElementById('guest-link');
-        guestLink.href  = 'payment.html';
+        var dest = redirectTo.includes('payment') ? redirectTo : '/payment.html';
+        dest += (dest.includes('?') ? '&' : '?') + 'guest=true';
+        guestLink.href  = dest;
         guestOption.classList.remove('hidden');
       }
     }());
@@ -384,7 +386,7 @@
       }
     });
   </script>
-<script src="nav-dropdown.js"></script>
+<script src="nav-dropdown.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded",function(){var b=document.querySelector("button[aria-label=\"Търсене\"]");if(b)b.addEventListener("click",function(){window.location.href="brands.html";});});
 </script>
