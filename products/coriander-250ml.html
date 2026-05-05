@@ -94,7 +94,7 @@
   "sku": "OL-COR-250",
   "offers": {
     "@type": "Offer",
-    "price": "21.01",
+    "price": "17.58",
     "priceCurrency": "BGN",
     "availability": "https://schema.org/InStock",
     "url": "https://agros.net/products/coriander-250ml",
@@ -330,9 +330,9 @@ function fmtEUR(bgn) {
   const eur = (bgn / EUR_RATE).toFixed(2);
   return eur + ' €<span style="font-size:0.78em;opacity:0.55;font-weight:400;margin-left:5px;">(' + bgn.toFixed(2) + ' лв.)</span>';
 }
-const VARIANTS=[{id:'p',name:'Кориандрово масло',size:'250 мл',price:'21.01',img:'../images/olleo/coriander-oil.png',vol:''}];
+const VARIANTS=[{id:'p',name:'Кориандрово масло',size:'250 мл',price:'17.58',img:'../images/olleo/coriander-oil.png',vol:''}];
 let qty={p:0};let selectedId='p';
-function calcTotal(){return qty['p']*parseFloat('21.01');}
+function calcTotal(){return qty['p']*parseFloat('17.58');}
 function updatePurchaseWidget(){
   const total=calcTotal();
   document.getElementById('price-single').innerHTML=total>0?fmtEUR(total):'—';
@@ -343,14 +343,14 @@ function render(){
   document.getElementById('variant-list').innerHTML=`<div class="variant-row selected" onclick="select('p','../images/olleo/coriander-oil.png')"><div style="width:56px;height:66px;background:#EEF2EB;border-radius:8px;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;"><picture>
         <source srcset="../images/olleo/coriander-oil.webp" type="image/webp" />
         <img src="../images/olleo/coriander-oil.webp" alt="Кориандрово масло" style="width:100%;height:100%;object-fit:contain;padding:3px;" / loading="lazy">
-      </picture></div><div style="flex:1;min-width:0;"><div style="font-family:'Montserrat',sans-serif;font-size:.92rem;font-weight:600;color:#124830;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Кориандрово масло</div><div style="font-family:'Inter',sans-serif;font-size:.8rem;color:#9CA3AF;margin-top:1px;">250 мл</div></div><div style="font-family:'Inter',sans-serif;font-size:.85rem;font-weight:700;color:#124830;white-space:nowrap;margin-right:6px;">${fmtEUR(21.01)}</div><div style="display:flex;align-items:center;gap:8px;" onclick="event.stopPropagation()"><button class="qty-btn" onclick="chQty('p',-1)">−</button><span class="qty-val" id="q-p"><span class="qty-val" id="q-p">${q}</span><button class="qty-btn" onclick="chQty('p',1)">+</button></div></div>`;
+      </picture></div><div style="flex:1;min-width:0;"><div style="font-family:'Montserrat',sans-serif;font-size:.92rem;font-weight:600;color:#124830;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Кориандрово масло</div><div style="font-family:'Inter',sans-serif;font-size:.8rem;color:#9CA3AF;margin-top:1px;">250 мл</div></div><div style="font-family:'Inter',sans-serif;font-size:.85rem;font-weight:700;color:#124830;white-space:nowrap;margin-right:6px;">${fmtEUR(17.58)}</div><div style="display:flex;align-items:center;gap:8px;" onclick="event.stopPropagation()"><button class="qty-btn" onclick="chQty('p',-1)">−</button><span class="qty-val" id="q-p"><span class="qty-val" id="q-p">${q}</span><button class="qty-btn" onclick="chQty('p',1)">+</button></div></div>`;
 }
 function select(id,img){selectedId=id;const el=document.getElementById('main-img');el.style.opacity='0';setTimeout(()=>{el.src=img;el.style.opacity='1';},200);render();}
 function chQty(id,d){qty[id]=Math.max(0,qty[id]+d);const el=document.getElementById('q-'+id);if(el)el.textContent=qty[id];updatePurchaseWidget();}
 function switchTab(btn,id){document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));btn.classList.add('active');document.getElementById(id).classList.add('active');}
 function addToCart(btn){
   if(qty['p']>0&&typeof AgrosCart!=='undefined'){
-    const pr='21.01';
+    const pr='17.58';
     const nm='OLLEO Кориандрово масло';
     for(let i=0;i<qty['p'];i++)AgrosCart.addItem(null,nm,'250 мл',pr,'../images/olleo/coriander-oil.png','OLLEO');
     const orig=btn.innerHTML;btn.innerHTML='✓ Добавено';btn.style.background='#3ABF82';btn.disabled=true;

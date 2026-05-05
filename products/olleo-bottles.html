@@ -121,7 +121,7 @@
     "@type": "AggregateOffer",
     "priceCurrency": "BGN",
     "lowPrice": "29.22",
-    "highPrice": "126.06",
+    "highPrice": "105.50",
     "offerCount": 10,
     "availability": "https://schema.org/InStock",
     "seller": {
@@ -485,12 +485,12 @@ const VARIANTS = [
   { id:'oli250', name:'Extra Virgin Mix',              size:'6 × 250 мл', unitPrice:6.24,  price:'37.44', mixUnitEUR:3.19,   img:'../images/olleo/olive-oil.png',    type:'sunflower' },
   { id:'ome250', name:'Omega Mix',                     size:'6 × 250 мл', unitPrice:7.02,  price:'42.12', mixUnitEUR:3.59,   img:'../images/olleo/omega-mix.png',     type:'sunflower' },
   { id:'fla250', name:'Ленено',                        size:'6 × 250 мл', unitPrice:5.81,  price:'34.86', mixUnitEUR:2.97,   img:'../images/olleo/flax-oil.png',      type:'flax' },
-  { id:'cor250', name:'С кориандър',                   size:'6 × 250 мл', unitPrice:21.01, price:'126.06',mixUnitEUR:10.74,  img:'../images/olleo/coriander-oil.png', type:'coriander' },
-  { id:'pis250', name:'Шам Фъстък',                    size:'6 × 250 мл', unitPrice:12.13, price:'72.76', mixUnitEUR:6.20,   img:'../images/olleo/pistachio.png',     type:'pistachio' },
+  { id:'cor250', name:'С кориандър',                   size:'6 × 250 мл', unitPrice:17.58, price:'105.50',mixUnitEUR:8.99,   img:'../images/olleo/coriander-oil.png', type:'coriander' },
+  { id:'pis100', name:'Шам Фъстък',                    size:'6 × 100 мл', unitPrice:12.13, price:'72.76', mixUnitEUR:6.20,   img:'../images/olleo/pistachio.png',     type:'pistachio' },
 ];
 const MIX_UNIT = 6;
 // Only 250ml variants can be mixed (same bottle size)
-const MIX_VARIANTS = VARIANTS.filter(v => v.id !== 'nat750');
+const MIX_VARIANTS = VARIANTS.filter(v => v.size === '6 × 250 мл');
 let mixTarget = 6;
 let mixQty = {};
 MIX_VARIANTS.forEach(v => { mixQty[v.id] = 0; });
